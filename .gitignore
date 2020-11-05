@@ -1,6 +1,7 @@
+# File created using '.gitignore Generator' for Visual Studio Code: https://bit.ly/vscode-gig
 
-# Created by https://www.toptal.com/developers/gitignore/api/node,visualstudiocode,eclipse
-# Edit at https://www.toptal.com/developers/gitignore?templates=node,visualstudiocode,eclipse
+# Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,macos,eclipse,node
+# Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,macos,eclipse,node
 
 ### Eclipse ###
 .metadata
@@ -67,6 +68,35 @@ local.properties
 ### Eclipse Patch ###
 # Spring Boot Tooling
 .sts4-cache/
+
+### macOS ###
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
 
 ### Node ###
 # Logs
@@ -192,4 +222,7 @@ dist
 .history
 .ionide
 
-# End of https://www.toptal.com/developers/gitignore/api/node,visualstudiocode,eclipse
+# End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,macos,eclipse,node
+
+# Custom rules (everything added below won't be overriden by 'Generate .gitignore File' if you use 'Update' option)
+
