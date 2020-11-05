@@ -16,7 +16,7 @@ mongoose.connect(keys.mongoURI,
      {  useNewUrlParser: true,
         useUnifiedTopology: true 
     }).then(() => console.log("MongoDB connected."))
-    .catch(error => console.log(error))
+        .catch(error => console.log(error))
 
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: true }));
