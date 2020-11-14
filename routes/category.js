@@ -1,7 +1,7 @@
 const express = require("express");
 const passport = require("passport");
-const upload = require("../controllers/category");
-const controller = require("../middleware/upload");
+const upload = require("../middleware/upload");
+const controller = require("../controllers/category");
 
 const router = express.Router();
 
