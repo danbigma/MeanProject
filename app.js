@@ -13,6 +13,8 @@ const keys = require("./config/keys");
 
 const app = express();
 
+mongoose.set("strictQuery", false);
+
 mongoose.connect(keys.mongoURI,
      {  useNewUrlParser: true,
         useUnifiedTopology: true 
@@ -23,7 +25,7 @@ app.use(passport.initialize());
 require("./middleware/passport")(passport);
 
 app.use(morgan("dev"));
-// app.use("uploads/", express.static("uploads"));
+app.use("uploads/", express.static("uploads"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
