@@ -1,0 +1,9 @@
+Backend
+
+http://localhost:8080/api/auth/login
+http://localhost:8080/api/category
+
+Frontend
+
+/api/auth/login
+/api/category
