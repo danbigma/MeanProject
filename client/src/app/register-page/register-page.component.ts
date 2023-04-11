@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { MaterialService } from '../shared/classes/material.service';
 import { AuthService } from '../shared/services/auth.service';
 
 @Component({
@@ -41,7 +42,7 @@ export class RegisterPageComponent {
           },
         }),
       error: (e) => {
-        console.error(e);
+        MaterialService.toast(e.error.message);
         this.form.enable();
       },
       complete: () => console.info('complete'),

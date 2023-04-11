@@ -15,12 +15,11 @@ const app = express();
 
 mongoose.set("strictQuery", false);
 
-mongoose.connect(keys.mongoURI,
-     {  useNewUrlParser: true,
-        useUnifiedTopology: true 
-    }).then(() => console.log("MongoDB connected."))
-        .catch(error => console.log(error));
-        
+mongoose
+  .connect(keys.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("MongoDB connected."))
+  .catch((error) => console.log(error));
+
 app.use(passport.initialize());
 require("./middleware/passport")(passport);
 

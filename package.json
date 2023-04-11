@@ -3,6 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "server": "nodemon index.js",
+    "client-install": "npm i --prefix client",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\" "
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
@@ -15,13 +22,6 @@
     "multer": "^1.4.5-lts.1",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1"
-  },
-  "scripts": {
-    "start": "nodemon index.js",
-    "server": "nodemon index.js",
-    "client-install": "npm i --prefix client",
-    "client": "npm run start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\" "
   },
   "author": "",
   "license": "ISC",

@@ -1,3 +1,4 @@
+import { MaterialService } from './../shared/classes/material.service';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -30,7 +31,11 @@ export class LoginPageComponent {
 
     this.route.queryParams.subscribe((params: Params) => {
       if (params['registered']) {
+        MaterialService.toast('Здоровенькі були ))');
       } else if (params['accessDenied']) {
+        MaterialService.toast('Спочатку зарегайся, покидьок))');
+      } else if (params['sessionFailed']) {
+        MaterialService.toast('Зайди знову, дурень!');
       }
     });
   }
@@ -51,7 +56,7 @@ export class LoginPageComponent {
     this.aSub = this.auth.login(user).subscribe({
       next: (v) => this.router.navigate(['/overview']),
       error: (e) => {
-        console.error(e);
+        MaterialService.toast(e.error.message);
         this.form.enable();
       },
       complete: () => console.info('complete'),
