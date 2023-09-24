@@ -5,7 +5,7 @@ const router = express.Router();
 
 //localhost:5000/api/analytics/overview
 router.get("/:categoryId", passport.authenticate("jwt", { session: false }), controller.getByCategoryId);
-router.get("/", passport.authenticate("jwt", { session: false }),controller.create);
+router.post("/", passport.authenticate("jwt", { session: false }), controller.create);
 router.patch("/:id", passport.authenticate("jwt", { session: false }), controller.update);
 router.delete("/:id", passport.authenticate("jwt", { session: false }), controller.remove);
 

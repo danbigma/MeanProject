@@ -1,0 +1,67 @@
+<div class="page-title">
+    <h4>
+        <a routerLink="/categories">Категории</a>
+        <i class="material-icons">keyboard_arrow_right</i>
+        {{ isNew ? 'Добавить' : 'Редактировать' }} категорию
+    </h4>
+    <span>
+        <button *ngIf="!isNew" class="btn btn-small red" (click)="deleteCategory()">
+          <i class="material-icons">delete</i>
+        </button>
+      </span>
+</div>
+
+<div class="row">
+    <form class="col s12 l6" [formGroup]="form" (ngSubmit)="onSumbit()">
+        <div class="input-field">
+            <input 
+                formControlName="name" 
+                id="name" 
+                type="text" 
+                required
+                [ngClass]="{'invalid' : form.get('name')?.invalid && form.get('name')?.touched }">
+            <label for="name">Название</label>
+            <span
+                class="helper-text red-text"
+                *ngIf="form.get('name')?.invalid && form.get('name')?.touched"
+            >
+                <span *ngIf="form.get('name') && form.get('name')?.errors">
+                    Имя категории не может быть пустым.
+                </span>
+            </span>
+        </div>
+
+        <div>
+            <input type="file" class="displayNone" (change)="onFileUpload($event)" #inputFile>
+            <button 
+                type="button" 
+                class="waves-effect waves-light btn orange lighten-2 mb2" 
+                (click)="triggerClick()"
+                [disabled]="form.disabled"
+            >
+                <i class="material-icons left">backup</i>
+                Загрузить изображение
+            </button>
+        </div>
+
+        <div>
+            <button type="submit" [disabled]="form.invalid || form.disabled" class="waves-effect waves-light btn">
+                Сохранить изменения
+            </button>
+        </div>
+    </form>
+
+    <div class="col s12 l4 center">
+        <img class="responsive-img" 
+            style="height: 200px" 
+            alt="image" 
+            *ngIf="imagePreview" 
+            [src]="imagePreview"
+        >
+    </div>
+</div>
+
+<app-positions-form
+    *ngIf="category && category._id"
+    [categoryId]="category._id"
+></app-positions-form>
