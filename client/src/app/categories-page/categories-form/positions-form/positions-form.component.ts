@@ -131,7 +131,7 @@ export class PositionsFormComponent {
       this.positionsService.delete(position).subscribe({
         next: response => {
           const idx = this.positions.findIndex(p => p._id === position._id);
-          this.positions.slice(idx, 1);
+          this.positions.splice(idx, 1);
           MaterialService.toast(response.message);
         },
         error: error => {
