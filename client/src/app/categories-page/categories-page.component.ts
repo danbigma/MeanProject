@@ -9,7 +9,6 @@ import { Observable } from 'rxjs';
   styleUrls: ['./categories-page.component.css'],
 })
 export class CategoriesPageComponent implements OnInit {
-
   categories$!: Observable<Category[]>;
 
   constructor(private categoriesService: CategoriesService) {}
