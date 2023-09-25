@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { MaterialInstance, MaterialService } from '../shared/classes/material.service';
-import { OrderService } from './ordes-service.service';
+import { OrderService } from './order.service';
 
 @Component({
   selector: 'app-order-page',
