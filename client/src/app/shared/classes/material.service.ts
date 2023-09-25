@@ -1,6 +1,6 @@
 import {ElementRef} from '@angular/core'
 
-declare var M: { toast: (arg0: { html: string; }) => void; FloatingActionButton: { init: (arg0: any) => void; }; updateTextFields: () => void; Modal: { init: (arg0: any) => any; }; }
+declare var M: { toast: (arg0: { html: string; }) => void; FloatingActionButton: { init: (arg0: any) => void; }; updateTextFields: () => void; Modal: { init: (arg0: any) => MaterialInstance; }; Tooltip: { init: (arg0: any) => MaterialInstance; }; };
 
 export interface MaterialInstance {
   open(): void
@@ -24,5 +24,9 @@ export class MaterialService {
 
   static initModal(ref: ElementRef): MaterialInstance {
     return M.Modal.init(ref.nativeElement);
+  }
+
+  static initTooltip(ref: ElementRef): MaterialInstance {
+    return M.Tooltip.init(ref.nativeElement);
   }
 }

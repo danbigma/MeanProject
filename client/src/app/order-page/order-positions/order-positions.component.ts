@@ -29,7 +29,7 @@ export class OrderPositionsComponent implements OnInit {
             return this.positionsService.fetch(params['id'])
           }
         ),
-        map(
+        map( // default value for input
           (positions: Position[]) => {
             return positions.map(position => {
               position.quantity = 1
