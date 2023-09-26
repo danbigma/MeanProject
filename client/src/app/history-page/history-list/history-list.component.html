@@ -12,11 +12,11 @@
     <tbody>
         <tr *ngFor="let order of orders">
             <td>{{order.order}}</td>
-            <td>{{order.date}}</td>
-            <td>{{order.date}}</td>
-            <td>{{order._id}} $</td>
+            <td>{{order.date | date:'dd.MM.yyyy'}}</td>
+            <td>{{order.date | date:'HH:mm:ss'}}</td>
+            <td>{{computerPrice(order)}} $</td>
             <td>
-                <button class="btn btn-small grey darken-1">
+                <button class="btn btn-small grey darken-1" (click)="selectOrder(order)">
                     <i class="material-icons">open_in_new</i>
                 </button>
             </td>
@@ -25,7 +25,7 @@
     </tbody>
 </table>
 
-<div class="modal modal-fixed-footer">
+<div class="modal modal-fixed-footer" #modal>
     <div class="modal-content">
         <h4 class="mb1">Заказ №5</h4>
         <table class="highlight">
