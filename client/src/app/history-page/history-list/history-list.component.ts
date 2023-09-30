@@ -37,4 +37,8 @@ export class HistoryListComponent {
   ngOnDestroy(): void {
     this.modal.destroy();
   }
+
+  close() {
+    this.modal.close();
+  }
 }

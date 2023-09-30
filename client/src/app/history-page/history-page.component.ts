@@ -5,7 +5,7 @@ import {
 } from '../shared/classes/material.service';
 import { OrdersService } from '../shared/services/orders.service';
 import { Subscription } from 'rxjs';
-import { Order } from '../shared/interfaces';
+import { Filter, Order } from '../shared/interfaces';
 
 const STEP = 2;
 
@@ -21,6 +21,7 @@ export class HistoryPageComponent {
   oSub!: Subscription;
 
   orders: Order[] = [];
+  filter: Filter = {};
 
   offset = 0;
   limit = STEP;
@@ -48,10 +49,10 @@ export class HistoryPageComponent {
   }
 
   private fetch() {
-    const params = {
+    const params = Object.assign({}, this.filter, {
       offset: this.offset,
       limit: this.limit,
-    };
+    })
     this.oSub = this.ordersService.fetch(params).subscribe((orders) => {
       this.orders = this.orders.concat(orders);
       this.noMoreOrders = orders.length < STEP;
@@ -64,5 +65,17 @@ export class HistoryPageComponent {
     this.offset += STEP;
     this.loading = true;
     this.fetch();
+  }
+
+  applyFilter(filter: Filter) {
+    this.orders = [];
+    this.offset = 0;
+    this.filter = filter;
+    this.loading = true;
+    this.fetch();
+  }
+
+  isFiltered(): boolean {
+    return Object.keys(this.filter ? this.filter : {}).length !== 0;
   }
 }

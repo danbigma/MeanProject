@@ -13,6 +13,7 @@ const keys = require("./config/keys");
 
 const app = express();
 
+app.disable('x-powered-by');
 mongoose.set("strictQuery", false);
 
 mongoose

@@ -26,9 +26,9 @@
 </table>
 
 <div class="modal modal-fixed-footer" #modal>
-    <div class="modal-content">
-        <h4 class="mb1">Заказ №5</h4>
-        <table class="highlight">
+    <div class="modal-content" *ngIf="selectedOrder">
+        <h4 class="mb1">Заказ №{{ selectedOrder.order }}</h4>
+        <table aria-label="table" class="highlight">
             <thead>
                 <tr>
                     <th>Название</th>
@@ -38,18 +38,18 @@
             </thead>
 
             <tbody>
-                <tr>
-                    <td>Alvin</td>
-                    <td>3</td>
-                    <td>$0.87</td>
+                <tr *ngFor="let item of selectedOrder.list">
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>${{ item.cost }}</td>
                 </tr>
             </tbody>
         </table>
         <div class="order-summary">
-            <p>Общая стоимость <strong>22 231 $</strong></p>
+            <p>Общая стоимость <strong>{{ computerPrice(selectedOrder) }}$</strong></p>
         </div>
     </div>
     <div class="modal-footer">
-        <button class="modal-action waves-effect waves-black btn-flat">Закрыть</button>
+        <button (click)="close()" class="modal-action waves-effect waves-black btn-flat">Закрыть</button>
     </div>
 </div>
