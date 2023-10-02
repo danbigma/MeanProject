@@ -11,9 +11,10 @@ const orderRoutes = require("./routes/order");
 const positionRoutes = require("./routes/position");
 const keys = require("./config/keys");
 
+const helmet = require("helmet");
+
 const app = express();
 
-app.disable('x-powered-by');
 mongoose.set("strictQuery", false);
 
 mongoose
@@ -21,6 +22,10 @@ mongoose
   .then(() => console.log("MongoDB connected."))
   .catch((error) => console.log(error));
 
+app.use((req, res, next) => {
+  res.setHeader("X-Powered-By", "Maded with love");
+  next();
+});
 app.use(passport.initialize());
 require("./middleware/passport")(passport);
 
@@ -28,7 +33,7 @@ app.use(morgan("dev"));
 app.use("/uploads", express.static("uploads"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors()); // это пакет Node.js, который обеспечивает связь между различными доменами.
 
 app.use("/api/auth", authRoutes);
 app.use("/api/analytics", analyticsRoutes);

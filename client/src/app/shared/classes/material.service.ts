@@ -13,13 +13,12 @@ export interface MaterialDatepicker extends MaterialInstance {
 }
 
 export class MaterialService {
-
   static toast(message: string) {
-    M.toast({html: message})
+    M.toast({ html: message });
   }
 
   static initializeFloatingButton(ref: ElementRef) {
-    M.FloatingActionButton.init(ref.nativeElement)
+    M.FloatingActionButton.init(ref.nativeElement);
   }
 
   static updateTextInputs() {
@@ -34,11 +33,14 @@ export class MaterialService {
     return M.Tooltip.init(ref.nativeElement);
   }
 
-  static initDatepicker(ref: ElementRef, onClose: () => void): MaterialDatepicker {
+  static initDatepicker(
+    ref: ElementRef,
+    onClose: () => void
+  ): MaterialDatepicker {
     return M.Datepicker.init(ref.nativeElement, {
       format: 'dd.mm.yyyy',
       showClearBtn: true,
-      onClose
+      onClose,
     });
   }
 }
