@@ -1,15 +1,28 @@
-import {ElementRef} from '@angular/core'
+import { ElementRef } from '@angular/core';
 
-declare var M: { toast: (arg0: { html: string }) => void; FloatingActionButton: { init: (arg0: any) => void }; updateTextFields: () => void; Modal: { init: (arg0: any) => MaterialInstance }; Tooltip: { init: (arg0: any) => MaterialInstance }; Datepicker: { init: (arg0: any, arg1: { format: string; showClearBtn: boolean; onClose: () => void }) => MaterialDatepicker } }
+declare var M: {
+  toast: (arg0: { html: string }) => void;
+  FloatingActionButton: { init: (arg0: any) => void };
+  updateTextFields: () => void;
+  Modal: { init: (arg0: any) => MaterialInstance };
+  Tooltip: { init: (arg0: any) => MaterialInstance };
+  Datepicker: {
+    init: (
+      arg0: any,
+      arg1: { format: string; showClearBtn: boolean; onClose: () => void }
+    ) => MaterialDatepicker;
+  };
+  TapTarget: { init: (arg0: any) => MaterialInstance };
+};
 
 export interface MaterialInstance {
-  open(): void
-  close(): void
-  destroy(): void
+  open(): void;
+  close(): void;
+  destroy(): void;
 }
 
 export interface MaterialDatepicker extends MaterialInstance {
-  date?: Date
+  date?: Date;
 }
 
 export class MaterialService {
@@ -42,5 +55,9 @@ export class MaterialService {
       showClearBtn: true,
       onClose,
     });
+  }
+
+  static initTapTarget(ref: ElementRef): MaterialInstance {
+    return M.TapTarget.init(ref.nativeElement);
   }
 }
