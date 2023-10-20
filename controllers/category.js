@@ -2,34 +2,44 @@ const Category = require("../models/Category");
 const Position = require("../models/Position");
 const errorHandler = require("../utils/errorHandler");
 
-module.exports.getAll = async function (req, res) {
+const HTTP_STATUS_OK = 200;
+const HTTP_STATUS_CREATED = 201;
+const HTTP_STATUS_NOT_FOUND = 404;
+
+const handleErrors = async (res, func) => {
   try {
-    const categories = await Category.find({ user: req.user.id });
-    res.status(200).json(categories);
-  } catch (e) {
-    errorHandler(res, e);
+    await func();
+  } catch (error) {
+    errorHandler(res, error);
   }
+};
+
+module.exports.getAll = async function (req, res) {
+  handleErrors(res, async () => {
+    const categories = await Category.find({ user: req.user.id });
+    res.status(HTTP_STATUS_OK).json(categories);
+  });
 };
 
 module.exports.getById = async function (req, res) {
-  try {
+  handleErrors(res, async () => {
     const category = await Category.findById(req.params.id);
-    res.status(200).json(category);
-  } catch (e) {
-    errorHandler(res, e);
-  }
+    if (!category) {
+      res.status(HTTP_STATUS_NOT_FOUND).json({ message: "Categoría no encontrada." });
+    } else {
+      res.status(HTTP_STATUS_OK).json(category);
+    }
+  });
 };
 
 module.exports.remove = async function (req, res) {
-  try {
+  handleErrors(res, async () => {
     await Category.remove({ _id: req.params.id });
     await Position.remove({ category: req.params.id });
-    res.status(200).json({
-      message: "Категория удалена.",
+    res.status(HTTP_STATUS_OK).json({
+      message: "Categoría eliminada.",
     });
-  } catch (e) {
-    errorHandler(res, e);
-  }
+  });
 };
 
 module.exports.create = async function (req, res) {
@@ -39,12 +49,10 @@ module.exports.create = async function (req, res) {
     imageSrc: req.file ? req.file.path : "",
   });
 
-  try {
+  handleErrors(res, async () => {
     await category.save();
-    res.status(201).json(category);
-  } catch (e) {
-    errorHandler(res, e);
-  }
+    res.status(HTTP_STATUS_CREATED).json(category);
+  });
 };
 
 module.exports.update = async function (req, res) {
@@ -56,14 +64,12 @@ module.exports.update = async function (req, res) {
     updated.imageSrc = req.file.path;
   }
 
-  try {
+  handleErrors(res, async () => {
     const category = await Category.findOneAndUpdate(
       { _id: req.params.id },
       { $set: updated },
       { new: true }
     );
-    res.status(200).json(category);
-  } catch (e) {
-    errorHandler(res, e);
-  }
+    res.status(HTTP_STATUS_OK).json(category);
+  });
 };
