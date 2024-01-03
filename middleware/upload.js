@@ -2,32 +2,29 @@ const multer = require("multer");
 const moment = require("moment");
 
 const DATE_FORMAT = "DDMMYYYY-HHmmss_SSS";
+const ALLOWED_TYPES = ["image/png", "image/jpeg"]; // Tipos de archivos permitidos
+const MAX_SIZE = 1024 * 1024 * 5; // Tamaño máximo del archivo en bytes (5MB)
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    cb(null, "uploads/");
+    cb(null, "uploads/"); // Directorio de destino para archivos subidos
   },
   filename(req, file, cb) {
-    const date = moment().format(DATE_FORMAT);
-    cb(null, date + "-" + file.originalname);
-    // cb(null, `${date}-${file.originalname}`);
-  }
+    const date = moment().format(DATE_FORMAT); // Obtener la fecha y hora actual
+    cb(null, `${date}-${file.originalname}`); // Formatear el nombre del archivo
+  },
 });
 
 const fileFilter = (req, file, cb) => {
-  if (file.mimetype === "image/png" || file.mimetype === "image/jpeg") {
-    cb(null, true);
+  if (ALLOWED_TYPES.includes(file.mimetype)) {
+    cb(null, true); // Aceptar archivo
   } else {
-    cb(null, false);
+    cb(new Error("Tipo de archivo no soportado"), false); // Rechazar archivo
   }
 };
 
-const limits = {
-  fileSize: 1024 * 1024 * 5,
-};
-
 module.exports = multer({
-  storage: storage,
-  fileFilter: fileFilter,
-  limits: limits,
+  storage,
+  fileFilter,
+  limits: { fileSize: MAX_SIZE },
 });

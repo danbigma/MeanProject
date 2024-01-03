@@ -1,44 +1,42 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const passport = require("passport");
-const bodyParser = require("body-parser");
 const cors = require("cors");
 const morgan = require("morgan");
-const authRoutes = require("./routes/auth");
-const analyticsRoutes = require("./routes/analytics");
-const categoryRoutes = require("./routes/category");
-const orderRoutes = require("./routes/order");
-const positionRoutes = require("./routes/position");
-const keys = require("./config/keys");
-
 const helmet = require("helmet");
+const routes = require("./routes/index");
+const connectDB = require("./database/mongoose");
 
 const app = express();
 
-mongoose.set("strictQuery", false);
+// Conectar a la base de datos de forma asincrónica
+connectDB().catch((error) =>
+  console.error("Error connecting to MongoDB", error)
+);
 
-mongoose
-  .connect(keys.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("MongoDB connected."))
-  .catch((error) => console.log(error));
+// Mejoras de seguridad con Helmet
+app.use(helmet());
 
-app.use((req, res, next) => {
-  res.setHeader("X-Powered-By", "Maded with love");
-  next();
-});
+// Reemplazar body-parser con funcionalidades integradas de Express
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Personalizar o eliminar el encabezado X-Powered-By por seguridad
+app.disable("x-powered-by");
+
+// Inicializar Passport para autenticación
 app.use(passport.initialize());
 require("./middleware/passport")(passport);
 
+// Logger para desarrollo
 app.use(morgan("dev"));
-app.use("/uploads", express.static("uploads"));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(cors()); // это пакет Node.js, который обеспечивает связь между различными доменами.
 
-app.use("/api/auth", authRoutes);
-app.use("/api/analytics", analyticsRoutes);
-app.use("/api/category", categoryRoutes);
-app.use("/api/position", positionRoutes);
-app.use("/api/order", orderRoutes);
+// Servir archivos estáticos desde la carpeta 'uploads'
+app.use("/uploads", express.static("uploads"));
+
+// Habilitar CORS para todas las rutas
+app.use(cors());
+
+// Definir rutas de la API
+app.use("/api", routes);
 
 module.exports = app;
