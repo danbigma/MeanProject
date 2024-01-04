@@ -1,4 +1,11 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import {
   MaterialInstance,
@@ -6,7 +13,7 @@ import {
 } from '../../shared/classes/material.service';
 import { OrderService } from './order.service';
 import { Order, OrderPosition } from '../../shared/interfaces';
-import { Subscription } from 'rxjs';
+import { Subject, filter, takeUntil } from 'rxjs';
 import { OrdersService } from '../../shared/services/orders.service';
 
 @Component({
@@ -15,12 +22,12 @@ import { OrdersService } from '../../shared/services/orders.service';
   styleUrls: ['./order-page.component.css'],
   providers: [OrderService],
 })
-export class OrderPageComponent {
+export class OrderPageComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('modal') modalRef!: ElementRef;
   isRoot!: boolean;
-  oSub!: Subscription;
   modal!: MaterialInstance;
   pending = false;
+  private destroy$ = new Subject<void>();
 
   constructor(
     private router: Router,
@@ -29,19 +36,20 @@ export class OrderPageComponent {
   ) {}
 
   ngOnInit(): void {
-    this.isRoot = this.router.url === '/order';
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(() => {
         this.isRoot = this.router.url === '/order';
-      }
-    });
+      });
   }
 
   ngOnDestroy(): void {
     this.modal.destroy();
-    if (this.oSub) {
-      this.oSub.unsubscribe();
-    }
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   ngAfterViewInit(): void {
@@ -64,22 +72,22 @@ export class OrderPageComponent {
     this.pending = true;
 
     const order: Order = {
-      list: this.order.list.map((item) => {
-        delete item._id;
-        return item;
-      }),
+      list: this.order.list.map((item) => ({ ...item, _id: undefined })),
     };
 
-    this.oSub = this.ordersService.create(order).subscribe({
-      next: (newOrder) => {
-        MaterialService.toast(`Заказ №${newOrder.order} был добавлен.`);
-        this.order.clear();
-      },
-      error: (error) => MaterialService.toast(error.error.message),
-      complete: () => {
-        this.modal.close();
-        this.pending = false;
-      },
-    });
+    this.ordersService
+      .create(order)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (newOrder) => {
+          MaterialService.toast(`Заказ №${newOrder.order} был добавлен.`);
+          this.order.clear();
+        },
+        error: (error) => MaterialService.toast(error.error.message),
+        complete: () => {
+          this.modal.close();
+          this.pending = false;
+        },
+      });
   }
 }

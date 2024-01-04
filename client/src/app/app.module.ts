@@ -8,7 +8,7 @@ import { AuthLayoutComponent } from './shared/layouts/auth-layout/auth-layout.co
 import { SiteLayoutComponent } from './shared/layouts/site-layout/site-layout.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { TokenInterceptor } from './shared/classes/token.interceptor';
 import { OverviewPageComponent } from './pages/overview-page/overview-page.component';
 import { AnalyticsPageComponent } from './pages/analytics-page/analytics-page.component';
@@ -22,7 +22,13 @@ import { OrderCategoriesComponent } from './pages/order-page/order-categories/or
 import { OrderPositionsComponent } from './pages/order-page/order-positions/order-positions.component';
 import { HistoryListComponent } from './pages/history-page/history-list/history-list.component';
 import { HistoryFilterComponent } from './pages/history-page/history-filter/history-filter.component';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
+// Función para cargar traducciones
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,6 +55,13 @@ import { HistoryFilterComponent } from './pages/history-page/history-filter/hist
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
   ],
   providers: [
     {

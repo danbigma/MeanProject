@@ -1,8 +1,8 @@
 import { MaterialService } from '../../shared/classes/material.service';
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
@@ -10,56 +10,65 @@ import { AuthService } from '../../shared/services/auth.service';
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.css'],
 })
-export class LoginPageComponent {
+export class LoginPageComponent implements OnInit, OnDestroy {
+  loading = false;
+
   form!: FormGroup;
-  aSub!: Subscription;
+  private destroy$ = new Subject<void>();
 
   constructor(
     private auth: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit() {
-    this.form = new FormGroup({
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [
-        Validators.required,
-        Validators.minLength(4),
-      ]),
+    this.form = this.fb.group({
+      email: [null, [Validators.required, Validators.email]],
+      password: [null, [Validators.required, Validators.minLength(4)]],
     });
 
-    this.route.queryParams.subscribe((params: Params) => {
-      if (params['registered']) {
-        MaterialService.toast('Здоровенькі були ))');
-      } else if (params['accessDenied']) {
-        MaterialService.toast('Спочатку зарегайся, покидьок))');
-      } else if (params['sessionFailed']) {
-        MaterialService.toast('Зайди знову, дурень!');
-      }
-    });
+    this.route.queryParams
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((params) => {
+        this.handleQueryParams(params);
+      });
   }
 
   ngOnDestroy() {
-    if (this.aSub) {
-      this.aSub.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  private handleQueryParams(params: Params) {
+    if (params['registered']) {
+      MaterialService.toast('Now you can log in using your credentials.');
+    } else if (params['accessDenied']) {
+      MaterialService.toast('Please log in to continue.');
+    } else if (params['sessionFailed']) {
+      MaterialService.toast('Your session has expired, please log in again.');
     }
   }
 
   onSubmit() {
     this.form.disable();
-    const user = {
-      email: this.form.value.email,
-      password: this.form.value.password,
-    };
-    // or this.form.value
-    this.aSub = this.auth.login(user).subscribe({
-      next: (v) => this.router.navigate(['/overview']),
-      error: (e) => {
-        MaterialService.toast(e.error.message);
-        this.form.enable();
-      },
-      complete: () => console.info('complete'),
-    });
+    this.loading = true;
+    const user = this.form.value;
+
+    this.auth
+      .login(user)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: () => {
+          this.loading = false;
+          this.router.navigate(['/overview'])
+        },
+        error: (e) => {
+          MaterialService.toast(e.error.message);
+          this.loading = false;
+          this.form.enable();
+        },
+      });
   }
 }

@@ -66,3 +66,12 @@ export interface AnalyticsChartItem {
   order: number;
   label: string;
 }
+
+export interface AuthResponse {
+  token: string;
+  // Puedes incluir otros campos según lo que tu backend devuelva
+  // Por ejemplo:
+  // user: User;
+  // expiresIn: Date;
+  // roles: string[];
+}

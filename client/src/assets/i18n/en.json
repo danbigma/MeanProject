@@ -1,0 +1,9 @@
+{
+    "HISTORY": {
+        "TITLE": "Order History",
+        "OPEN_FILTER": "Open Filter",
+        "CLOSE_FILTER": "Close Filter",
+        "LOAD_MORE": "Load More",
+        "NO_ORDERS": "No Orders Yet"
+    }
+}

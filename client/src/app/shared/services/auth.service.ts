@@ -1,45 +1,64 @@
 import { Injectable } from '@angular/core';
-import { User } from '../interfaces';
-import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { User, AuthResponse } from '../interfaces';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError, tap } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private httpClient: HttpClient) {}
-
   private token = '';
 
+  constructor(private httpClient: HttpClient) {
+    this.loadToken();
+  }
+
   register(user: User): Observable<User> {
-    return this.httpClient.post<User>('/api/auth/register', user);
-  }
-
-  login(user: User): Observable<{ token: string }> {
     return this.httpClient
-      .post<{ token: string }>('/api/auth/login', user)
-      .pipe(
-        tap(({ token }) => {
-          localStorage.setItem('auth-token', token);
-          this.setToken(token);
-        })
-      );
+      .post<User>('/api/auth/register', user)
+      .pipe(catchError(this.handleError));
   }
 
-  getToken() {
+  login(user: User): Observable<AuthResponse> {
+    return this.httpClient.post<AuthResponse>('/api/auth/login', user).pipe(
+      tap(({ token }) => this.handleAuthentication(token)),
+      catchError(this.handleError)
+    );
+  }
+
+  private handleAuthentication(token: string) {
+    localStorage.setItem('auth-token', token);
+    this.setToken(token);
+  }
+
+  private loadToken() {
+    const token = localStorage.getItem('auth-token');
+    if (token) {
+      this.token = token;
+    }
+  }
+
+  getToken(): string {
     return this.token;
   }
 
-  setToken(token: string) {
+  setToken(token: string): void {
     this.token = token;
   }
 
   isAuthenticated(): boolean {
-    return !!this.token; // !! convert value to boolean
+    // Aquí podrías añadir lógica para verificar la validez del token
+    return !!this.token;
   }
 
-  logout() {
+  logout(): void {
     this.setToken('');
-    localStorage.clear();
+    localStorage.removeItem('auth-token');
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    // Aquí podrías manejar diferentes tipos de errores HTTP
+    return throwError(() => error);
   }
 }
