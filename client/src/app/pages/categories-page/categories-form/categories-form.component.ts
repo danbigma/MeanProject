@@ -1,4 +1,4 @@
-import { CategoriesService } from './../../shared/services/categories.service';
+import { CategoriesService } from '../../../shared/services/categories.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';

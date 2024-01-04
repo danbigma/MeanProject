@@ -1,5 +1,5 @@
 import { MaterialInstance, MaterialService } from 'src/app/shared/classes/material.service';
-import { Order } from './../../shared/interfaces';
+import { Order } from '../../../shared/interfaces';
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 
 @Component({

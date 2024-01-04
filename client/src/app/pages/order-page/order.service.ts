@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { OrderPosition, Position } from '../shared/interfaces';
+import { OrderPosition, Position } from '../../shared/interfaces';
 
 @Injectable()
 export class OrderService {

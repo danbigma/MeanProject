@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, ViewChild} from '@angular/core'
-import {AnalyticsService} from '../shared/services/analytics.service'
-import {AnalyticsPage} from '../shared/interfaces'
+import {AnalyticsService} from '../../shared/services/analytics.service'
+import {AnalyticsPage} from '../../shared/interfaces'
 import {Chart, ChartConfiguration, LineController, LineElement, PointElement, LinearScale, Title, CategoryScale} from "chart.js";
 import {Subscription} from 'rxjs'
 

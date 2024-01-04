@@ -6,10 +6,10 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { AnalyticsService } from '../shared/services/analytics.service';
+import { AnalyticsService } from '../../shared/services/analytics.service';
 import { Observable } from 'rxjs/index';
-import { OverviewPage } from '../shared/interfaces';
-import { MaterialInstance, MaterialService } from '../shared/classes/material.service';
+import { OverviewPage } from '../../shared/interfaces';
+import { MaterialInstance, MaterialService } from '../../shared/classes/material.service';
 
 @Component({
   selector: 'app-overview-page',

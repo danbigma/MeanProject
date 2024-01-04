@@ -3,11 +3,11 @@ import { NavigationEnd, Router } from '@angular/router';
 import {
   MaterialInstance,
   MaterialService,
-} from '../shared/classes/material.service';
+} from '../../shared/classes/material.service';
 import { OrderService } from './order.service';
-import { Order, OrderPosition } from '../shared/interfaces';
+import { Order, OrderPosition } from '../../shared/interfaces';
 import { Subscription } from 'rxjs';
-import { OrdersService } from '../shared/services/orders.service';
+import { OrdersService } from '../../shared/services/orders.service';
 
 @Component({
   selector: 'app-order-page',

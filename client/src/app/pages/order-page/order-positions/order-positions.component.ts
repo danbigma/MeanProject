@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core'
 import {ActivatedRoute, Params} from '@angular/router'
-import {PositionsService} from '../../shared/services/positions.service'
+import {PositionsService} from '../../../shared/services/positions.service'
 import {Observable} from 'rxjs/index'
-import {Position} from '../../shared/interfaces'
+import {Position} from '../../../shared/interfaces'
 import {switchMap, map} from 'rxjs/operators'
 import {OrderService} from '../order.service'
-import {MaterialService} from '../../shared/classes/material.service'
+import {MaterialService} from '../../../shared/classes/material.service'
 
 @Component({
   selector: 'app-order-positions',
