@@ -15,7 +15,7 @@ const LOCK_TIME = 2 * 60 * 60 * 1000; // 2 horas
 
 module.exports.login = async function (req, res) {
   try {
-    const candidate = await User.findOne({ email: req.body.email });
+    const candidate = await User.findOne({ email: req.body.email }).select('+password');
 
     if (!candidate) {
       return res.status(HTTP_STATUS_UNAUTHORIZED).json({

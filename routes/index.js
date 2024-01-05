@@ -1,18 +1,18 @@
 const express = require('express');
 const router = express.Router();
 
-// Importe sus archivos de ruta individuales
-const authRoutes = require('./auth');
-const analyticsRoutes = require('./analytics');
-const categoryRoutes = require('./category');
-const orderRoutes = require('./order');
-const positionRoutes = require('./position');
+const routes = {
+  '/auth': require('./auth'),
+  '/analytics': require('./analytics'),
+  '/category': require('./category'),
+  '/order': require('./order'),
+  '/position': require('./position'),
+  // Más rutas...
+};
 
-// Utilice los archivos de ruta con su respectivo prefijo
-router.use('/auth', authRoutes);
-router.use('/analytics', analyticsRoutes);
-router.use('/category', categoryRoutes);
-router.use('/order', orderRoutes);
-router.use('/position', positionRoutes);
+// Iterar sobre el objeto de rutas y aplicarlas al enrutador
+for (const path in routes) {
+  router.use(path, routes[path]);
+}
 
 module.exports = router;

@@ -40,7 +40,7 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div id="create-modal" class="modal" #modal>
         <div class="modal-content">
-            <h4 class="mb1">Добавить позицию</h4>
+            <h4 class="mb1">{{ (form.get('name')?.value) ? 'Изменить' : 'Добавить' }} позицию</h4>
             <div class="input-field">
                 <input 
                     formControlName="name"  

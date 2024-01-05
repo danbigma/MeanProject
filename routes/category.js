@@ -5,12 +5,14 @@ const controller = require("../controllers/category");
 
 const router = express.Router();
 
-// localhost:5000/api/category
-router.get("/", passport.authenticate("jwt", { session: false }), controller.getAll);
-router.get("/:id", passport.authenticate("jwt", { session: false }), controller.getById);
-router.post("/", passport.authenticate("jwt", { session: false }), upload.single("image"), controller.create);
-router.patch("/:id", passport.authenticate("jwt", { session: false }), upload.single("image"), controller.update);
-router.delete("/:id", passport.authenticate("jwt", { session: false }), controller.remove);
+// Aplicar autenticación JWT a todas las rutas
+router.use(passport.authenticate("jwt", { session: false }));
 
+// Rutas de categoría
+router.get("/", controller.getAll);
+router.get("/:id", controller.getById);
+router.post("/", upload.single("image"), controller.create);
+router.patch("/:id", upload.single("image"), controller.update);
+router.delete("/:id", controller.remove);
 
 module.exports = router;

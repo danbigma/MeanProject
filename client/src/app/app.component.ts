@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from './shared/services/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 
 import { ConnectivityService } from '../app/shared/services/connectivity.service';
-import { Subscription } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -15,9 +15,9 @@ import { Subscription } from 'rxjs';
   `,
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   isOnline: boolean = true;
-  private onlineSub!: Subscription;
+  private destroy$ = new Subject<void>();
 
   constructor(
     private auth: AuthService,
@@ -29,25 +29,25 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.checkAuthToken();
-    this.onlineSub = this.connectivityService.isOnline.subscribe((online) => {
-      this.isOnline = online;
-    });
+    this.connectivityService.isOnline
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((online) => (this.isOnline = online));
   }
 
   ngOnDestroy() {
-    if (this.onlineSub) {
-      this.onlineSub.unsubscribe();
-    }
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   private initializeTranslation() {
-    const userLang = navigator.language.split('-')[0]; // Obtener idioma del navegador
-    this.translate.setDefaultLang('en'); // Establece el idioma por defecto
-    this.translate.use(userLang); // Usa el idioma del navegador si está disponible, de lo contrario usa 'en'
+    const userLang = navigator.language.split('-')[0];
+    this.translate.setDefaultLang('en');
+    this.translate.use(userLang);
   }
 
   private checkAuthToken() {
-    const potentialToken = localStorage.getItem('auth-token');
+    const tokenKey = 'auth-token';
+    const potentialToken = localStorage.getItem(tokenKey);
     if (potentialToken) {
       this.auth.setToken(potentialToken);
     }
