@@ -15,7 +15,9 @@ const LOCK_TIME = 2 * 60 * 60 * 1000; // 2 horas
 
 module.exports.login = async function (req, res) {
   try {
-    const candidate = await User.findOne({ email: req.body.email }).select('+password');
+    const candidate = await User.findOne({ email: req.body.email }).select(
+      "+password"
+    );
 
     if (!candidate) {
       return res.status(HTTP_STATUS_UNAUTHORIZED).json({
@@ -33,7 +35,7 @@ module.exports.login = async function (req, res) {
         await candidate.save();
       } else {
         return res.status(HTTP_STATUS_UNAUTHORIZED).json({
-          message: "Cuenta bloqueada. Inténtalo de nuevo más tarde."
+          message: "Cuenta bloqueada. Inténtalo de nuevo más tarde.",
         });
       }
     }
@@ -57,6 +59,9 @@ module.exports.login = async function (req, res) {
     // Restablecer los intentos de login después de un login exitoso
     candidate.loginAttempts = 0;
     candidate.lockUntil = undefined;
+
+    candidate.timeLogin = Date.now();
+
     await candidate.save();
 
     const token = jwt.sign(
@@ -68,8 +73,14 @@ module.exports.login = async function (req, res) {
       { expiresIn: JWT_EXPIRATION_TIME }
     );
 
+    const currentUser = {
+      email: candidate.email,
+      timeLogin: candidate.timeLogin,
+    };
+
     res.status(HTTP_STATUS_OK).json({
       token: `Bearer ${token}`,
+      currentUser: currentUser,
     });
   } catch (error) {
     errorHandler(res, error);

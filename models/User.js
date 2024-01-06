@@ -19,6 +19,10 @@ const userSchema = new Schema({
     required: true,
     select: false,
   },
+  timeLogin: {
+    type: Date,
+    default: Date.now,
+  },
   loginAttempts: { type: Number, required: true, default: 0 },
   lockUntil: { type: Number },
 });

@@ -3,6 +3,11 @@ export interface User {
   password: string;
 }
 
+export interface CurrentUser {
+  email: string;
+  timeLogin?: Date;
+}
+
 export interface Message {
   message: string;
 }
@@ -71,7 +76,7 @@ export interface AuthResponse {
   token: string;
   // Puedes incluir otros campos según lo que tu backend devuelva
   // Por ejemplo:
-  // user: User;
+  currentUser: CurrentUser;
   // expiresIn: Date;
   // roles: string[];
 }

@@ -1,17 +1,26 @@
 import { Injectable } from '@angular/core';
-import { User, AuthResponse } from '../interfaces';
+import { User, AuthResponse, CurrentUser } from '../interfaces';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError, tap } from 'rxjs';
+import { Observable, throwError, tap, BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private currentUserSubject: BehaviorSubject<CurrentUser | null>;
   private token = '';
 
   constructor(private httpClient: HttpClient) {
+    const userData = localStorage.getItem('currentUser');
+    this.currentUserSubject = new BehaviorSubject<CurrentUser | null>(
+      userData ? JSON.parse(userData) : null
+    );
     this.loadToken();
+  }
+
+  public get currentUserValue() {
+    return this.currentUserSubject.asObservable();
   }
 
   register(user: User): Observable<User> {
@@ -22,7 +31,11 @@ export class AuthService {
 
   login(user: User): Observable<AuthResponse> {
     return this.httpClient.post<AuthResponse>('/api/auth/login', user).pipe(
-      tap(({ token }) => this.handleAuthentication(token)),
+      tap(({ token, currentUser }) => {
+        this.handleAuthentication(token);
+        this.currentUserSubject.next(currentUser);
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+      }),
       catchError(this.handleError)
     );
   }
@@ -55,6 +68,9 @@ export class AuthService {
   logout(): void {
     this.setToken('');
     localStorage.removeItem('auth-token');
+    // Remover los datos del usuario y actualizar el estado
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
   }
 
   private handleError(error: HttpErrorResponse) {
