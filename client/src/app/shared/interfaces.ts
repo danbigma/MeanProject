@@ -1,11 +1,13 @@
 export interface User {
   email: string;
   password: string;
+  role: string;
 }
 
 export interface CurrentUser {
   email: string;
   timeLogin?: Date;
+  role: string;
 }
 
 export interface Message {

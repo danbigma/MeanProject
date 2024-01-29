@@ -6,9 +6,8 @@
       {{ link.name }}
     </a>
   </li>
-  <li class="bold">
-    <a [attr.data-tooltip]="('Login at: ' + (timeLogin))" class=""
-      #tooltip>{{currentUser?.email}}</a>
+  <li class="bold" *ngIf="isAdmin()">
+    <a [attr.data-tooltip]="getLoginTooltip()" class="" #tooltip>{{ currentUser?.email }}</a>
   </li>
   <li class="bold last">
     <a href="#" class="waves-effect waves-orange" (click)="logout($event)">Выйти</a>

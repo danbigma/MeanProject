@@ -18,7 +18,7 @@ module.exports = (passport) => {
     new JwtStrategy(options, async (payload, done) => {
       try {
         // Busca el usuario por ID y selecciona campos específicos
-        const user = await User.findById(payload.userId).select("email id");
+        const user = await User.findById(payload.userId).select("email id role");
         if (user) {
           done(null, user);
         } else {

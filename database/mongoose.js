@@ -1,7 +1,6 @@
 require("dotenv").config();
 
 const mongoose = require("mongoose");
-const keys = require("../config/keys");
 
 mongoose.set("strictQuery", false);
 

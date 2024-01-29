@@ -6,8 +6,9 @@ import {
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { CurrentUser } from '../../interfaces';
-import { Subject, Subscription, takeUntil } from 'rxjs';
-import * as moment from 'moment';
+import { Subject, takeUntil } from 'rxjs';
+import { format } from 'date-fns';
+import { RoleService } from '../../services/role.service';
 
 @Component({
   selector: 'app-site-layout',
@@ -32,17 +33,36 @@ export class SiteLayoutComponent implements AfterViewInit {
     { url: '/categories', name: 'Ассортимент' },
   ];
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    private roleService: RoleService
+  ) {}
 
   ngOnInit(): void {
     this.auth.currentUserValue
       .pipe(takeUntil(this.destroy$))
       .subscribe((user: CurrentUser | null) => {
         this.currentUser = user;
-        this.timeLogin = user?.timeLogin
-          ? moment(user?.timeLogin).format('HH:mm:ss DD/MM/YYYY')
-          : '';
+        if (user) {
+          this.roleService.setCurrentUser(user); // Actualiza el usuario en RoleService
+          this.timeLogin = user.timeLogin
+            ? format(new Date(user.timeLogin), 'HH:mm:ss dd/MM/yyyy')
+            : '';
+        }
       });
+  }
+
+  // Usar el método isAdmin de RoleService
+  isAdmin(): boolean {
+    if (this.currentUser) {
+      return this.roleService.isAdmin(this.currentUser);
+    }
+    return false;
+  }
+
+  getLoginTooltip(): string {
+    return 'Login at: ' + this.timeLogin;
   }
 
   ngAfterViewInit() {

@@ -1,6 +1,5 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const keys = require("../config/keys");
 const User = require("../models/User");
 const errorHandler = require("../utils/errorHandler");
 
@@ -69,14 +68,23 @@ module.exports.login = async function (req, res) {
         email: candidate.email,
         userId: candidate._id,
       },
-      keys.jwt,
+      process.env.JWT,
       { expiresIn: JWT_EXPIRATION_TIME }
     );
 
     const currentUser = {
       email: candidate.email,
       timeLogin: candidate.timeLogin,
+      role: candidate.role,
+      sessionExpiresAt: null, // Inicialmente nulo, lo calcularemos a continuación
     };
+    
+    // Calcular la hora de expiración de la sesión
+    const currentTime = new Date();
+    const expirationTime = new Date(currentTime.getTime() + 1 * 60 * 60 * 1000); // Añadir 1 hora
+    
+    // Guardar la hora de expiración en el objeto 'currentUser'
+    currentUser.sessionExpiresAt = expirationTime;
 
     res.status(HTTP_STATUS_OK).json({
       token: `Bearer ${token}`,

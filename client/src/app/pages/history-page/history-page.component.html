@@ -1,7 +1,7 @@
 <div class="page-title">
-    <h4>{{ 'HISTORY.TITLE' | translate }}</h4>
+    <h4>{{ 'history.title' | translate }}</h4>
     <button (click)="isFilterVisible = !isFilterVisible" class="btn btn-small"
-        [attr.data-tooltip]="(isFilterVisible ? 'HISTORY.CLOSE_FILTER' : 'HISTORY.OPEN_FILTER') | translate" [ngClass]="{
+        [attr.data-tooltip]="(isFilterVisible ? 'history.close_filter' : 'history.open_filter') | translate" [ngClass]="{
         'active': isFilterVisible,
         'red': isFiltered()
     }" [attr.aria-label]="(isFilterVisible ? 'Close Filter' : 'Open Filter') | translate" #tooltip>
@@ -18,7 +18,7 @@
 
         <div class="center mb2" *ngIf="!noMoreOrders">
             <button *ngIf="!loading; else loader" (click)="loadMore()" class="btn waves-effect grey darken-1 btn-small">
-                {{ 'HISTORY.LOAD_MORE' | translate }}
+                {{ 'history.load_more' | translate }}
             </button>
             <ng-template #loader>
                 <app-loader></app-loader>
@@ -27,7 +27,7 @@
     </div>
     <ng-template #empty>
         <div class="center">
-            {{ 'HISTORY.NO_ORDERS' | translate }}
+            {{ 'history.no_orders' | translate }}
         </div>
     </ng-template>
 </div>

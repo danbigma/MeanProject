@@ -3,6 +3,7 @@ import { User, AuthResponse, CurrentUser } from '../interfaces';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, tap, BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { RoleService } from './role.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<CurrentUser | null>;
   private token = '';
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private roleSrv: RoleService) {
     const userData = localStorage.getItem('currentUser');
     this.currentUserSubject = new BehaviorSubject<CurrentUser | null>(
       userData ? JSON.parse(userData) : null
@@ -34,6 +35,7 @@ export class AuthService {
       tap(({ token, currentUser }) => {
         this.handleAuthentication(token);
         this.currentUserSubject.next(currentUser);
+        this.roleSrv.setCurrentUser(currentUser);
         localStorage.setItem('currentUser', JSON.stringify(currentUser));
       }),
       catchError(this.handleError)

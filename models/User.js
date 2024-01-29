@@ -23,6 +23,11 @@ const userSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  role: {
+    type: String,
+    enum: ['ADMIN', 'USER', 'GUEST'],
+    default: 'USER'
+  },
   loginAttempts: { type: Number, required: true, default: 0 },
   lockUntil: { type: Number },
 });

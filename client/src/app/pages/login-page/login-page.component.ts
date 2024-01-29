@@ -28,11 +28,12 @@ export class LoginPageComponent implements OnInit, OnDestroy {
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required, Validators.minLength(4)]],
     });
-
+  
     this.route.queryParams
       .pipe(takeUntil(this.destroy$))
       .subscribe((params) => {
         this.handleQueryParams(params);
+        this.auth.logout();
       });
   }
 
@@ -42,13 +43,17 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   private handleQueryParams(params: Params) {
-    if (params['registered']) {
-      MaterialService.toast('Now you can log in using your credentials.');
-    } else if (params['accessDenied']) {
-      MaterialService.toast('Please log in to continue.');
-    } else if (params['sessionFailed']) {
-      MaterialService.toast('Your session has expired, please log in again.');
-    }
+    const messages: { [key: string]: string } = {
+      'registered': 'Ahora puedes iniciar sesión con tus credenciales.',
+      'accessDenied': 'Por favor, inicia sesión para continuar.',
+      'sessionFailed': 'Tu sesión ha expirado, por favor inicia sesión de nuevo.'
+    };
+  
+    Object.keys(messages).forEach(key => {
+      if (params[key as keyof typeof messages]) {
+        MaterialService.toast(messages[key as keyof typeof messages]);
+      }
+    });
   }
 
   onSubmit() {
@@ -68,6 +73,11 @@ export class LoginPageComponent implements OnInit, OnDestroy {
           MaterialService.toast(e.error.message);
           this.loading = false;
           this.form.enable();
+          // Limpiar parámetros de consulta al permanecer en la página de inicio de sesión
+          this.router.navigate([], {
+            queryParams: {},
+            relativeTo: this.route // Asegúrate de inyectar 'private route: ActivatedRoute' en el constructor
+          });
         },
       });
   }
