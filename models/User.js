@@ -25,7 +25,7 @@ const userSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ['ADMIN', 'USER', 'GUEST'],
+    enum: ['SUPERADMIN','ADMIN', 'MANAGER', 'USER', 'GUEST'],
     default: 'USER'
   },
   loginAttempts: { type: Number, required: true, default: 0 },

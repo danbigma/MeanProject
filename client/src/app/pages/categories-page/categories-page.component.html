@@ -29,7 +29,6 @@
         <li *ngFor="let category of categories" class="collection-item">
           <div class="category-name">{{ category.name }}</div>
           <div class="action-buttons">
-            
             <button class="btn btn-small" (click)="editCategory(category)" [routerLink]="['/categories', category._id]"><i class="material-icons">edit</i></button>
             <button class="btn btn-small red" (click)="deleteCategory(category)"><i class="material-icons">delete</i></button>
           </div>
