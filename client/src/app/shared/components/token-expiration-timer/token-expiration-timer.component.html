@@ -1,0 +1,9 @@
+<div *ngIf="remainingTime; else calc">
+    <p>{{ remainingTime }}</p>
+</div>
+
+<ng-template #calc>
+    <div>
+        <p>Calculating...</p>
+    </div>
+</ng-template>

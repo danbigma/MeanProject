@@ -15,6 +15,7 @@
 </ul>
 
 <main class="content">
+  <app-token-expiration-timer [expirationDate]="currentUser?.sessionExpiresAt ?? null"></app-token-expiration-timer>
   <router-outlet></router-outlet>
 </main>
 

@@ -8,6 +8,7 @@ export interface CurrentUser {
   email: string;
   timeLogin?: Date;
   role: string;
+  sessionExpiresAt: Date;
 }
 
 export interface Message {
@@ -16,6 +17,7 @@ export interface Message {
 
 export interface Category {
   name: string;
+  quantity: number;
   imageSrc?: string;
   user?: string;
   _id?: string;

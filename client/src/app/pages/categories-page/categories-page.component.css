@@ -1,0 +1,11 @@
+.collection-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.action-buttons {
+  width: 9.3%;
+  display: flex;
+  justify-content: space-between;
+}

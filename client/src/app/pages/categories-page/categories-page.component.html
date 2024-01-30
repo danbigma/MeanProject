@@ -5,20 +5,43 @@
   </button>
 </div>
 
-<div class="row" *ngIf="categories$ | async as categories; else loader">
-  <div class="col s12">
-    <div class="collection" *ngIf="categories.length !== 0; else empty">
-      <a *ngFor="let category of categories" [routerLink]="['/categories', category._id]" class="collection-item">
-        {{category.name}}
-      </a>
+<div class="category-count" *ngIf="filteredCategories$ | async as categories">
+  <p>
+    Displaying {{ categories.length }} categories
+  </p>
+</div>
+
+<!-- Search Input -->
+<div class="row">
+  <div class="input-field col s11">
+    <input type="text" placeholder="Поиск по имени" [formControl]="searchControl">
+  </div>
+  <div class="input-field col s1">
+    <button class="btn btn-small" (click)="clearSearch()">Clear</button>
+  </div>
+</div>
+
+<!-- Categories List -->
+<div class="row">
+  <div class="col s12" *ngIf="filteredCategories$ | async as categories">
+    <div *ngIf="categories.length; else noCategories">
+      <ul class="collection">
+        <li *ngFor="let category of categories" class="collection-item">
+          <div class="category-name">{{ category.name }}</div>
+          <div class="action-buttons">
+            
+            <button class="btn btn-small" (click)="editCategory(category)" [routerLink]="['/categories', category._id]"><i class="material-icons">edit</i></button>
+            <button class="btn btn-small red" (click)="deleteCategory(category)"><i class="material-icons">delete</i></button>
+          </div>
+        </li>
+      </ul>
     </div>
-    <ng-template #empty>
-      <div class="center">
-        У вас нет ни одной категории
-      </div>
+    <ng-template #noCategories>
+      <div class="center">No categories found</div>
     </ng-template>
   </div>
 </div>
+
 
 <ng-template #loader>
   <app-loader></app-loader>

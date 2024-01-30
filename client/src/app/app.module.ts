@@ -24,6 +24,7 @@ import { HistoryListComponent } from './pages/history-page/history-list/history-
 import { HistoryFilterComponent } from './pages/history-page/history-filter/history-filter.component';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TokenExpirationTimerComponent } from './shared/components/token-expiration-timer/token-expiration-timer.component';
 
 // Función para cargar traducciones
 export function HttpLoaderFactory(http: HttpClient) {
@@ -47,7 +48,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     OrderCategoriesComponent,
     OrderPositionsComponent,
     HistoryListComponent,
-    HistoryFilterComponent
+    HistoryFilterComponent,
+    TokenExpirationTimerComponent
   ],
   imports: [
     BrowserModule,

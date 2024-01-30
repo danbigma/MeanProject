@@ -6,7 +6,7 @@ const errorHandler = require("../utils/errorHandler");
 const HTTP_STATUS_OK = 200;
 const HTTP_STATUS_UNAUTHORIZED = 401;
 const HTTP_STATUS_CONFLICT = 409;
-const JWT_EXPIRATION_TIME = "1h"; // Modificado para mejorar la legibilidad
+const JWT_EXPIRATION_TIME_DEFAULT = "1h"; // Modificado para mejorar la legibilidad
 const BCRYPT_SALT_ROUNDS = 10; // Número de rondas para el salt de bcrypt
 
 const MAX_LOGIN_ATTEMPTS = 5;
@@ -69,7 +69,7 @@ module.exports.login = async function (req, res) {
         userId: candidate._id,
       },
       process.env.JWT,
-      { expiresIn: JWT_EXPIRATION_TIME }
+      { expiresIn: process.env.JWT_EXPIRATION_TIME || JWT_EXPIRATION_TIME_DEFAULT }
     );
 
     const currentUser = {
@@ -79,10 +79,15 @@ module.exports.login = async function (req, res) {
       sessionExpiresAt: null, // Inicialmente nulo, lo calcularemos a continuación
     };
     
-    // Calcular la hora de expiración de la sesión
+    // Calcular la hora de expiración de la sesión utilizando process.env.JWT_EXPIRATION_TIME
     const currentTime = new Date();
-    const expirationTime = new Date(currentTime.getTime() + 1 * 60 * 60 * 1000); // Añadir 1 hora
-    
+
+    // Obtener el tiempo de expiración del entorno y convertirlo a milisegundos
+    const jwtExpirationTimeInMinutes = parseInt(process.env.JWT_EXPIRATION_TIME || "60", 10); // Fallback to 60 minutes if not defined
+    const expirationTimeInMilliseconds = jwtExpirationTimeInMinutes * 60 * 1000;
+
+    const expirationTime = new Date(currentTime.getTime() + expirationTimeInMilliseconds);
+
     // Guardar la hora de expiración en el objeto 'currentUser'
     currentUser.sessionExpiresAt = expirationTime;
 

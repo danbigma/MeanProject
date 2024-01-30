@@ -38,6 +38,7 @@ module.exports.remove = handleErrors(async (req, res) => {
 module.exports.create = handleErrors(async (req, res) => {
   const category = new Category({
     name: req.body.name,
+    quantity: req.body.quantity,
     user: req.user.id,
     imageSrc: req.file ? req.file.path : "",
   });
@@ -47,7 +48,7 @@ module.exports.create = handleErrors(async (req, res) => {
 });
 
 module.exports.update = handleErrors(async (req, res) => {
-  const updated = { name: req.body.name };
+  const updated = { name: req.body.name, quantity: req.body.quantity };
   if (req.file) {
     updated.imageSrc = req.file.path;
   }

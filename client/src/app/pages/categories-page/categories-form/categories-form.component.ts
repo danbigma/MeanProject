@@ -2,6 +2,7 @@ import { CategoriesService } from '../../../shared/services/categories.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { valueOrDefault } from 'chart.js/dist/helpers/helpers.core';
 import { response } from 'express';
 import { of, switchMap } from 'rxjs';
 import { MaterialService } from 'src/app/shared/classes/material.service';
@@ -29,6 +30,7 @@ export class CategoriesFormComponent implements OnInit {
   ) {
     this.form = new FormGroup({
       name: new FormControl(null, Validators.required),
+      quantity: new FormControl(null, Validators.required)
     });
   }
 
@@ -50,6 +52,7 @@ export class CategoriesFormComponent implements OnInit {
           if (category) {
             this.form.patchValue({
               name: category.name,
+              quantity: category.quantity
             });
             this.imagePreview = category.imageSrc;
             this.category = category;
@@ -83,12 +86,13 @@ export class CategoriesFormComponent implements OnInit {
     this.form.disable();
 
     if (this.isNew) {
-      obs$ = this.categoriesService.create(this.form.value.name, this.image);
+      obs$ = this.categoriesService.create(this.form.value.name, this.form.value.quantity, this.image);
     } else {
       const categoryId = this.category._id ? this.category._id : '';
       obs$ = this.categoriesService.update(
         categoryId,
         this.form.value.name,
+        this.form.value.quantity,
         this.image
       );
     }

@@ -31,6 +31,24 @@
             </span>
         </div>
 
+        <div class="input-field">
+            <input 
+                formControlName="quantity" 
+                id="quantity" 
+                type="number" 
+                required
+                [ngClass]="{'invalid' : form.get('quantity')?.invalid && form.get('quantity')?.touched }">
+            <label for="name">Quantity</label>
+            <span
+                class="helper-text red-text"
+                *ngIf="form.get('quantity')?.invalid && form.get('quantity')?.touched"
+            >
+                <span *ngIf="form.get('quantity') && form.get('quantity')?.errors">
+                    Имя категории не может быть пустым.
+                </span>
+            </span>
+        </div>
+
         <div>
             <input type="file" class="displayNone" (change)="onFileUpload($event)" #inputFile>
             <button 

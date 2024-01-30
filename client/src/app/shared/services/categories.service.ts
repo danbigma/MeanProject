@@ -17,21 +17,23 @@ export class CategoriesService {
     return this.http.get<Category>(`/api/category/${id}`);
   }
 
-  create(name: string, image?: File): Observable<Category> {
+  create(name: string, quantity: string, image?: File): Observable<Category> {
     const fd = new FormData();
     if (image) {
       fd.append('image', image, image?.name);
     }
     fd.append('name', name);
+    fd.append('quantity', quantity);
     return this.http.post<Category>('/api/category/', fd);
   }
 
-  update(id: string, name: string, image?: File): Observable<Category> {
+  update(id: string, name: string, quantity: string, image?: File): Observable<Category> {
     const fd = new FormData();
     if (image) {
       fd.append('image', image, image?.name);
     }
     fd.append('name', name);
+    fd.append('quantity', quantity);
     return this.http.patch<Category>(`/api/category/${id}`, fd);
   }
 
