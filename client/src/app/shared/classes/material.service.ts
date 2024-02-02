@@ -1,6 +1,8 @@
 import { ElementRef } from '@angular/core';
 
-declare var M: {
+declare let M: {
+  Sidenav: any;
+  FormSelect: any;
   toast: (arg0: { html: string }) => void;
   FloatingActionButton: { init: (arg0: any) => void };
   updateTextFields: () => void;
@@ -44,6 +46,14 @@ export class MaterialService {
 
   static initTooltip(ref: ElementRef): MaterialInstance {
     return M.Tooltip.init(ref.nativeElement);
+  }
+
+  static initSelect(ref: HTMLElement): MaterialInstance {
+    return M.FormSelect.init(ref);
+  }
+
+  static initSidenav(ref: HTMLElement): MaterialInstance {
+    return M.Sidenav.init(ref);
   }
 
   static initDatepicker(

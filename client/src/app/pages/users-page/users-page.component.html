@@ -1,0 +1,65 @@
+<div class="page-title">
+  <h4>{{ 'users.title' | translate }}</h4>
+  <button class="waves-effect waves-light btn  darken-1" (click)="open()">
+    {{ 'users.new' | translate }}
+  </button>
+</div>
+
+<div *ngIf="!reloading; else reloadingBlock">
+  <div *ngIf="users.length > 0; else empty">
+    <app-user-table [users]="users"></app-user-table>
+  </div>
+  <ng-template #empty>
+    <div class="center">
+      {{ 'users.no_orders' | translate }}
+    </div>
+  </ng-template>
+</div>
+
+<div class="modal modal-fixed-footer" #modal>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="modal-content">
+    <div class="row">
+      
+        <div class="input-field">
+          <input formControlName="email" id="email" type="email"
+            [ngClass]="{'invalid': form.get('email')?.invalid && form.get('email')?.touched}">
+          <label for="email">Email</label>
+          <span class="helper-text red-text" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+            <span *ngIf="form.get('email')?.hasError('required')">Email обязателен</span>
+            <span *ngIf="form.get('email')?.hasError('email')">Введите действительный email</span>
+          </span>
+        </div>
+        <div class="input-field">
+          <select formControlName="role">
+            <option value="" disabled selected>Choose your option</option>
+            <option *ngFor="let role of roleKeys" [value]="role">{{ role }}</option>
+          </select>
+          <span class="helper-text red-text" *ngIf="form.get('role')?.invalid && form.get('role')?.touched">
+            <span *ngIf="form.get('role')?.hasError('required')">Rol required</span>
+          </span>
+        </div>
+        <div class="input-field">
+          <input formControlName="password" id="password" type="password"
+            [ngClass]="{'invalid': form.get('password')?.invalid && form.get('password')?.touched}">
+          <label for="password">Пароль</label>
+          <span class="helper-text red-text" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+            <span *ngIf="form.get('password')?.hasError('required')">Пароль обязателен</span>
+            <span *ngIf="form.get('password')?.hasError('minlength')">Пароль должен содержать минимум 4
+              символа</span>
+          </span>
+        </div>
+    </div>
+    
+  </div>
+  <div class="modal-footer">
+    <button type="button" (click)="close()" class="waves-effect waves-black btn-flat">Cerrar</button>
+    <button type="submit" class="btn waves-effect" [disabled]="form.invalid || loading">Create User</button>
+  </div>
+</form>
+
+</div>
+
+<ng-template #reloadingBlock>
+  <app-loader></app-loader>
+</ng-template>

@@ -13,6 +13,9 @@ import { CategoriesPageComponent } from './pages/categories-page/categories-page
 import { CategoriesFormComponent } from './pages/categories-page/categories-form/categories-form.component';
 import { OrderCategoriesComponent } from './pages/order-page/order-categories/order-categories.component';
 import { OrderPositionsComponent } from './pages/order-page/order-positions/order-positions.component';
+import { UsersPageComponent } from './pages/users-page/users-page.component';
+import { WarehouseComponent } from './pages/warehouse-page/warehouse.component';
+import { WarehouseFormComponent } from './pages/warehouse-page/warehouse-form/warehouse-form.component';
 
 const routes: Routes = [
   {
@@ -43,6 +46,10 @@ const routes: Routes = [
       { path: 'categories', component: CategoriesPageComponent },
       { path: 'categories/new', component: CategoriesFormComponent },
       { path: 'categories/:id', component: CategoriesFormComponent },
+      { path: 'users', component: UsersPageComponent },
+      { path: 'warehouses', component: WarehouseComponent },
+      { path: 'warehouses/new', component: WarehouseFormComponent },
+      { path: 'warehouses/:id', component: WarehouseFormComponent }
     ],
   },
 ];

@@ -19,6 +19,7 @@ export class SiteLayoutComponent implements AfterViewInit {
   private destroy$ = new Subject<void>();
   @ViewChild('tooltip') tooltipRef!: ElementRef;
   @ViewChild('floating') floatingRef!: ElementRef;
+  
   tooltip!: MaterialInstance;
 
   currentUser!: CurrentUser | null;
@@ -30,13 +31,15 @@ export class SiteLayoutComponent implements AfterViewInit {
     { url: '/analytics', name: 'Аналитика' },
     { url: '/history', name: 'История' },
     { url: '/order', name: 'Добавить заказ' },
-    { url: '/categories', name: 'Ассортимент' },
+    { url: '/categories', name: 'menu.stock' },
+    { url: '/warehouses', name: 'menu.warehouses' },
   ];
 
   constructor(
     private auth: AuthService,
     private router: Router,
-    private roleService: RoleService
+    private roleService: RoleService,
+    private elRef: ElementRef
   ) {}
 
   ngOnInit(): void {
@@ -51,6 +54,9 @@ export class SiteLayoutComponent implements AfterViewInit {
             : '';
         }
       });
+      if (this.isAdmin()) {
+        this.links.push({ url: '/users', name: 'menu.users' });
+      }
   }
 
   // Usar el método isAdmin de RoleService
@@ -66,8 +72,12 @@ export class SiteLayoutComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    MaterialService.initializeFloatingButton(this.floatingRef);
-    this.tooltip = MaterialService.initTooltip(this.tooltipRef);
+    setTimeout(() => {
+      MaterialService.initializeFloatingButton(this.floatingRef);
+      this.tooltip = MaterialService.initTooltip(this.tooltipRef);
+      const sidenavElems = this.elRef.nativeElement.querySelectorAll('.sidenav');
+      MaterialService.initSidenav(sidenavElems);
+    }, 0);
   }
 
   logout(event: Event) {

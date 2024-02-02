@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
@@ -13,7 +14,7 @@ export class TokenExpirationTimerComponent implements OnInit, OnDestroy {
   remainingTime: string | null = null;
   private intervalId?: number;
 
-  constructor(private datePipe: DatePipe) {}
+  constructor(private datePipe: DatePipe, private router: Router ) {}
 
   ngOnInit(): void {
     this.startCountdown();
@@ -44,6 +45,7 @@ export class TokenExpirationTimerComponent implements OnInit, OnDestroy {
       if (distance < 0) {
         clearInterval(this.intervalId);
         this.remainingTime = 'Token has expired.';
+        this.router.navigate(['/login']);
         return;
       }
 

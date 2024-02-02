@@ -7,6 +7,8 @@ const routes = {
   '/category': require('./category'),
   '/order': require('./order'),
   '/position': require('./position'),
+  '/users': require('./users'),
+  '/warehouse': require('./warehouse')
   // Más rutas...
 };
 

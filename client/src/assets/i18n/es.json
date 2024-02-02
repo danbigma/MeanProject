@@ -1,9 +1,22 @@
 {
+    "menu": {
+        "stock": "Stock",
+        "users": "Users",
+        "warehouses": "Warehouses"
+    },
+    "warehouse" : {
+        "list": "Listado de Almacenes",
+        "new": "New Warehouse"
+    },
     "history": {
         "title": "Order History",
         "open_filter": "Open Filter",
         "close_filter": "Close Filter",
         "load_more": "Load More",
         "no_orders": "No Orders Yet"
+    },
+    "users": {
+        "title": "Users",
+        "new": "New user"
     }
 }

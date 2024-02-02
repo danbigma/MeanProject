@@ -25,6 +25,10 @@ import { HistoryFilterComponent } from './pages/history-page/history-filter/hist
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TokenExpirationTimerComponent } from './shared/components/token-expiration-timer/token-expiration-timer.component';
+import { UsersPageComponent } from './pages/users-page/users-page.component';
+import { UserListComponent } from './pages/users-page/user-table/user-table.component';
+import { WarehouseComponent } from './pages/warehouse-page/warehouse.component';
+import { WarehouseFormComponent } from './pages/warehouse-page/warehouse-form/warehouse-form.component';
 
 // Función para cargar traducciones
 export function HttpLoaderFactory(http: HttpClient) {
@@ -49,7 +53,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     OrderPositionsComponent,
     HistoryListComponent,
     HistoryFilterComponent,
-    TokenExpirationTimerComponent
+    TokenExpirationTimerComponent,
+    UsersPageComponent,
+    UserListComponent,
+    WarehouseComponent,
+    WarehouseFormComponent,
   ],
   imports: [
     BrowserModule,

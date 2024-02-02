@@ -1,3 +1,4 @@
+import { Role } from './../interfaces';
 import { Injectable } from '@angular/core';
 import { CurrentUser, User } from '../interfaces';
 

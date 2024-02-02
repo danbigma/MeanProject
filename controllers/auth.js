@@ -114,14 +114,24 @@ module.exports.register = async function (req, res) {
     const password = req.body.password;
     const user = new User({
       email: req.body.email,
+      role: req.body.role,
       password: await bcrypt.hash(password, salt),
     });
 
     await user.save();
 
     // Devolver solo información relevante y no sensible
-    res.status(HTTP_STATUS_OK).json({ email: user.email, id: user._id });
+    res.status(HTTP_STATUS_OK).json({ email: user.email, id: user._id, role: user.role });
   } catch (error) {
     errorHandler(res, error);
   }
 };
+
+module.exports.getAll = async (req, res) => {
+  try {
+    const users = await User.find();
+    res.status(HTTP_STATUS_OK).json(users);
+  } catch (error) {
+    errorHandler(res, error);
+  }
+}

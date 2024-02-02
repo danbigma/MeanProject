@@ -1,0 +1,13 @@
+header, .sidenav-fixed {
+  z-index: 995; /* Asegura que la barra lateral y el encabezado estén por encima del contenido principal */
+}
+
+.content {
+  margin-left: 300px; /* Ajusta según el ancho de tu sidenav */
+}
+
+@media only screen and (max-width : 992px) {
+  .content {
+    margin-left: 0; /* Asegúrate de que el contenido se expanda a pantalla completa en dispositivos más pequeños */
+  }
+}
