@@ -8,7 +8,11 @@ import { AuthLayoutComponent } from './shared/layouts/auth-layout/auth-layout.co
 import { SiteLayoutComponent } from './shared/layouts/site-layout/site-layout.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import {
+  HttpClientModule,
+  HTTP_INTERCEPTORS,
+  HttpClient,
+} from '@angular/common/http';
 import { TokenInterceptor } from './shared/classes/token.interceptor';
 import { OverviewPageComponent } from './pages/overview-page/overview-page.component';
 import { AnalyticsPageComponent } from './pages/analytics-page/analytics-page.component';
@@ -29,6 +33,12 @@ import { UsersPageComponent } from './pages/users-page/users-page.component';
 import { UserListComponent } from './pages/users-page/user-table/user-table.component';
 import { WarehouseComponent } from './pages/warehouse-page/warehouse.component';
 import { WarehouseFormComponent } from './pages/warehouse-page/warehouse-form/warehouse-form.component';
+import { TiresComponent } from './pages/tires-page/tires.component';
+import { TireFormComponent } from './pages/tires-page/tire-form/tire-form.component';
+import { GenericListComponent } from './shared/components/generic-list/generic-list.component';
+import { GenericFormComponent } from './shared/components/generic-form/generic-form.component';
+import { ENTITY_SERVICE_TOKEN } from './shared/classes/entity-service.token';
+import { TiresService } from './shared/services/tires.service';
 
 // Función para cargar traducciones
 export function HttpLoaderFactory(http: HttpClient) {
@@ -58,6 +68,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserListComponent,
     WarehouseComponent,
     WarehouseFormComponent,
+    TiresComponent,
+    TireFormComponent,
+    GenericListComponent,
+    GenericFormComponent
   ],
   imports: [
     BrowserModule,
@@ -69,8 +83,8 @@ export function HttpLoaderFactory(http: HttpClient) {
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
+        deps: [HttpClient],
+      },
     }),
   ],
   providers: [
@@ -79,6 +93,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       multi: true,
       useClass: TokenInterceptor,
     },
+    { provide: ENTITY_SERVICE_TOKEN, useClass: TiresService },
   ],
   bootstrap: [AppComponent],
 })

@@ -1,22 +1,50 @@
 {
-    "menu": {
-        "stock": "Stock",
-        "users": "Users",
-        "warehouses": "Warehouses"
+    "general": {
+        "actions": "Acciones",
+        "new": "Nuevo"
     },
-    "warehouse" : {
+    "menu": {
+        "stock": "Inventario",
+        "users": "Usuarios",
+        "warehouses": "Almacenes",
+        "tires": "Neumáticos",
+        "order": "Pedido",
+        "overview": "Resumen",
+        "analytics": "Análisis",
+        "history": "Historial"
+    },
+    "warehouse": {
         "list": "Listado de Almacenes",
-        "new": "New Warehouse"
+        "new": "Nuevo Almacén",
+        "name": "Nombre",
+        "location": "Ubicación",
+        "operationalStatus": "Estado Operacional"
+    },
+    "tire": {
+        "list": "Listado de Neumáticos",
+        "new": "Nuevo Neumático",
+        "brand": "Marca",
+        "model": "Modelo",
+        "size": "Tamaño",
+        "type": "Tipo",
+        "price": "Price",
+        "countryOfOrigin": "País de Origen",
+        "warehouse": "Almacén",
+        "quantityInStock": "quantityInStock"
     },
     "history": {
-        "title": "Order History",
-        "open_filter": "Open Filter",
-        "close_filter": "Close Filter",
-        "load_more": "Load More",
-        "no_orders": "No Orders Yet"
+        "title": "Historial de Pedidos",
+        "open_filter": "Abrir Filtro",
+        "close_filter": "Cerrar Filtro",
+        "load_more": "Cargar Más",
+        "no_orders": "Sin Pedidos Aún"
     },
     "users": {
-        "title": "Users",
-        "new": "New user"
+        "title": "Usuarios",
+        "new": "Nuevo Usuario",
+        "email": "Correo Electrónico",
+        "role": "Rol",
+        "timeLogin": "Hora de Inicio de Sesión",
+        "loginAttempts": "Intentos de Inicio de Sesión"
     }
 }

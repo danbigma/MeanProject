@@ -27,3 +27,17 @@
   background-color: rgb(255, 166, 0);
   color: white;
 }
+
+.modal {
+  width: 20%;
+}
+
+/* En tu archivo CSS */
+.modal-confirm .modal-content {
+  background-color: #f8f8f8; /* Color de fondo más suave */
+  color: #333; /* Color de texto más oscuro para contraste */
+}
+
+.modal-confirm .modal-footer a {
+  margin-right: 10px; /* Espaciado entre botones */
+}

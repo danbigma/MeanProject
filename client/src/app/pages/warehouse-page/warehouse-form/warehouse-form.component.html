@@ -12,57 +12,11 @@
 </div>
 
 <div class="row">
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="container">
         <div class="input-field">
             <input id="name" type="text" formControlName="name">
             <label for="name">Nombre</label>
         </div>
-
-        <div formGroupName="location">
-            <div class="input-field">
-                <input id="country" type="text" formControlName="country">
-                <label for="country">País</label>
-            </div>
-
-            <div class="input-field">
-                <input id="city" type="text" formControlName="city">
-                <label for="city">Ciudad</label>
-            </div>
-
-            <div class="input-field">
-                <input id="address" type="text" formControlName="address">
-                <label for="address">Dirección</label>
-            </div>
-
-            <div formGroupName="coordinates" class="row">
-                <div class="input-field col s6">
-                    <input id="latitude" type="text" formControlName="latitude">
-                    <label for="latitude">Latitud</label>
-                </div>
-
-                <div class="input-field col s6">
-                    <input id="longitude" type="text" formControlName="longitude">
-                    <label for="longitude">Longitud</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="input-field">
-            <input id="capacity" type="number" formControlName="capacity">
-            <label for="capacity">Capacidad</label>
-        </div>
-
-        <div class="input-field">
-            <select formControlName="operationalStatus">
-                <option value="" disabled selected>Elige el estado</option>
-                <option value="Active">Activo</option>
-                <option value="Inactive">Inactivo</option>
-                <option value="Under Maintenance">En Mantenimiento</option>
-            </select>
-            <label>Estado Operacional</label>
-        </div>
-
         <div formGroupName="contactInfo">
             <div class="input-field col s6">
                 <input id="phoneNumber" type="text" formControlName="phoneNumber">
@@ -75,6 +29,43 @@
             </div>
         </div>
 
+        <div formGroupName="location">
+            <div class="input-field col s4">
+                <input id="country" type="text" formControlName="country">
+                <label for="country">País</label>
+            </div>
+            <div class="input-field col s4">
+                <input id="city" type="text" formControlName="city">
+                <label for="city">Ciudad</label>
+            </div>
+            <div class="input-field col s4">
+                <input id="address" type="text" formControlName="address">
+                <label for="address">Dirección</label>
+            </div>
+            <div formGroupName="coordinates" class="row">
+                <div class="input-field col s6">
+                    <input id="latitude" type="text" formControlName="latitude">
+                    <label for="latitude">Latitud</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="longitude" type="text" formControlName="longitude">
+                    <label for="longitude">Longitud</label>
+                </div>
+            </div>
+        </div>
+        <div class="input-field">
+            <input id="capacity" type="number" formControlName="capacity">
+            <label for="capacity">Capacidad</label>
+        </div>
+        <div class="input-field">
+            <select formControlName="operationalStatus">
+                <option value="" disabled selected>Elige el estado</option>
+                <option value="Active">Activo</option>
+                <option value="Inactive">Inactivo</option>
+                <option value="Under Maintenance">En Mantenimiento</option>
+            </select>
+            <label>Estado Operacional</label>
+        </div>
         <button type="submit" class="btn waves-effect waves-light" [disabled]="form.valid">Guardar
         </button>
     </form>

@@ -1,0 +1,52 @@
+<div class="page-title">
+  <h5>{{ titleKey | translate }}</h5>
+  <button [routerLink]="newItemRoute" class="waves-effect waves-light btn darken-1">
+    {{ 'general.new' | translate }}
+  </button>
+</div>
+
+<div class="search-field">
+  <input type="text" (input)="search($event)" placeholder="Buscar..." />
+</div>
+
+<table class="highlight responsive-table" aria-describedby="table">
+  <thead>
+    <tr>
+      <th *ngFor="let column of columns">{{ column.headerKey | translate }}</th>
+      <th>{{ 'general.actions' | translate }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of filteredItems; let i = index">
+      <td *ngFor="let column of columns">
+        <!-- Verificar si el campo es 'index' para mostrar el índice de la fila -->
+        <span *ngIf="column.field === 'index'; else dynamicContent">
+          {{ i + 1 }}
+        </span>
+        <ng-template #dynamicContent>
+          <span *ngIf="column.formatter; else noFormatter">
+            {{ column.formatter(item[column.field]) }}
+          </span>
+          <ng-template #noFormatter>
+            <span *ngIf="column.conditionalClass" [ngClass]="getConditionalClass(item, column.field)">
+              {{ column.formatter ? column.formatter(item[column.field]) : item[column.field] }}
+            </span>
+            <span *ngIf="!column.conditionalClass">
+              {{ item[column.field] }}
+            </span>
+          </ng-template>
+        </ng-template>
+      </td>
+      <td>
+        <div class="action-buttons" *ngIf="isAdmin()">
+          <button class="btn btn-small" (click)="editItem.emit(item)">
+            <i class="material-icons">edit</i>
+          </button>
+          <button class="btn btn-small red" (click)="deleteItem.emit(item)">
+            <i class="material-icons">delete</i>
+          </button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

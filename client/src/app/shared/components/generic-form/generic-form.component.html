@@ -1,0 +1,46 @@
+<div class="row">
+    <form *ngIf="safeEntityConfig" [formGroup]="form" (ngSubmit)="onSubmit()" class="container">
+        <ng-container *ngFor="let key of objectKeys(safeEntityConfig)">
+            <div *ngIf="safeEntityConfig[key].type !== 'group'" class="input-field"
+                [class]="safeEntityConfig[key].class || ''">
+                <label>{{safeEntityConfig[key].label}}</label>
+                <input *ngIf="safeEntityConfig[key]?.type === 'input'"
+                    [type]="safeEntityConfig[key].inputType || 'text'" [formControlName]="key">
+                <input *ngIf="safeEntityConfig[key]?.type === 'text'" #datePicker
+                    [type]="safeEntityConfig[key].inputType || 'text'" [formControlName]="key">
+                <!-- Aplicar clase basada en la configuración -->
+                <select *ngIf="safeEntityConfig[key]?.type === 'select'" [formControlName]="key">
+                    <!-- Aplicar clase basada en la configuración -->
+                    <option *ngFor="let option of safeEntityConfig[key]?.options" [value]="option.value"
+                        [selected]="option.value === form.controls[key].value">
+                        {{option.label}}
+                    </option>
+                </select>
+            </div>
+            <div *ngIf="getFields(key)" [formGroupName]="key" class="group-field">
+                <ng-container *ngFor="let subKey of objectKeys(getFields(key)!)">
+                    <div class="input-field" [class]="safeEntityConfig[key]!.fields![subKey].class || ''">
+                        <label>{{safeEntityConfig[key]!.fields![subKey].label}}</label>
+                        <input *ngIf="safeEntityConfig[key]!.fields![subKey]?.type === 'input'"
+                            [type]="safeEntityConfig[key]!.fields![subKey].inputType || 'text'"
+                            [formControlName]="subKey">
+                        <!-- Aplicar clase basada en la configuración -->
+                        <select *ngIf="safeEntityConfig[key]!.fields![subKey]?.type === 'select'"
+                            [formControlName]="subKey">
+                            <!-- Aplicar clase basada en la configuración -->
+                            <option *ngFor="let option of safeEntityConfig[key]!.fields![subKey]?.options"
+                                [selected]="option.value === form.controls[key].value" [value]="option.value">
+                                {{option.label}}</option>
+                        </select>
+                    </div>
+                </ng-container>
+            </div>
+        </ng-container>
+        <div class="row">
+
+        </div>
+    </form>
+
+    <button type="submit" class="btn waves-effect waves-light" [disabled]="!form.valid">Guardar</button>
+    <button type="button" class="btn-flat waves-effect" routerLink="/tires">Cancelar</button>
+</div>

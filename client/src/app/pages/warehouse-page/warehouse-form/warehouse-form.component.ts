@@ -120,8 +120,9 @@ export class WarehouseFormComponent {
     obs$.subscribe({
       next: (warehouse) => {
         this.warehouse = warehouse;
-        MaterialService.toast('Изменения сохранены');
+        MaterialService.toast(this.isNew ? 'Новый склад создан' : 'Изменения сохранены');
         this.form.enable();
+        MaterialService.updateTextInputs();
       },
       error: (error) => {
         MaterialService.toast(error.error.message);

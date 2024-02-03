@@ -1,9 +1,48 @@
 {
-    "HISTORY": {
-        "TITLE": "Order History",
-        "OPEN_FILTER": "Open Filter",
-        "CLOSE_FILTER": "Close Filter",
-        "LOAD_MORE": "Load More",
-        "NO_ORDERS": "No Orders Yet"
+    "general": {
+        "actions": "Actions",
+        "new": "New"
+    },
+    "menu": {
+        "stock": "Stock",
+        "users": "Users",
+        "warehouses": "Warehouses",
+        "tires": "Tires",
+        "order": "Order",
+        "overview": "Overview",
+        "analytics": "Analytics",
+        "history": "History"
+    },
+    "warehouse": {
+        "list": "Warehouse List",
+        "new": "New Warehouse",
+        "name": "Name",
+        "location": "Location",
+        "operationalStatus": "Operational Status"
+    },
+    "tire": {
+        "list": "Tire List",
+        "new": "New Tire",
+        "brand": "Brand",
+        "model": "Model",
+        "size": "Size",
+        "type": "Type",
+        "countryOfOrigin": "Country of Origin",
+        "warehouse": "Almacén"
+    },
+    "history": {
+        "title": "Order History",
+        "open_filter": "Open Filter",
+        "close_filter": "Close Filter",
+        "load_more": "Load More",
+        "no_orders": "No Orders Yet"
+    },
+    "users": {
+        "title": "Users",
+        "new": "New User",
+        "email": "Email",
+        "role": "Role",
+        "timeLogin": "Time Login",
+        "loginAttempts": "Login Attempts"
     }
 }

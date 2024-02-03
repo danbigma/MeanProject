@@ -113,7 +113,7 @@ export interface Location {
 
 export interface ContactInfo {
   phoneNumber?: string; // Opcional
-  email?: string;        // Opcional
+  email?: string; // Opcional
 }
 
 export interface Warehouse {
@@ -123,4 +123,49 @@ export interface Warehouse {
   capacity: number;
   operationalStatus: 'Active' | 'Inactive' | 'Under Maintenance';
   contactInfo?: ContactInfo; // La información de contacto es opcional
+}
+
+export interface Price {
+  amount: number;
+  currency: string;
+}
+
+export interface Tire {
+  _id?: string; // Opcional porque no se necesita para la creación
+  brand: string;
+  model: string;
+  size: string;
+  type: 'Winter' | 'Summer' | 'All-Season' | 'Off-Road';
+  manufactureDate: Date;
+  countryOfOrigin: string;
+  warehouseId: string; // O puedes usar `mongoose.Schema.Types.ObjectId` si trabajas directamente con referencias de Mongoose
+  quantityInStock: number;
+  price: Price;
+  warehouseName: string;
+}
+
+export interface WarehouseResponse {
+  tireId: string;
+  warehouseName: string;
+}
+
+export interface FormFieldOption {
+  value: string;
+  label: string;
+}
+
+export interface FormField {
+  type: 'input' | 'select' | 'date' | 'group' | 'text'; // Añade más tipos según sea necesario
+  label: string;
+  name: string;
+  validators?: any[]; // Array de validadores
+  options?: FormFieldOption[]; // Solo para campos de tipo 'select'
+  inputType?: string; // Solo para campos de tipo 'input'
+  fields?: FormGroupConfig; // Solo para campos de tipo 'group', para anidación
+  class?: string; // Permite la asignación dinámica de clases CSS
+  dataPpicker?: boolean
+}
+
+export interface FormGroupConfig {
+  [key: string]: FormField;
 }

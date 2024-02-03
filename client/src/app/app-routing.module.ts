@@ -16,6 +16,8 @@ import { OrderPositionsComponent } from './pages/order-page/order-positions/orde
 import { UsersPageComponent } from './pages/users-page/users-page.component';
 import { WarehouseComponent } from './pages/warehouse-page/warehouse.component';
 import { WarehouseFormComponent } from './pages/warehouse-page/warehouse-form/warehouse-form.component';
+import { TiresComponent } from './pages/tires-page/tires.component';
+import { TireFormComponent } from './pages/tires-page/tire-form/tire-form.component';
 
 const routes: Routes = [
   {
@@ -49,7 +51,10 @@ const routes: Routes = [
       { path: 'users', component: UsersPageComponent },
       { path: 'warehouses', component: WarehouseComponent },
       { path: 'warehouses/new', component: WarehouseFormComponent },
-      { path: 'warehouses/:id', component: WarehouseFormComponent }
+      { path: 'warehouses/:id', component: WarehouseFormComponent },
+      { path: 'tires', component: TiresComponent },
+      { path: 'tires/new', component: TireFormComponent },
+      { path: 'tires/:id', component: TireFormComponent }
     ],
   },
 ];

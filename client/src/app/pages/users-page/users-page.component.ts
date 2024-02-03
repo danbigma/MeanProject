@@ -1,5 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Subscription } from 'rxjs';
 import {
   MaterialInstance,
@@ -28,17 +33,22 @@ export class UsersPageComponent implements OnInit {
   loading = false;
   reloading = false;
 
-  constructor(private usersService: UsersService) {
-    this.form = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required]),
-      role: new FormControl('', [Validators.required])
-    });
-  }
+  constructor(private usersService: UsersService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
+    this.initForm();
     this.reloading = true;
     this.fetch();
+  }
+
+  initForm() {
+    this.form = this.fb.group({
+      brand: ['', Validators.required],
+      model: ['', Validators.required],
+      size: ['', Validators.required],
+      type: ['', Validators.required],
+      countryOfOrigin: ['', Validators.required]
+    });
   }
 
   private fetch() {
@@ -49,24 +59,30 @@ export class UsersPageComponent implements OnInit {
     });
   }
 
-onSubmit() {
-  this.form.disable();
-  this.loading = true;
-  this.usersService.createUser(this.form.value.email, this.form.value.password, this.form.value.role).subscribe({
-    next: (user) => {
-      console.log('Usuario creado:', user);
-      this.users = this.users.concat(user);
-      this.form.reset();
-      this.modal.close();
-      this.loading = false;
-    },
-    error: (error) => {
-      console.error('Error creando el usuario:', error);
-      this.form.enable();
-      this.loading = false;
-    }
-  });
-}
+  onSubmit() {
+    this.form.disable();
+    this.loading = true;
+    this.usersService
+      .createUser(
+        this.form.value.email,
+        this.form.value.password,
+        this.form.value.role
+      )
+      .subscribe({
+        next: (user) => {
+          console.log('Usuario creado:', user);
+          this.users = this.users.concat(user);
+          this.form.reset();
+          this.modal.close();
+          this.loading = false;
+        },
+        error: (error) => {
+          console.error('Error creando el usuario:', error);
+          this.form.enable();
+          this.loading = false;
+        },
+      });
+  }
 
   ngAfterViewInit(): void {
     const selects = document.querySelectorAll('select');

@@ -1,0 +1,19 @@
+<app-generic-list *ngIf="!loading; else loader" [titleKey]="'tire.list'" [newItemRoute]="'/tires/new'"
+  [columns]="tireColumns" [items]="tires" (editItem)="onEdit($event)" (deleteItem)="onDelete($event)">
+</app-generic-list>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>
+
+<!-- Modal Structure -->
+<div class="modal modal-confirm" #modal>
+  <div class="modal-content">
+    <h4><i class="material-icons left">warning</i> Confirmación</h4>
+    <p>¿Estás seguro de que quieres eliminar este elemento?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="modal-close waves-effect waves-light btn red mr1" (click)="confirmDelete()">Aceptar</button>
+    <button type="button" class="modal-close waves-effect waves-light btn grey lighten-1">Cancelar</button>
+  </div>
+</div>

@@ -8,7 +8,8 @@ const routes = {
   '/order': require('./order'),
   '/position': require('./position'),
   '/users': require('./users'),
-  '/warehouse': require('./warehouse')
+  '/warehouse': require('./warehouse'),
+  '/tires': require('./tire')
   // Más rutas...
 };
 

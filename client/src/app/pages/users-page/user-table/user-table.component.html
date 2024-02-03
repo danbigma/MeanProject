@@ -1,33 +1,11 @@
-<table class="highlight mb2" aria-label="table">
-  <thead>
-      <tr>
-          <th>№</th>
-          <th>Email</th>
-          <th>Role</th>
-          <th>Time login</th>
-          <th></th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr *ngFor="let user of users; let i = index">
-          <td>{{ i + 1 }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.role }}</td>
-          <td>{{ user.timeLogin | date:'hh:mm:ss dd.MM.yyyy' }}</td>
-          <td>
-              <button class="btn btn-small grey darken-1" (click)="selectUser(user)">
-                  <i class="material-icons">open_in_new</i>
-              </button>
-          </td>
-      </tr>
-  </tbody>
-</table>
+<app-generic-list [titleKey]="'Users'" [newItemRoute]="'/path/to/user/create'" [columns]="userColumns"
+    [items]="users"></app-generic-list>
 
 <div class="modal modal-fixed-footer" #modal>
-  <div class="modal-content" *ngIf="selectedUser">
-      <h4 class="mb1">{{ selectedUser.email }}</h4>
-  </div>
-  <div class="modal-footer">
-      <button (click)="close()" class="modal-action waves-effect waves-black btn-flat">Закрыть</button>
-  </div>
+    <div class="modal-content" *ngIf="selectedUser">
+        <h4 class="mb1">{{ selectedUser.email }}</h4>
+    </div>
+    <div class="modal-footer">
+        <button (click)="close()" class="modal-action waves-effect waves-black btn-flat">Закрыть</button>
+    </div>
 </div>

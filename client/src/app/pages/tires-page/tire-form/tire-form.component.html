@@ -1,0 +1,83 @@
+<div class="page-title">
+  <h4>
+    <a routerLink="/tires">Neumáticos</a>
+    <i class="material-icons">keyboard_arrow_right</i>
+    {{ isNew ? 'Agregar' : 'Editar' }} Neumático
+  </h4>
+  <span>
+    <button *ngIf="!isNew" class="btn btn-small red" (click)="delete()">
+      <i class="material-icons">delete</i>
+    </button>
+  </span>
+</div>
+
+<div class="row">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="container">
+    <!-- Marca -->
+    <div class="input-field col s6">
+      <input id="brand" type="text" formControlName="brand">
+      <label for="brand">Marca</label>
+    </div>
+
+    <!-- Modelo -->
+    <div class="input-field col s6">
+      <input id="model" type="text" formControlName="model">
+      <label for="model">Modelo</label>
+    </div>
+
+    <!-- Tamaño -->
+    <div class="input-field col s6">
+      <input id="size" type="text" formControlName="size">
+      <label for="size">Tamaño</label>
+    </div>
+
+    <!-- Tipo -->
+    <div class="input-field col s6">
+      <input id="type" type="text" formControlName="type">
+      <label for="type">Tipo</label>
+    </div>
+
+    <!-- Fecha de Fabricación -->
+    <div class="input-field col s6">
+      <input id="manufactureDate" type="text" formControlName="manufactureDate" #datePicker>
+      <label for="manufactureDate">Fecha de Fabricación</label>
+    </div>
+
+    <!-- País de Origen -->
+    <div class="input-field col s6">
+      <input id="countryOfOrigin" type="text" formControlName="countryOfOrigin">
+      <label for="countryOfOrigin">País de Origen</label>
+    </div>
+
+    <!-- Grupo de Precio -->
+    <div formGroupName="price" class="input-field col s12">
+      <!-- Monto -->
+      <div class="input-field col s6">
+        <input id="priceAmount" type="number" formControlName="amount">
+        <label for="priceAmount">Precio</label>
+      </div>
+
+      <!-- Moneda -->
+      <div class="input-field col s6">
+        <select formControlName="currency">
+          <option value="" disabled selected>Elige la moneda</option>
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+          <!-- Añade más opciones según sea necesario -->
+        </select>
+        <label>Moneda</label>
+      </div>
+    </div>
+
+    <!-- Cantidad en Stock -->
+    <div class="input-field col s12">
+      <input id="quantityInStock" type="number" formControlName="quantityInStock">
+      <label for="quantityInStock">Cantidad en Stock</label>
+    </div>
+
+    <button type="submit" class="btn waves-effect waves-light" [disabled]="!form.valid">Guardar</button>
+    <button type="button" class="btn-flat waves-effect" routerLink="/tires">Cancelar</button>
+  </form>
+</div>
+
+<!-- <app-generic-form [entityConfig]="entityConfig"></app-generic-form> -->

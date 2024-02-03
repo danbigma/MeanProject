@@ -12,6 +12,11 @@
   bottom: 62px;
   width: 100%;
 }
+
+nav {
+  background-color: #fa9d41;
+}
+
 main,
 footer {
   margin-left: 250px;
@@ -23,7 +28,7 @@ footer {
   margin: 0;
 }
 .mr1 {
-  margin-right: 10px;
+  margin-right: 10px !important;
 }
 .mb2 {
   margin-bottom: 20px;

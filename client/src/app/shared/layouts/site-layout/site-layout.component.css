@@ -11,3 +11,7 @@ header, .sidenav-fixed {
     margin-left: 0; /* Asegúrate de que el contenido se expanda a pantalla completa en dispositivos más pequeños */
   }
 }
+
+.logo {
+  height: 64px;
+}

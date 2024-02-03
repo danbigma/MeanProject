@@ -14,16 +14,19 @@
   border-radius: 2px;
   background-color: green;
   color: white;
+  padding: 6px;
 }
 
 .status-inactive {
   border-radius: 2px;
   background-color: rgb(230, 4, 4);
   color: white;
+  padding: 6px;
 }
 
 .status-maintenance {
   border-radius: 2px;
   background-color: rgb(255, 166, 0);
   color: white;
+  padding: 6px;
 }

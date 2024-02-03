@@ -60,12 +60,10 @@ export class CategoriesPageComponent implements OnInit {
       console.error('Category ID is undefined');
       return;
     }
-
     const confirmation = window.confirm(`Are you sure you want to delete ${category.name}?`);
     if (!confirmation) {
       return;
     }
-
     this.categoriesService.delete(category._id).subscribe({
       next: () => {
         console.log('Category deleted successfully');

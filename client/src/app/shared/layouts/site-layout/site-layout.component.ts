@@ -27,12 +27,14 @@ export class SiteLayoutComponent implements AfterViewInit {
   timeLogin: string | undefined;
 
   links = [
-    { url: '/overview', name: 'Обзор' },
-    { url: '/analytics', name: 'Аналитика' },
-    { url: '/history', name: 'История' },
-    { url: '/order', name: 'Добавить заказ' },
-    { url: '/categories', name: 'menu.stock' },
-    { url: '/warehouses', name: 'menu.warehouses' },
+    { url: '/overview', name: 'menu.overview', icon: 'dashboard' },
+    { url: '/analytics', name: 'menu.analytics', icon: 'analytics' },
+    { url: '/history', name: 'menu.history', icon: 'history' },
+    { url: '/order', name: 'menu.order', icon: 'add_shopping_cart' },
+    { url: '/categories', name: 'menu.stock', icon: 'category' },
+    { url: '/warehouses', name: 'menu.warehouses', icon: 'store' },
+    { url: '/tires', name: 'menu.tires', icon: 'format_list_bulleted' },
+    // Añade más enlaces según sea necesario
   ];
 
   constructor(
@@ -55,7 +57,7 @@ export class SiteLayoutComponent implements AfterViewInit {
         }
       });
       if (this.isAdmin()) {
-        this.links.push({ url: '/users', name: 'menu.users' });
+        this.links.push({ url: '/users', name: 'menu.users', icon: 'people' });
       }
   }
 
