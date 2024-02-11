@@ -1,6 +1,6 @@
 <header>
   <nav>
-    <div class="nav-wrapper">
+    <div class="nav-wrapper orange lighten-2">
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a [attr.data-tooltip]="getLoginTooltip()" class="" #tooltip>{{ currentUser?.email }}</a></li>
         <li><a href="#" class="waves-effect waves-orange" (click)="logout($event)"><i class="material-icons">exit_to_app</i></a></li>
@@ -8,10 +8,11 @@
     </div>
   </nav>
 </header>
-
 <ul class="sidenav sidenav-fixed">
   <!-- Tus ítems de la barra lateral aquí -->
-  <li class="logo"></li>
+  <h1 class="center-align">
+    <img src="../../../../assets/logo.png" style="width: 220px;" alt="Logo">
+  </h1>
   <li *ngFor="let link of links" routerLinkActive="active">
     <a [routerLink]="[link.url]" class="waves-effect waves-orange">
       <i class="material-icons left">{{ link.icon }}</i>
@@ -36,7 +37,7 @@
       </a>
     </li>
     <li>
-      <a class="btn-floating blue" routerLink="/categories/new">
+      <a class="btn-floating blue" routerLink="/tires/new">
         <i class="material-icons">list</i>
       </a>
     </li>

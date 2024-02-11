@@ -1,5 +1,9 @@
-<app-generic-list [titleKey]="'Users'" [newItemRoute]="'/path/to/user/create'" [columns]="userColumns"
-    [items]="users"></app-generic-list>
+<app-generic-list 
+    [titleKey]="'Users'" 
+    [newItemRoute]="'/path/to/user/create'" 
+    [columns]="userColumns"
+    [items]="users">
+</app-generic-list>
 
 <div class="modal modal-fixed-footer" #modal>
     <div class="modal-content" *ngIf="selectedUser">

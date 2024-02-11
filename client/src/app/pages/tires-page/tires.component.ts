@@ -66,35 +66,19 @@ export class TiresComponent {
 
   loadTires() {
     this.oSub = this.tiresService.getAll().subscribe((tires) => {
-      const warehouseRequests: Observable<WarehouseResponse>[] = [];
-
-      tires.forEach((tire) => {
-        if (tire.warehouseId) {
-          warehouseRequests.push(
-            this.warehouseService.getById(tire.warehouseId).pipe(
-              map((warehouse) => ({
-                tireId: tire._id!, // Aserción no nula, asegurando que tire._id no es undefined
-                warehouseName: warehouse.name,
-              }))
-            )
-          );
+      // Asumiendo que cada neumático ahora tiene un campo adicional `warehouseInfo`
+      // que contiene la información del almacén resultante del `$lookup` en el backend.
+      this.tires = tires.map(tire => {
+        // Si la información del almacén está presente, la asignamos directamente al neumático.
+        if (tire.warehouseInfo) {
+          tire.warehouseName = tire.warehouseInfo.name; // Ajusta esto según la estructura de tus datos.
         }
+        return tire;
       });
-
-      forkJoin(warehouseRequests).subscribe((results) => {
-        results.forEach((result) => {
-          const tireIndex = tires.findIndex(
-            (tire) => tire._id === result.tireId
-          );
-          if (tireIndex !== -1) {
-            tires[tireIndex].warehouseName = result.warehouseName;
-          }
-        });
-        this.loading = false;
-        this.tires = tires;
-      });
+      this.loading = false;
     });
   }
+  
 
   onDelete(tire: Tire) {
     // Guarda el neumático a eliminar en una propiedad para usarlo después

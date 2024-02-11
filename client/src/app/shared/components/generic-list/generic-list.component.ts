@@ -62,11 +62,11 @@ export class GenericListComponent {
     const value = item[field];
     switch (value) {
       case 'Active':
-        return 'status-active';
+        return 'green status-active';
       case 'Inactive':
-        return 'status-inactive';
+        return 'red status-inactive';
       case 'Under Maintenance':
-        return 'status-maintenance';
+        return 'orange status-maintenance';
       default:
         return '';
     }

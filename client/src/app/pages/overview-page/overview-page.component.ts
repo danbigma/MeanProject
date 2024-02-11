@@ -9,7 +9,10 @@ import {
 import { AnalyticsService } from '../../shared/services/analytics.service';
 import { Observable } from 'rxjs/index';
 import { OverviewPage } from '../../shared/interfaces';
-import { MaterialInstance, MaterialService } from '../../shared/classes/material.service';
+import {
+  MaterialInstance,
+  MaterialService,
+} from '../../shared/classes/material.service';
 
 @Component({
   selector: 'app-overview-page',
@@ -47,5 +50,14 @@ export class OverviewPageComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.tapTarget) {
       this.tapTarget.open();
     }
+  }
+
+  // Asumiendo que 'data' es el objeto que contiene la información que estás mostrando
+  getOrderInfoTranslationParams(data: any) {
+    return {
+      percent: data.orders.percent,
+      isHigher: data.orders.isHigher ? 'higher' : 'lower',
+      compare: data.orders.compare,
+    };
   }
 }

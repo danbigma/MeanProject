@@ -16,12 +16,19 @@ export class WarehouseComponent implements OnInit {
   oSub!: Subscription;
   warehouses: Warehouse[] = [];
 
+  loading = false;
+
   warehouseColumns = [
     { headerKey: 'warehouse.name', field: 'name' },
     {
       headerKey: 'warehouse.location',
       field: 'location',
       formatter: (location: { city: any; country: any; }) => `${location.city}, ${location.country}`,
+    },
+    {
+      headerKey: 'warehouse.phoneNumber',
+      field: 'contactInfo',
+      formatter: (contactInfo: { phoneNumber: any }) => `${contactInfo.phoneNumber}`,
     },
     {
       headerKey: 'warehouse.operationalStatus',
@@ -41,8 +48,10 @@ export class WarehouseComponent implements OnInit {
   }
 
   loadWarehouses() {
+    this.loading = true;
     this.oSub = this.warehouseService.getAll().subscribe((warehouses) => {
       this.warehouses = warehouses; // Simplemente asigna el valor en lugar de concatenar
+      this.loading = false;
     });
   }
 

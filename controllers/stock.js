@@ -3,12 +3,27 @@ const Tire = require("../models/Tire");
 // Obtener todos los neumáticos
 module.exports.getAll = async (req, res) => {
   try {
-    const tires = await Tire.find();
+    const tires = await Tire.aggregate([
+      {
+        $lookup: {
+          from: "warehouses", // El nombre de la colección a la que te quieres unir.
+          localField: "warehouseId", // El campo en los documentos de la colección Tire que contiene el id del almacén.
+          foreignField: "_id", // El campo en los documentos de la colección Warehouse que corresponde al id.
+          as: "warehouseInfo" // El nombre del campo en el que se colocarán los documentos unidos.
+        }
+      },
+      {
+        $unwind: "$warehouseInfo" // Opcional: descomponer el array de warehouseInfo si siempre esperas 1 resultado.
+      }
+      // Puedes añadir más etapas aquí si es necesario, como $match, $project, etc.
+    ]);
+
     res.json(tires);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 // Obtener un neumático por ID
 module.exports.getById = async (req, res) => {

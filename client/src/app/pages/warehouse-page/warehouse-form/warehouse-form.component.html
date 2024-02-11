@@ -2,7 +2,7 @@
     <h4>
         <a routerLink="/warehouses">Warehouses</a>
         <i class="material-icons">keyboard_arrow_right</i>
-        {{ isNew ? 'Добавить' : 'Редактировать' }} Warehouse
+        {{ isNew ? 'Agregar' : 'Editar' }} Warehouse
     </h4>
     <span>
         <button *ngIf="!isNew" class="btn btn-small red" (click)="deleteWarehouse()">
@@ -14,51 +14,63 @@
 <div class="row">
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="container">
         <div class="input-field">
-            <input id="name" type="text" formControlName="name">
+            <input id="name" type="text" formControlName="name" [ngClass]="isInvalid('name')">
             <label for="name">Nombre</label>
         </div>
+
         <div formGroupName="contactInfo">
             <div class="input-field col s6">
-                <input id="phoneNumber" type="text" formControlName="phoneNumber">
+                <input id="phoneNumber" type="text" formControlName="phoneNumber"
+                    [ngClass]="isInvalid(['contactInfo', 'phoneNumber'])">
                 <label for="phoneNumber">Teléfono</label>
             </div>
 
             <div class="input-field col s6">
-                <input id="email" type="email" formControlName="email">
+                <input id="email" type="email" formControlName="email" [ngClass]="isInvalid(['contactInfo', 'email'])">
                 <label for="email">Email</label>
             </div>
         </div>
 
         <div formGroupName="location">
             <div class="input-field col s4">
-                <input id="country" type="text" formControlName="country">
+                <input id="country" type="text" formControlName="country"
+                    [ngClass]="isInvalid(['location', 'country'])">
                 <label for="country">País</label>
             </div>
+
             <div class="input-field col s4">
-                <input id="city" type="text" formControlName="city">
+                <input id="city" type="text" formControlName="city" [ngClass]="isInvalid(['location', 'city'])">
                 <label for="city">Ciudad</label>
             </div>
+
             <div class="input-field col s4">
-                <input id="address" type="text" formControlName="address">
+                <input id="address" type="text" formControlName="address"
+                    [ngClass]="isInvalid(['location', 'address'])">
                 <label for="address">Dirección</label>
             </div>
+
             <div formGroupName="coordinates" class="row">
                 <div class="input-field col s6">
-                    <input id="latitude" type="text" formControlName="latitude">
+                    <input id="latitude" type="text" formControlName="latitude"
+                        [ngClass]="isInvalid(['location', 'coordinates', 'latitude'])">
                     <label for="latitude">Latitud</label>
                 </div>
+
                 <div class="input-field col s6">
-                    <input id="longitude" type="text" formControlName="longitude">
+                    <input id="longitude" type="text" formControlName="longitude"
+                        [ngClass]="isInvalid(['location', 'coordinates', 'longitude'])">
                     <label for="longitude">Longitud</label>
                 </div>
             </div>
         </div>
+
         <div class="input-field">
-            <input id="capacity" type="number" formControlName="capacity">
+            <input id="capacity" type="number" formControlName="capacity" [ngClass]="isInvalid('capacity')">
             <label for="capacity">Capacidad</label>
         </div>
+
         <div class="input-field">
-            <select formControlName="operationalStatus">
+            <select formControlName="operationalStatus" [ngClass]="isInvalid('operationalStatus')">
                 <option value="" disabled selected>Elige el estado</option>
                 <option value="Active">Activo</option>
                 <option value="Inactive">Inactivo</option>
@@ -66,9 +78,8 @@
             </select>
             <label>Estado Operacional</label>
         </div>
-        <button type="submit" class="btn waves-effect waves-light" [disabled]="form.valid">Guardar
-        </button>
+
+        <button type="submit" class="btn waves-effect waves-light" [disabled]="!form.valid"><i class="material-icons left">save</i>Guardar</button>
+        <button type="button" class="btn-flat waves-effect" routerLink="/warehouses"><i class="material-icons left">cancel</i>Cancelar</button>
     </form>
-
-
 </div>

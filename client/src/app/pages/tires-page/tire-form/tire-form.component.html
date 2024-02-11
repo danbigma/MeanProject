@@ -11,41 +11,47 @@
   </span>
 </div>
 
-<div class="row">
+<div class="row" *ngIf="!loading; else loader">
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="container">
     <!-- Marca -->
     <div class="input-field col s6">
-      <input id="brand" type="text" formControlName="brand">
+      <input id="brand" type="text" formControlName="brand"
+        [ngClass]="isInvalid('brand')">
       <label for="brand">Marca</label>
     </div>
 
     <!-- Modelo -->
     <div class="input-field col s6">
-      <input id="model" type="text" formControlName="model">
+      <input id="model" type="text" formControlName="model"
+        [ngClass]="isInvalid('model')">
       <label for="model">Modelo</label>
     </div>
 
     <!-- Tamaño -->
     <div class="input-field col s6">
-      <input id="size" type="text" formControlName="size">
+      <input id="size" type="text" formControlName="size"
+        [ngClass]="isInvalid('size')">
       <label for="size">Tamaño</label>
     </div>
 
     <!-- Tipo -->
     <div class="input-field col s6">
-      <input id="type" type="text" formControlName="type">
+      <input id="type" type="text" formControlName="type"
+        [ngClass]="isInvalid('type')">
       <label for="type">Tipo</label>
     </div>
 
     <!-- Fecha de Fabricación -->
     <div class="input-field col s6">
-      <input id="manufactureDate" type="text" formControlName="manufactureDate" #datePicker>
+      <input id="manufactureDate" type="text" formControlName="manufactureDate" #datePicker
+        [ngClass]="isInvalid('manufactureDate')">
       <label for="manufactureDate">Fecha de Fabricación</label>
     </div>
 
     <!-- País de Origen -->
     <div class="input-field col s6">
-      <input id="countryOfOrigin" type="text" formControlName="countryOfOrigin">
+      <input id="countryOfOrigin" type="text" formControlName="countryOfOrigin"
+        [ngClass]="isInvalid('countryOfOrigin')">
       <label for="countryOfOrigin">País de Origen</label>
     </div>
 
@@ -53,13 +59,15 @@
     <div formGroupName="price" class="input-field col s12">
       <!-- Monto -->
       <div class="input-field col s6">
-        <input id="priceAmount" type="number" formControlName="amount">
+        <input id="priceAmount" type="number" formControlName="amount"
+          [ngClass]="isInvalid(['price', 'amount'])">
         <label for="priceAmount">Precio</label>
       </div>
 
       <!-- Moneda -->
       <div class="input-field col s6">
-        <select formControlName="currency">
+        <select formControlName="currency"
+          [ngClass]="isInvalid(['price', 'currency'])">
           <option value="" disabled selected>Elige la moneda</option>
           <option value="USD">USD</option>
           <option value="EUR">EUR</option>
@@ -71,13 +79,16 @@
 
     <!-- Cantidad en Stock -->
     <div class="input-field col s12">
-      <input id="quantityInStock" type="number" formControlName="quantityInStock">
+      <input id="quantityInStock" type="number" formControlName="quantityInStock"
+        [ngClass]="isInvalid('quantityInStock')">
       <label for="quantityInStock">Cantidad en Stock</label>
     </div>
 
-    <button type="submit" class="btn waves-effect waves-light" [disabled]="!form.valid">Guardar</button>
-    <button type="button" class="btn-flat waves-effect" routerLink="/tires">Cancelar</button>
+    <button type="submit" class="btn waves-effect waves-light" [disabled]="!form.valid"><i class="material-icons left">save</i>Guardar</button>
+    <button type="button" class="btn-flat waves-effect" routerLink="/tires"><i class="material-icons left">cancel</i>Cancelar</button>
   </form>
 </div>
 
-<!-- <app-generic-form [entityConfig]="entityConfig"></app-generic-form> -->
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

@@ -56,16 +56,17 @@ export class MaterialService {
     return M.Sidenav.init(ref);
   }
 
-  static initDatepicker(
-    ref: ElementRef,
-    onClose: () => void
-  ): MaterialDatepicker {
+  static initDatepicker(ref: ElementRef, onClose: () => void): MaterialDatepicker {
     return M.Datepicker.init(ref.nativeElement, {
       format: 'dd.mm.yyyy',
-      showClearBtn: true,
-      onClose,
+      showClearBtn: false,
+      onClose: () => {
+        onClose();
+        // Aquí podrías actualizar el valor del formulario manualmente si es necesario
+      },
     });
   }
+  
 
   static initTapTarget(ref: ElementRef): MaterialInstance {
     return M.TapTarget.init(ref.nativeElement);

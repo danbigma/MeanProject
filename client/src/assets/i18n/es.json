@@ -18,7 +18,8 @@
         "new": "Nuevo Almacén",
         "name": "Nombre",
         "location": "Ubicación",
-        "operationalStatus": "Estado Operacional"
+        "operationalStatus": "Estado Operativo",
+        "phoneNumber": "Teléfono"
     },
     "tire": {
         "list": "Listado de Neumáticos",
@@ -27,17 +28,17 @@
         "model": "Modelo",
         "size": "Tamaño",
         "type": "Tipo",
-        "price": "Price",
+        "price": "Precio",
         "countryOfOrigin": "País de Origen",
         "warehouse": "Almacén",
-        "quantityInStock": "quantityInStock"
+        "quantityInStock": "Cantidad en Stock"
     },
     "history": {
         "title": "Historial de Pedidos",
         "open_filter": "Abrir Filtro",
         "close_filter": "Cerrar Filtro",
         "load_more": "Cargar Más",
-        "no_orders": "Sin Pedidos Aún"
+        "no_orders": "No hay Pedidos"
     },
     "users": {
         "title": "Usuarios",
@@ -46,5 +47,31 @@
         "role": "Rol",
         "timeLogin": "Hora de Inicio de Sesión",
         "loginAttempts": "Intentos de Inicio de Sesión"
+    },
+    "login": {
+        "title": "Iniciar Sesión",
+        "email": "Correo Electrónico",
+        "emailEmpty": "El correo electrónico no debe estar vacío.",
+        "emailValid": "Introduce un correo electrónico válido.",
+        "password": "Contraseña",
+        "passwordEmpty": "La contraseña no debe estar vacía.",
+        "passwordMinLength": "La contraseña debe tener más de 4 caracteres.",
+        "submit": "Entrar",
+        "loading": "Cargando..."
+    },
+    "analytics": {
+        "title": "Analytics",
+        "averageCheck": "Average Check",
+        "revenue": "Revenue",
+        "orders": "Orders"
+    },
+    "overview": {
+        "yesterdayTitle": "Overview for Yesterday",
+        "revenueTitle": "Revenue:",
+        "ordersTitle": "Orders:",
+        "revenueInfo": "Your business revenue yesterday was {{percent}}% {{isHigher}} than the average: {{compare}} orders per day.",
+        "ordersInfo": "The number of orders yesterday was {{percent}}% {{isHigher}} than the average: {{compare}} orders per day.",
+        "whyPageTitle": "Why is this page needed?",
+        "whyPageInfo": "The \"Overview\" page will show the sales dynamics for the previous day. Comparing with average values will help you understand how your business is doing."
     }
 }

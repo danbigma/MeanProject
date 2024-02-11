@@ -21,15 +21,10 @@ import { UsersService } from 'src/app/shared/services/users.service';
 export class UsersPageComponent implements OnInit {
   @ViewChild('modal') modalRef!: ElementRef;
   modal!: MaterialInstance;
-
   roleKeys = Object.keys(Role);
-
   oSub!: Subscription;
-
   form!: FormGroup;
-
   users: User[] = [];
-
   loading = false;
   reloading = false;
 
@@ -63,7 +58,7 @@ export class UsersPageComponent implements OnInit {
     this.form.disable();
     this.loading = true;
     this.usersService
-      .createUser(
+      .create(
         this.form.value.email,
         this.form.value.password,
         this.form.value.role

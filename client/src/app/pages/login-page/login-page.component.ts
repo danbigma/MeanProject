@@ -28,7 +28,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required, Validators.minLength(4)]],
     });
-  
+
     this.route.queryParams
       .pipe(takeUntil(this.destroy$))
       .subscribe((params) => {
@@ -44,12 +44,12 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
   private handleQueryParams(params: Params) {
     const messages: { [key: string]: string } = {
-      'registered': 'Ahora puedes iniciar sesión con tus credenciales.',
-      'accessDenied': 'Por favor, inicia sesión para continuar.',
-      'sessionFailed': 'Tu sesión ha expirado, por favor inicia sesión de nuevo.'
+      registered: 'Ahora puedes iniciar sesión con tus credenciales.',
+      accessDenied: 'Por favor, inicia sesión para continuar.',
+      sessionFailed: 'Tu sesión ha expirado, por favor inicia sesión de nuevo.',
     };
-  
-    Object.keys(messages).forEach(key => {
+
+    Object.keys(messages).forEach((key) => {
       if (params[key as keyof typeof messages]) {
         MaterialService.toast(messages[key as keyof typeof messages]);
       }
@@ -67,7 +67,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
       .subscribe({
         next: () => {
           this.loading = false;
-          this.router.navigate(['/overview'])
+          this.router.navigate(['/overview']);
         },
         error: (e) => {
           MaterialService.toast(e.error.message);
@@ -76,9 +76,19 @@ export class LoginPageComponent implements OnInit, OnDestroy {
           // Limpiar parámetros de consulta al permanecer en la página de inicio de sesión
           this.router.navigate([], {
             queryParams: {},
-            relativeTo: this.route // Asegúrate de inyectar 'private route: ActivatedRoute' en el constructor
+            relativeTo: this.route, // Asegúrate de inyectar 'private route: ActivatedRoute' en el constructor
           });
         },
       });
+  }
+
+  isFieldInvalid(fieldName: string): boolean {
+    const field = this.form.get(fieldName);
+    return (field?.invalid && field?.touched) ?? false;
+  }
+
+  hasError(fieldName: string, errorType: string): boolean {
+    const field = this.form.get(fieldName);
+    return field?.hasError(errorType) ?? false;
   }
 }

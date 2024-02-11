@@ -4,7 +4,7 @@
         "new": "New"
     },
     "menu": {
-        "stock": "Stock",
+        "stock": "Inventory",
         "users": "Users",
         "warehouses": "Warehouses",
         "tires": "Tires",
@@ -18,7 +18,8 @@
         "new": "New Warehouse",
         "name": "Name",
         "location": "Location",
-        "operationalStatus": "Operational Status"
+        "operationalStatus": "Operational Status",
+        "phoneNumber": "Phone Number"
     },
     "tire": {
         "list": "Tire List",
@@ -27,22 +28,50 @@
         "model": "Model",
         "size": "Size",
         "type": "Type",
+        "price": "Price",
         "countryOfOrigin": "Country of Origin",
-        "warehouse": "Almacén"
+        "warehouse": "Warehouse",
+        "quantityInStock": "Quantity in Stock"
     },
     "history": {
         "title": "Order History",
         "open_filter": "Open Filter",
         "close_filter": "Close Filter",
         "load_more": "Load More",
-        "no_orders": "No Orders Yet"
+        "no_orders": "No Orders"
     },
     "users": {
         "title": "Users",
         "new": "New User",
-        "email": "Email",
+        "email": "Email Address",
         "role": "Role",
-        "timeLogin": "Time Login",
+        "timeLogin": "Login Time",
         "loginAttempts": "Login Attempts"
+    },
+    "login": {
+        "title": "Log In",
+        "email": "Email Address",
+        "emailEmpty": "The email address cannot be empty.",
+        "emailValid": "Please enter a valid email address.",
+        "password": "Password",
+        "passwordEmpty": "The password cannot be empty.",
+        "passwordMinLength": "The password must be more than 4 characters.",
+        "submit": "Enter",
+        "loading": "Loading..."
+    },
+    "analytics": {
+        "title": "Analytics",
+        "averageCheck": "Average Check",
+        "revenue": "Revenue",
+        "orders": "Orders"
+    },
+    "overview": {
+        "yesterdayTitle": "Overview for Yesterday",
+        "revenueTitle": "Revenue:",
+        "ordersTitle": "Orders:",
+        "revenueInfo": "Your business revenue yesterday was {{percent}}% {{isHigher}} than the average: {{compare}} orders per day.",
+        "ordersInfo": "The number of orders yesterday was {{percent}}% {{isHigher}} than the average: {{compare}} orders per day.",
+        "whyPageTitle": "Why is this page needed?",
+        "whyPageInfo": "The \"Overview\" page will show the sales dynamics for the previous day. Comparing with average values will help you understand how your business is doing."
     }
 }

@@ -85,7 +85,6 @@ export interface User {
   _id?: string;
   email: string;
   loginAttempts?: number;
-  __v?: number;
   role?: string;
   timeLogin?: string;
   password: string;
@@ -142,6 +141,7 @@ export interface Tire {
   quantityInStock: number;
   price: Price;
   warehouseName: string;
+  warehouseInfo?: Warehouse; // Hacerlo opcional si no siempre está presente
 }
 
 export interface WarehouseResponse {

@@ -42,8 +42,14 @@ export class WarehouseFormComponent {
       capacity: [null, [Validators.required, Validators.min(1)]],
       operationalStatus: [null, Validators.required],
       contactInfo: this.fb.group({
-        phoneNumber: [null, Validators.pattern(/^(\+\d{1,3}[- ]?)?\d{10}$/)],
-        email: [null, Validators.email],
+        phoneNumber: [
+          null,
+          [
+            Validators.required,
+            Validators.pattern(/^(\+\d{1,3}[- ]?)?\d{10}$/),
+          ],
+        ],
+        email: [null, [Validators.required, Validators.email]],
       }),
     });
   }
@@ -120,7 +126,9 @@ export class WarehouseFormComponent {
     obs$.subscribe({
       next: (warehouse) => {
         this.warehouse = warehouse;
-        MaterialService.toast(this.isNew ? 'Новый склад создан' : 'Изменения сохранены');
+        MaterialService.toast(
+          this.isNew ? 'Новый склад создан' : 'Изменения сохранены'
+        );
         this.form.enable();
         MaterialService.updateTextInputs();
       },
@@ -129,6 +137,11 @@ export class WarehouseFormComponent {
         this.form.enable();
       },
     });
+  }
+
+  isInvalid(path: string | (string | number)[]): Record<string, boolean> {
+    const field = this.form.get(path);
+    return { invalid: field != null && field.invalid && field.touched };
   }
 
   deleteWarehouse() {

@@ -8,86 +8,7 @@ import {
 } from 'src/app/shared/classes/material.service';
 import { TiresService } from 'src/app/shared/services/tires.service'; // Asegúrate de cambiar a TiresService
 import { format } from 'date-fns';
-import { FormGroupConfig, Tire } from 'src/app/shared/interfaces';
-
-const entityConfig: FormGroupConfig = {
-  brand: {
-    type: 'input',
-    label: 'Marca',
-    name: 'brand',
-    class: "col s6",
-    validators: [Validators.required],
-  },
-  model: {
-    type: 'input',
-    label: 'Modelo',
-    name: 'model',
-    class: "col s6",
-    validators: [Validators.required],
-  },
-  size: {
-    type: 'input',
-    label: 'Tamaño',
-    name: 'size',
-    class: "col s6",
-    validators: [Validators.required],
-  },
-  type: {
-    type: 'input',
-    label: 'Tipo',
-    name: 'type',
-    class: "col s6",
-    validators: [Validators.required],
-  },
-  manufactureDate: {
-    type: 'text',
-    label: 'Fecha de Fabricación',
-    name: 'manufactureDate',
-    class: "col s6",
-    dataPpicker: true,
-    validators: [Validators.required],
-  },
-  countryOfOrigin: {
-    type: 'input',
-    label: 'País de Origen',
-    name: 'countryOfOrigin',
-    class: "col s6",
-    validators: [Validators.required],
-  },
-  price: {
-    type: 'group',
-    label: 'Precio', // Este label es opcional y puede no ser necesario según tu implementación
-    name: 'price',
-    fields: {
-      amount: {
-        type: 'input',
-        label: 'Monto',
-        name: 'amount',
-        class: "col s6",
-        validators: [Validators.required, Validators.min(0)],
-      },
-      currency: {
-        type: 'select',
-        label: 'Moneda',
-        name: 'currency',
-        class: "col s6",
-        validators: [Validators.required],
-        options: [
-          { value: 'USD', label: 'USD' },
-          { value: 'EUR', label: 'EUR' },
-          // Agregar más opciones según sea necesario
-        ],
-      },
-    },
-  },
-  quantityInStock: {
-    type: 'input',
-    label: 'Cantidad en Stock',
-    name: 'quantityInStock',
-    class: "col s6",
-    validators: [Validators.required, Validators.min(0)],
-  },
-};
+import { Tire } from 'src/app/shared/interfaces';
 
 @Component({
   selector: 'app-tire-form',
@@ -98,14 +19,11 @@ export class TireFormComponent {
   @ViewChild('datePicker') dateRef!: ElementRef;
   form!: FormGroup;
   isNew = true;
-
-  entityConfig: FormGroupConfig = entityConfig;
-
   isValid = true;
-
   datePicker!: MaterialDatepicker;
+  loading = false;
 
-  tire!: Tire; // Usa una interfaz adecuada para Tire si está disponible
+  tire!: Tire;
 
   constructor(
     private fb: FormBuilder,
@@ -129,13 +47,14 @@ export class TireFormComponent {
   }
 
   ngOnInit() {
+    this.loading = true;
     this.form.disable();
-
     this.route.params
       .pipe(
         switchMap((params: Params) => {
           if (params['id']) {
             this.isNew = false;
+            this.loading = false;
             return this.tiresService.getById(params['id']);
           }
           return of(null);
@@ -159,6 +78,7 @@ export class TireFormComponent {
             setTimeout(() => this.initializeMaterializeSelect(), 0);
             this.tire = tire;
           }
+          this.loading = false;
           this.form.enable();
         },
         error: (error) => console.error(error),
@@ -167,16 +87,20 @@ export class TireFormComponent {
 
   ngAfterViewInit(): void {
     this.initializeMaterializeSelect();
+    this.initMaterializeDatepicker();
+  }
+
+  initMaterializeDatepicker() {
     this.datePicker = MaterialService.initDatepicker(
       this.dateRef,
-      this.validate.bind(this)
+      this.onDatepickerClose.bind(this)
     );
   }
 
-  validate() {
-    if (!this.datePicker.date) {
-      this.isValid = true;
-      return;
+  onDatepickerClose() {
+    if (this.datePicker.date) {
+      const formattedDate = format(this.datePicker.date, 'dd.MM.yyyy');
+      this.form.get('manufactureDate')!.setValue(formattedDate);
     }
   }
 
@@ -187,7 +111,13 @@ export class TireFormComponent {
     });
   }
 
+  isInvalid(path: string | (string | number)[]): Record<string, boolean> {
+    const field = this.form.get(path);
+    return { invalid: field != null && field.invalid && field.touched };
+  }
+
   onSubmit() {
+    this.loading = true;
     this.form.disable();
 
     // Clonamos los valores del formulario para no modificar el form original
@@ -199,7 +129,6 @@ export class TireFormComponent {
       // Suponiendo que `manufactureDate` es un string con formato "DD.MM.YYYY"
       const [day, month, year] = manufactureDate.split('.').map(Number);
       const dateObject = new Date(year, month - 1, day); // Los meses en JavaScript son 0-indexados
-
       // Actualizamos el valor de `manufactureDate` en `formValue` con el objeto Date
       formValue.manufactureDate = dateObject;
     }
@@ -214,6 +143,9 @@ export class TireFormComponent {
           this.isNew ? 'Neumático creado' : 'Neumático actualizado'
         );
         this.form.enable();
+        this.loading = false;
+        setTimeout(() => MaterialService.updateTextInputs(), 0);
+        setTimeout(() => this.initializeMaterializeSelect(), 0);
       },
       error: (error) => {
         MaterialService.toast(error.error.message);

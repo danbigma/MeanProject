@@ -1,19 +1,19 @@
 <div class="page-title">
-    <h4>Аналитика</h4>
+    <h4>{{ 'analytics.title' | translate }}</h4>
 </div>
 
 <div [style.display]="pending ? 'none' : 'block'">
     <div class="average-price">
-        <p>Средний чек <strong>{{average}} $</strong></p>
+        <p>{{ 'analytics.averageCheck' | translate }} <strong>{{average}} $</strong></p>
     </div>
 
     <div class="analytics-block pb3">
-        <h5>Выручка</h5>
+        <h5>{{ 'analytics.revenue' | translate }}</h5>
         <canvas #gain></canvas>
     </div>
 
     <div class="analytics-block">
-        <h5>Заказы</h5>
+        <h5>{{ 'analytics.orders' | translate }}</h5>
         <canvas #order></canvas>
     </div>
 </div>

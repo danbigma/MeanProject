@@ -1,3 +1,13 @@
-<app-generic-list [titleKey]="'warehouse.list'" [newItemRoute]="'/warehouses/new'" [columns]="warehouseColumns"
-  [items]="warehouses" (editItem)="edit($event)" (deleteItem)="delete($event)">
+<app-generic-list 
+  *ngIf="!loading; else loader" 
+  [titleKey]="'warehouse.list'"
+  [newItemRoute]="'/warehouses/new'" 
+  [columns]="warehouseColumns"
+  [items]="warehouses" 
+  (editItem)="edit($event)" 
+  (deleteItem)="delete($event)">
 </app-generic-list>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

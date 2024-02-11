@@ -7,14 +7,15 @@ import { Observable, catchError, throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class UsersService {
+  private apiUrl = '/api/users';
   constructor(private http: HttpClient) {}
 
   fetch(): Observable<User[]> {
-    return this.http.get<User[]>('/api/users');
+    return this.http.get<User[]>(this.apiUrl);
   }
 
-  createUser(email: string, password: string, role: string): Observable<User> {
+  create(email: string, password: string, role: string): Observable<User> {
     const user = { email, password, role };
-    return this.http.post<User>('/api/users', user);
+    return this.http.post<User>(this.apiUrl, user);
   }
 }

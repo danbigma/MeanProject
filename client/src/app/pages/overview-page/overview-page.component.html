@@ -1,6 +1,6 @@
 <div class="page-title">
     <h4>
-        Обзор за вчера
+        {{ 'overview.yesterdayTitle' | translate }}
         ({{yesterday | date:'dd.MM.yyyy'}})
         <i class="material-icons black-text pointer" (click)="openInfo()">
             info_outline
@@ -12,7 +12,7 @@
     <div class="col s12 l6">
         <div class="card light-blue lighten-2 white-text">
             <div class="card-content">
-                <span class="card-title">Выручка:</span>
+                <span class="card-title">{{'overview.revenueTitle' | translate}}</span>
                 <h3>{{data.gain.yesterday | number: '.2'}} $</h3>
                 <h3 class="m0 mb1" [ngClass]="{
               'green-text text-darken-2': data.gain.isHigher,
@@ -24,12 +24,7 @@
                     {{data.gain.percent}}%
                 </h3>
                 <p>
-                    Выручка вашего бизнеса вчера на
-                    {{data.gain.percent}}%
-                    {{data.gain.isHigher ? 'выше' : 'ниже'}}
-                    среднего:
-                    {{data.gain.compare}}
-                    $ в день
+                    {{ 'overview.revenueInfo' | translate:getOrderInfoTranslationParams(data) }}
                 </p>
             </div>
         </div>
@@ -38,8 +33,8 @@
     <div class="col s12 l6">
         <div class="card orange lighten-2 white-text">
             <div class="card-content">
-                <span class="card-title">Заказы:</span>
-                <h3>{{data.orders.yesterday}} зак.</h3>
+                <span class="card-title">{{'overview.ordersTitle' | translate}}</span>
+                <h3>{{data.orders.yesterday}} orders</h3>
                 <h3 class="m0 mb1" [ngClass]="{
               'green-text text-darken-2': data.orders.isHigher,
               'red-text': !data.orders.isHigher
@@ -50,11 +45,7 @@
                     {{data.orders.percent}}%
                 </h3>
                 <p>
-                    Число заказов вчера на {{data.orders.percent}}%
-                    {{data.orders.isHigher ? 'выше' : 'ниже'}}
-                    среднего значения:
-                    {{data.orders.compare}}
-                    зак. в день
+                    {{ 'overview.ordersInfo' | translate:getOrderInfoTranslationParams(data) }}
                 </p>
             </div>
         </div>
