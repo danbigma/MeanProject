@@ -1,7 +1,14 @@
 {
     "general": {
         "actions": "Действия",
-        "new": "Новый"
+        "email": "Электронный адрес",
+        "city": "Город",
+        "address": "Адрес",
+        "latitude": "Широта",
+        "longitude": "Долгота",
+        "save": "Сохранить",
+        "cancel": "Отмена",
+        "country": "Страна"
     },
     "menu": {
         "stock": "Инвентарь",
@@ -14,24 +21,33 @@
         "history": "История"
     },
     "warehouse": {
-        "list": "Список складов",
-        "new": "Новый склад",
+        "list": "Список Складов",
+        "edit": "Редактировать",
+        "title": "Склад",
         "name": "Название",
-        "location": "Местоположение",
-        "operationalStatus": "Статус работы",
-        "phoneNumber": "Телефонный номер"
+        "phoneNumber": "Номер телефона",
+        "capacity": "Вместимость",
+        "chooseStatus": "Выберите статус",
+        "statusActive": "Активный",
+        "statusInactive": "Неактивный",
+        "statusMaintenance": "На обслуживании",
+        "operationalStatus": "Операционный статус",
+        "location": "Местоположение"
     },
     "tire": {
-        "list": "Список шин",
-        "new": "Новая шина",
+        "list": "Список Шин",
+        "new": "Новая Шина",
+        "edit": "Редактировать",
         "brand": "Бренд",
         "model": "Модель",
         "size": "Размер",
         "type": "Тип",
+        "manufactureDate": "Дата Производства",
+        "countryOfOrigin": "Страна Производства",
         "price": "Цена",
-        "countryOfOrigin": "Страна происхождения",
-        "warehouse": "Склад",
-        "quantityInStock": "Количество на складе"
+        "currency": "Валюта",
+        "chooseCurrency": "Выбрать Валюту",
+        "quantityInStock": "Количество на Складе"
     },
     "history": {
         "title": "История заказов",

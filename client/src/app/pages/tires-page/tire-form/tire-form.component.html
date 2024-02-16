@@ -1,8 +1,8 @@
 <div class="page-title">
   <h4>
-    <a routerLink="/tires">Neumáticos</a>
+    <a routerLink="/tires">{{ 'tire.list' | translate }}</a>
     <i class="material-icons">keyboard_arrow_right</i>
-    {{ isNew ? 'Agregar' : 'Editar' }} Neumático
+    {{ isNew ? ('tire.new' | translate) : ('tire.edit' | translate) }}
   </h4>
   <span>
     <button *ngIf="!isNew" class="btn btn-small red" (click)="delete()">
@@ -15,65 +15,59 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="container">
     <!-- Marca -->
     <div class="input-field col s6">
-      <input id="brand" type="text" formControlName="brand"
-        [ngClass]="isInvalid('brand')">
-      <label for="brand">Marca</label>
+      <input id="brand" type="text" formControlName="brand" [ngClass]="isInvalid('brand')">
+      <label for="brand">{{ 'tire.brand' | translate }}</label>
     </div>
 
     <!-- Modelo -->
     <div class="input-field col s6">
-      <input id="model" type="text" formControlName="model"
-        [ngClass]="isInvalid('model')">
-      <label for="model">Modelo</label>
+      <input id="model" type="text" formControlName="model" [ngClass]="isInvalid('model')">
+      <label for="model">{{ 'tire.model' | translate }}</label>
     </div>
 
     <!-- Tamaño -->
     <div class="input-field col s6">
-      <input id="size" type="text" formControlName="size"
-        [ngClass]="isInvalid('size')">
-      <label for="size">Tamaño</label>
+      <input id="size" type="text" formControlName="size" [ngClass]="isInvalid('size')">
+      <label for="size">{{ 'tire.size' | translate }}</label>
     </div>
 
     <!-- Tipo -->
     <div class="input-field col s6">
-      <input id="type" type="text" formControlName="type"
-        [ngClass]="isInvalid('type')">
-      <label for="type">Tipo</label>
+      <input id="type" type="text" formControlName="type" [ngClass]="isInvalid('type')">
+      <label for="type">{{ 'tire.type' | translate }}</label>
     </div>
 
     <!-- Fecha de Fabricación -->
     <div class="input-field col s6">
       <input id="manufactureDate" type="text" formControlName="manufactureDate" #datePicker
         [ngClass]="isInvalid('manufactureDate')">
-      <label for="manufactureDate">Fecha de Fabricación</label>
+      <label for="manufactureDate">{{ 'tire.manufactureDate' | translate }}</label>
     </div>
 
     <!-- País de Origen -->
     <div class="input-field col s6">
       <input id="countryOfOrigin" type="text" formControlName="countryOfOrigin"
         [ngClass]="isInvalid('countryOfOrigin')">
-      <label for="countryOfOrigin">País de Origen</label>
+      <label for="countryOfOrigin">{{ 'tire.countryOfOrigin' | translate }}</label>
     </div>
 
     <!-- Grupo de Precio -->
     <div formGroupName="price" class="input-field col s12">
       <!-- Monto -->
       <div class="input-field col s6">
-        <input id="priceAmount" type="number" formControlName="amount"
-          [ngClass]="isInvalid(['price', 'amount'])">
-        <label for="priceAmount">Precio</label>
+        <input id="priceAmount" type="number" formControlName="amount" [ngClass]="isInvalid(['price', 'amount'])">
+        <label for="priceAmount">{{ 'tire.price' | translate }}</label>
       </div>
 
       <!-- Moneda -->
       <div class="input-field col s6">
-        <select formControlName="currency"
-          [ngClass]="isInvalid(['price', 'currency'])">
-          <option value="" disabled selected>Elige la moneda</option>
+        <select formControlName="currency" [ngClass]="isInvalid(['price', 'currency'])">
+          <option value="" disabled selected>{{ 'tire.chooseCurrency' | translate }}</option>
           <option value="USD">USD</option>
           <option value="EUR">EUR</option>
           <!-- Añade más opciones según sea necesario -->
         </select>
-        <label>Moneda</label>
+        <label>{{ 'tire.currency' | translate }}</label>
       </div>
     </div>
 
@@ -81,11 +75,13 @@
     <div class="input-field col s12">
       <input id="quantityInStock" type="number" formControlName="quantityInStock"
         [ngClass]="isInvalid('quantityInStock')">
-      <label for="quantityInStock">Cantidad en Stock</label>
+      <label for="quantityInStock">{{ 'tire.quantityInStock' | translate }}</label>
     </div>
 
-    <button type="submit" class="btn waves-effect waves-light" [disabled]="!form.valid"><i class="material-icons left">save</i>Guardar</button>
-    <button type="button" class="btn-flat waves-effect" routerLink="/tires"><i class="material-icons left">cancel</i>Cancelar</button>
+    <button type="submit" class="btn waves-effect waves-light" [disabled]="!form.valid"><i
+        class="material-icons left">save</i>{{ 'general.save' | translate }}</button>
+    <button type="button" class="btn-flat waves-effect" routerLink="/tires"><i class="material-icons left">cancel</i>{{
+      'general.cancel' | translate }}</button>
   </form>
 </div>
 

@@ -1,7 +1,14 @@
 {
     "general": {
         "actions": "Acciones",
-        "new": "Nuevo"
+        "email": "Dirección de correo",
+        "city": "Ciudad",
+        "address": "Dirección",
+        "latitude": "Latitud",
+        "longitude": "Longitud",
+        "save": "Guardar",
+        "cancel": "Cancelar",
+        "country": "País"
     },
     "menu": {
         "stock": "Inventario",
@@ -14,23 +21,32 @@
         "history": "Historial"
     },
     "warehouse": {
-        "list": "Listado de Almacenes",
-        "new": "Nuevo Almacén",
+        "list": "Lista de Almacenes",
+        "edit": "Editar",
+        "title": "Almacén",
         "name": "Nombre",
-        "location": "Ubicación",
-        "operationalStatus": "Estado Operativo",
-        "phoneNumber": "Teléfono"
+        "phoneNumber": "Número de teléfono",
+        "capacity": "Capacidad",
+        "chooseStatus": "Elegir estado",
+        "statusActive": "Activo",
+        "statusInactive": "Inactivo",
+        "statusMaintenance": "En mantenimiento",
+        "operationalStatus": "Estado operativo",
+        "location": "Ubicación"
     },
     "tire": {
         "list": "Listado de Neumáticos",
         "new": "Nuevo Neumático",
+        "edit": "Editar Neumático",
         "brand": "Marca",
         "model": "Modelo",
         "size": "Tamaño",
         "type": "Tipo",
-        "price": "Precio",
+        "manufactureDate": "Fecha de Fabricación",
         "countryOfOrigin": "País de Origen",
-        "warehouse": "Almacén",
+        "price": "Precio",
+        "currency": "Moneda",
+        "chooseCurrency": "Elige la moneda",
         "quantityInStock": "Cantidad en Stock"
     },
     "history": {

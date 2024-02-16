@@ -27,11 +27,11 @@ export class SiteLayoutComponent implements AfterViewInit {
   timeLogin: string | undefined;
 
   languages = [
-    { code: 'en', label: 'English' },
-    { code: 'es', label: 'Español' },
-    { code: 'ru', label: 'Русский' },
-    { code: 'it', label: 'Italiano' },
-    { code: 'pl', label: 'Polska' },
+    { code: 'en', label: 'English', country: 'us' },
+    { code: 'es', label: 'Español', country: 'es' },
+    { code: 'ru', label: 'Русский', country: 'ru' },
+    { code: 'it', label: 'Italiano', country: 'it' },
+    { code: 'pl', label: 'Polska', country: 'pl' },
   ];
 
   links = [
@@ -83,6 +83,9 @@ export class SiteLayoutComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+    const options = {
+      'constrainWidth': false
+    };
     setTimeout(() => {
       MaterialService.initializeFloatingButton(this.floatingRef);
       this.tooltip = MaterialService.initTooltip(this.tooltipRef);
@@ -92,7 +95,7 @@ export class SiteLayoutComponent implements AfterViewInit {
 
       // Inicializar dropdown
       const dropdownElems = this.dropdownTrigger.nativeElement;
-      MaterialService.initDropdown(dropdownElems);
+      MaterialService.initDropdown(dropdownElems, options);
     }, 0);
   }
 

@@ -1,7 +1,14 @@
 {
     "general": {
         "actions": "Azioni",
-        "new": "Nuovo"
+        "email": "Indirizzo email",
+        "city": "Città",
+        "address": "Indirizzo",
+        "latitude": "Latitudine",
+        "longitude": "Longitudine",
+        "save": "Salva",
+        "cancel": "Annulla",
+        "country": "Paese"
     },
     "menu": {
         "stock": "Inventario",
@@ -14,24 +21,33 @@
         "history": "Storia"
     },
     "warehouse": {
-        "list": "Elenco dei magazzini",
-        "new": "Nuovo magazzino",
+        "list": "Elenco dei Magazzini",
+        "edit": "Modifica",
+        "title": "Magazzino",
         "name": "Nome",
-        "location": "Localizzazione",
+        "phoneNumber": "Numero di telefono",
+        "capacity": "Capacità",
+        "chooseStatus": "Scegli lo stato",
+        "statusActive": "Attivo",
+        "statusInactive": "Inattivo",
+        "statusMaintenance": "In manutenzione",
         "operationalStatus": "Stato operativo",
-        "phoneNumber": "Numero di telefono"
+        "location": "Località"
     },
     "tire": {
-        "list": "Elenco pneumatici",
-        "new": "Nuovo pneumatico",
+        "list": "Elenco Pneumatici",
+        "new": "Nuovo Pneumatico",
+        "edit": "Modifica Pneumatico",
         "brand": "Marca",
         "model": "Modello",
         "size": "Dimensione",
         "type": "Tipo",
+        "manufactureDate": "Data di Fabbricazione",
+        "countryOfOrigin": "Paese d'Origine",
         "price": "Prezzo",
-        "countryOfOrigin": "Paese di origine",
-        "warehouse": "Magazzino",
-        "quantityInStock": "Quantità in magazzino"
+        "currency": "Valuta",
+        "chooseCurrency": "Scegli Valuta",
+        "quantityInStock": "Quantità in Magazzino"
     },
     "history": {
         "title": "Storico ordini",

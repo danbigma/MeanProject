@@ -1,6 +1,6 @@
 <header>
   <nav>
-    <div class="nav-wrapper orange lighten-2">
+    <div class="nav-wrapper grey darken-3">
       <ul id="nav-mobile" class="right hide-on-med-and-down">
 
         <li><a [attr.data-tooltip]="getLoginTooltip()" class="" #tooltip>{{ currentUser?.email }}</a></li>
@@ -12,7 +12,9 @@
         <!-- Dropdown Structure -->
         <ul id='dropdown-lang' class='dropdown-content'>
           <li *ngFor="let language of languages">
-            <a href="javascript:void(0)" (click)="changeLanguage(language.code)">{{ language.label }}</a>
+            <a href="javascript:void(0)" (click)="changeLanguage(language.code)">
+              <span [ngClass]="'flag-icon flag-icon-' + language.country"></span> <span>{{ language.label }}</span>
+            </a>
           </li>
         </ul>
         <li><a href="#" class="waves-effect waves-orange" (click)="logout($event)"><i

@@ -1,7 +1,14 @@
 {
     "general": {
         "actions": "Actions",
-        "new": "New"
+        "email": "Email Address",
+        "city": "City",
+        "address": "Address",
+        "latitude": "Latitude",
+        "longitude": "Longitude",
+        "save": "Save",
+        "cancel": "Cancel",
+        "country": "Country"
     },
     "menu": {
         "stock": "Inventory",
@@ -15,22 +22,31 @@
     },
     "warehouse": {
         "list": "Warehouse List",
-        "new": "New Warehouse",
+        "edit": "Edit",
+        "title": "Warehouse",
         "name": "Name",
-        "location": "Location",
+        "phoneNumber": "Phone Number",
+        "capacity": "Capacity",
+        "chooseStatus": "Choose Status",
+        "statusActive": "Active",
+        "statusInactive": "Inactive",
+        "statusMaintenance": "Under Maintenance",
         "operationalStatus": "Operational Status",
-        "phoneNumber": "Phone Number"
+        "location": "Location"
     },
     "tire": {
         "list": "Tire List",
         "new": "New Tire",
+        "edit": "Edit Tire",
         "brand": "Brand",
         "model": "Model",
         "size": "Size",
         "type": "Type",
-        "price": "Price",
+        "manufactureDate": "Manufacture Date",
         "countryOfOrigin": "Country of Origin",
-        "warehouse": "Warehouse",
+        "price": "Price",
+        "currency": "Currency",
+        "chooseCurrency": "Choose Currency",
         "quantityInStock": "Quantity in Stock"
     },
     "history": {

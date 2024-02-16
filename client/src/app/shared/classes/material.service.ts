@@ -75,7 +75,7 @@ export class MaterialService {
     return M.TapTarget.init(ref.nativeElement);
   }
   
-  static initDropdown(ref: ElementRef): MaterialInstance {
-    return M.Dropdown.init(ref);
+  static initDropdown(ref: ElementRef, options: any): MaterialInstance {
+    return M.Dropdown.init(ref, options);
   }
 }

@@ -43,7 +43,7 @@ export class TiresComponent {
         `${price.amount} ${price.currency}`,
     },
     { headerKey: 'tire.quantityInStock', field: 'quantityInStock' },
-    { headerKey: 'tire.warehouse', field: 'warehouseName' }, // Asume que el neumático tiene un campo 'warehouseName'
+    { headerKey: 'warehouse.title', field: 'warehouseName' }, // Asume que el neumático tiene un campo 'warehouseName'
   ];
 
   tireToDelete!: Tire;

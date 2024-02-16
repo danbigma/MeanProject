@@ -12,5 +12,7 @@ header, .sidenav-fixed {
   }
 }
 
-.logo {
+.flag-icon {
+  margin-right: 8px; /* Ajusta el espacio entre la bandera y el texto */
 }
+
