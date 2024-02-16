@@ -1,5 +1,6 @@
 {
     "general": {
+        "search": "Buscar...",
         "actions": "Acciones",
         "email": "Dirección de correo",
         "city": "Ciudad",

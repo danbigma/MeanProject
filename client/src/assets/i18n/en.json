@@ -1,5 +1,6 @@
 {
     "general": {
+        "search": "Search...",
         "actions": "Actions",
         "email": "Email Address",
         "city": "City",
