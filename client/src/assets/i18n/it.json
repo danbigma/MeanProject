@@ -1,0 +1,77 @@
+{
+    "general": {
+        "actions": "Azioni",
+        "new": "Nuovo"
+    },
+    "menu": {
+        "stock": "Inventario",
+        "users": "Utenti",
+        "warehouses": "Magazzini",
+        "tires": "Pneumatici",
+        "order": "Ordine",
+        "overview": "Panoramica",
+        "analytics": "Analisi",
+        "history": "Storia"
+    },
+    "warehouse": {
+        "list": "Elenco dei magazzini",
+        "new": "Nuovo magazzino",
+        "name": "Nome",
+        "location": "Localizzazione",
+        "operationalStatus": "Stato operativo",
+        "phoneNumber": "Numero di telefono"
+    },
+    "tire": {
+        "list": "Elenco pneumatici",
+        "new": "Nuovo pneumatico",
+        "brand": "Marca",
+        "model": "Modello",
+        "size": "Dimensione",
+        "type": "Tipo",
+        "price": "Prezzo",
+        "countryOfOrigin": "Paese di origine",
+        "warehouse": "Magazzino",
+        "quantityInStock": "Quantità in magazzino"
+    },
+    "history": {
+        "title": "Storico ordini",
+        "open_filter": "Apri filtro",
+        "close_filter": "Chiudi filtro",
+        "load_more": "Carica altri",
+        "no_orders": "Nessun ordine"
+    },
+    "users": {
+        "title": "Utenti",
+        "new": "Nuovo utente",
+        "email": "Indirizzo email",
+        "role": "Ruolo",
+        "timeLogin": "Ora di accesso",
+        "loginAttempts": "Tentativi di accesso"
+    },
+    "login": {
+        "title": "Accesso",
+        "email": "Indirizzo email",
+        "emailEmpty": "L'indirizzo email non può essere vuoto.",
+        "emailValid": "Per favore, inserisci un indirizzo email valido.",
+        "password": "Password",
+        "passwordEmpty": "La password non può essere vuota.",
+        "passwordMinLength": "La password deve essere di più di 4 caratteri.",
+        "submit": "Accedi",
+        "loading": "Caricamento..."
+    },
+    "analytics": {
+        "title": "Analisi",
+        "averageCheck": "Scontrino medio",
+        "revenue": "Ricavi",
+        "orders": "Ordini"
+    },
+    "overview": {
+        "yesterdayTitle": "Panoramica di ieri",
+        "revenueTitle": "Ricavi:",
+        "ordersTitle": "Ordini:",
+        "revenueInfo": "I ricavi del tuo business ieri sono stati del {{percent}}% {{isHigher}} rispetto alla media: {{compare}} ordini al giorno.",
+        "ordersInfo": "Il numero di ordini di ieri è stato del {{percent}}% {{isHigher}} rispetto alla media: {{compare}} ordini al giorno.",
+        "whyPageTitle": "Perché questa pagina?",
+        "whyPageInfo": "La pagina \"Panoramica\" mostrerà la dinamica delle vendite del giorno precedente. Il confronto con i valori medi ti aiuterà a capire come sta andando il tuo business."
+    }
+}

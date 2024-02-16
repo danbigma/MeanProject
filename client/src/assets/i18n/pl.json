@@ -1,0 +1,77 @@
+{
+    "general": {
+        "actions": "Akcje",
+        "new": "Nowy"
+    },
+    "menu": {
+        "stock": "Inwentarz",
+        "users": "Użytkownicy",
+        "warehouses": "Magazyny",
+        "tires": "Opony",
+        "order": "Zamówienie",
+        "overview": "Przegląd",
+        "analytics": "Analiza",
+        "history": "Historia"
+    },
+    "warehouse": {
+        "list": "Lista magazynów",
+        "new": "Nowy magazyn",
+        "name": "Nazwa",
+        "location": "Lokalizacja",
+        "operationalStatus": "Status operacyjny",
+        "phoneNumber": "Numer telefonu"
+    },
+    "tire": {
+        "list": "Lista opon",
+        "new": "Nowa opona",
+        "brand": "Marka",
+        "model": "Model",
+        "size": "Rozmiar",
+        "type": "Typ",
+        "price": "Cena",
+        "countryOfOrigin": "Kraj pochodzenia",
+        "warehouse": "Magazyn",
+        "quantityInStock": "Ilość na stanie"
+    },
+    "history": {
+        "title": "Historia zamówień",
+        "open_filter": "Otwórz filtr",
+        "close_filter": "Zamknij filtr",
+        "load_more": "Załaduj więcej",
+        "no_orders": "Brak zamówień"
+    },
+    "users": {
+        "title": "Użytkownicy",
+        "new": "Nowy użytkownik",
+        "email": "Adres email",
+        "role": "Rola",
+        "timeLogin": "Czas logowania",
+        "loginAttempts": "Próby logowania"
+    },
+    "login": {
+        "title": "Logowanie",
+        "email": "Adres email",
+        "emailEmpty": "Adres email nie może być pusty.",
+        "emailValid": "Proszę wprowadzić prawidłowy adres email.",
+        "password": "Hasło",
+        "passwordEmpty": "Hasło nie może być puste.",
+        "passwordMinLength": "Hasło musi mieć więcej niż 4 znaki.",
+        "submit": "Zaloguj się",
+        "loading": "Ładowanie..."
+    },
+    "analytics": {
+        "title": "Analizy",
+        "averageCheck": "Średni rachunek",
+        "revenue": "Przychód",
+        "orders": "Zamówienia"
+    },
+    "overview": {
+        "yesterdayTitle": "Przegląd wczorajszego dnia",
+        "revenueTitle": "Przychód:",
+        "ordersTitle": "Zamówienia:",
+        "revenueInfo": "Przychód twojego biznesu wczoraj był o {{percent}}% {{isHigher}} niż średnia: {{compare}} zamówień na dzień.",
+        "ordersInfo": "Liczba zamówień wczoraj była o {{percent}}% {{isHigher}} niż średnia: {{compare}} zamówień na dzień.",
+        "whyPageTitle": "Dlaczego ta strona jest ważna?",
+        "whyPageInfo": "Strona \"Przegląd\" pokaże dynamikę sprzedaży z poprzedniego dnia. Porównanie ze średnimi wartościami pomoże Ci zrozumieć, jak radzi sobie Twój biznes."
+    }
+}
