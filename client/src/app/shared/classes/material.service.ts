@@ -1,6 +1,7 @@
 import { ElementRef } from '@angular/core';
 
 declare let M: {
+  Dropdown: any;
   Sidenav: any;
   FormSelect: any;
   toast: (arg0: { html: string }) => void;
@@ -56,7 +57,10 @@ export class MaterialService {
     return M.Sidenav.init(ref);
   }
 
-  static initDatepicker(ref: ElementRef, onClose: () => void): MaterialDatepicker {
+  static initDatepicker(
+    ref: ElementRef,
+    onClose: () => void
+  ): MaterialDatepicker {
     return M.Datepicker.init(ref.nativeElement, {
       format: 'dd.mm.yyyy',
       showClearBtn: false,
@@ -66,9 +70,12 @@ export class MaterialService {
       },
     });
   }
-  
 
   static initTapTarget(ref: ElementRef): MaterialInstance {
     return M.TapTarget.init(ref.nativeElement);
+  }
+  
+  static initDropdown(ref: ElementRef): MaterialInstance {
+    return M.Dropdown.init(ref);
   }
 }

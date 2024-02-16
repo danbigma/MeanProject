@@ -39,7 +39,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private initializeTranslation() {
-    const userLang = navigator.language.split('-')[0];
+    const userLang = localStorage.getItem('userLang') ?? navigator.language.split('-')[0];
     this.translate.setDefaultLang('en');
     this.translate.use(userLang);
   }

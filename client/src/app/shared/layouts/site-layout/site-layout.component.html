@@ -2,8 +2,21 @@
   <nav>
     <div class="nav-wrapper orange lighten-2">
       <ul id="nav-mobile" class="right hide-on-med-and-down">
+
         <li><a [attr.data-tooltip]="getLoginTooltip()" class="" #tooltip>{{ currentUser?.email }}</a></li>
-        <li><a href="#" class="waves-effect waves-orange" (click)="logout($event)"><i class="material-icons">exit_to_app</i></a></li>
+        <!-- Trigger -->
+        <li>
+          <a class='dropdown-trigger waves-effect waves-orange' href="javascript:void(0)" data-target='dropdown-lang'
+            #dropdownTrigger><i class="material-icons">language</i></a>
+        </li>
+        <!-- Dropdown Structure -->
+        <ul id='dropdown-lang' class='dropdown-content'>
+          <li *ngFor="let language of languages">
+            <a href="javascript:void(0)" (click)="changeLanguage(language.code)">{{ language.label }}</a>
+          </li>
+        </ul>
+        <li><a href="#" class="waves-effect waves-orange" (click)="logout($event)"><i
+              class="material-icons">exit_to_app</i></a></li>
       </ul>
     </div>
   </nav>

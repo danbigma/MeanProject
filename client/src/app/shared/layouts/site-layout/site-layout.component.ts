@@ -9,6 +9,7 @@ import { CurrentUser } from '../../interfaces';
 import { Subject, takeUntil } from 'rxjs';
 import { format } from 'date-fns';
 import { RoleService } from '../../services/role.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-site-layout',
@@ -17,14 +18,21 @@ import { RoleService } from '../../services/role.service';
 })
 export class SiteLayoutComponent implements AfterViewInit {
   private destroy$ = new Subject<void>();
+  @ViewChild('dropdownTrigger') dropdownTrigger!: ElementRef;
   @ViewChild('tooltip') tooltipRef!: ElementRef;
   @ViewChild('floating') floatingRef!: ElementRef;
-  
+
   tooltip!: MaterialInstance;
-
   currentUser!: CurrentUser | null;
-
   timeLogin: string | undefined;
+
+  languages = [
+    { code: 'en', label: 'English' },
+    { code: 'es', label: 'Español' },
+    { code: 'ru', label: 'Русский' },
+    { code: 'it', label: 'Italiano' },
+    { code: 'pl', label: 'Polska' },
+  ];
 
   links = [
     { url: '/overview', name: 'menu.overview', icon: 'dashboard' },
@@ -41,7 +49,8 @@ export class SiteLayoutComponent implements AfterViewInit {
     private auth: AuthService,
     private router: Router,
     private roleService: RoleService,
-    private elRef: ElementRef
+    private elRef: ElementRef,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -56,9 +65,9 @@ export class SiteLayoutComponent implements AfterViewInit {
             : '';
         }
       });
-      if (this.isAdmin()) {
-        this.links.push({ url: '/users', name: 'menu.users', icon: 'people' });
-      }
+    if (this.isAdmin()) {
+      this.links.push({ url: '/users', name: 'menu.users', icon: 'people' });
+    }
   }
 
   // Usar el método isAdmin de RoleService
@@ -77,8 +86,13 @@ export class SiteLayoutComponent implements AfterViewInit {
     setTimeout(() => {
       MaterialService.initializeFloatingButton(this.floatingRef);
       this.tooltip = MaterialService.initTooltip(this.tooltipRef);
-      const sidenavElems = this.elRef.nativeElement.querySelectorAll('.sidenav');
+      const sidenavElems =
+        this.elRef.nativeElement.querySelectorAll('.sidenav');
       MaterialService.initSidenav(sidenavElems);
+
+      // Inicializar dropdown
+      const dropdownElems = this.dropdownTrigger.nativeElement;
+      MaterialService.initDropdown(dropdownElems);
     }, 0);
   }
 
@@ -86,6 +100,13 @@ export class SiteLayoutComponent implements AfterViewInit {
     event.preventDefault();
     this.auth.logout();
     this.router.navigate(['/login']);
+  }
+
+  changeLanguage(lang: string) {
+    if (this.translate.currentLang !== lang) {
+      this.translate.use(lang);
+      localStorage.setItem('userLang', lang); // Guarda el idioma seleccionado
+    }
   }
 
   ngOnDestroy() {
