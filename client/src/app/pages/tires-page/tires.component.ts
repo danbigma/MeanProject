@@ -64,6 +64,10 @@ export class TiresComponent {
     this.router.navigate([`/tires/${tire._id}`]);
   }
 
+  onView(tire: Tire) {
+    this.router.navigate([`/tires/view/${tire._id}`]);
+  }
+
   loadTires() {
     this.oSub = this.tiresService.getAll().subscribe((tires) => {
       // Asumiendo que cada neumático ahora tiene un campo adicional `warehouseInfo`

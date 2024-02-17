@@ -9,7 +9,8 @@
         "longitude": "Longitud",
         "save": "Guardar",
         "cancel": "Cancelar",
-        "country": "País"
+        "country": "País",
+        "uploadImg": "Subir imagen"
     },
     "menu": {
         "stock": "Inventario",
@@ -24,6 +25,8 @@
     "warehouse": {
         "list": "Lista de Almacenes",
         "edit": "Editar",
+        "created": "Nuevo almacén creado",
+        "saved": "Cambios guardados",
         "title": "Almacén",
         "name": "Nombre",
         "phoneNumber": "Número de teléfono",
@@ -39,6 +42,8 @@
         "list": "Listado de Neumáticos",
         "new": "Nuevo Neumático",
         "edit": "Editar Neumático",
+        "created": "Neumático nuevo creado",
+        "saved": "Cambios guardados",
         "brand": "Marca",
         "model": "Modelo",
         "size": "Tamaño",

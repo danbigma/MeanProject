@@ -22,13 +22,45 @@ export class TiresService {
   }
 
   // Añadir un nuevo neumático
-  create(tire: Tire): Observable<Tire> {
-    return this.http.post<Tire>(this.apiUrl, tire);
+  create(tire: Tire, image?: File): Observable<Tire> {
+    const fd = new FormData();
+    // Añadir propiedades simples directamente
+    fd.append('brand', tire.brand);
+    fd.append('model', tire.model);
+    fd.append('size', tire.size);
+    fd.append('type', tire.type);
+    fd.append('manufactureDate', tire.manufactureDate.toISOString());
+    fd.append('countryOfOrigin', tire.countryOfOrigin);
+    fd.append('quantityInStock', tire.quantityInStock.toString());
+    // Añadir propiedades anidadas como cadenas planas
+    fd.append('price.amount', tire.price.amount.toString());
+    fd.append('price.currency', tire.price.currency);
+    // Añadir imagen si existe
+    if (image) {
+      fd.append('image', image, image.name);
+    }
+    return this.http.post<Tire>(this.apiUrl, fd);
   }
 
   // Actualizar un neumático existente
-  update(id: string, tire: any): Observable<Tire> {
-    return this.http.put<Tire>(`${this.apiUrl}/${id}`, tire);
+  update(id: string, tire: Tire, image?: File): Observable<Tire> {
+    const fd = new FormData();
+    // Añadir propiedades simples directamente
+    fd.append('brand', tire.brand);
+    fd.append('model', tire.model);
+    fd.append('size', tire.size);
+    fd.append('type', tire.type);
+    fd.append('manufactureDate', tire.manufactureDate.toISOString());
+    fd.append('countryOfOrigin', tire.countryOfOrigin);
+    fd.append('quantityInStock', tire.quantityInStock.toString());
+    // Añadir propiedades anidadas como cadenas planas
+    fd.append('price.amount', tire.price.amount.toString());
+    fd.append('price.currency', tire.price.currency);
+    // Añadir imagen si existe
+    if (image) {
+      fd.append('image', image, image.name);
+    }
+    return this.http.put<Tire>(`${this.apiUrl}/${id}`, fd);
   }
 
   // Eliminar un neumático

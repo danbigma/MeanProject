@@ -1,13 +1,9 @@
 import { Warehouse } from './../../../shared/interfaces';
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { switchMap, of } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
+import { switchMap, of, catchError, finalize, tap } from 'rxjs';
 import { MaterialService } from 'src/app/shared/classes/material.service';
 import { WarehouseService } from 'src/app/shared/services/warehouse.service';
 
@@ -19,14 +15,17 @@ import { WarehouseService } from 'src/app/shared/services/warehouse.service';
 export class WarehouseFormComponent {
   form!: FormGroup;
   isNew = true;
-
   warehouse!: Warehouse;
+  loading = false;
+  isSubmitting = false;
+  isReadOnly = false;
 
   constructor(
     private fb: FormBuilder, // Inyecta FormBuilder
     private route: ActivatedRoute,
     private router: Router,
-    private warehouseService: WarehouseService
+    private warehouseService: WarehouseService,
+    private translate: TranslateService
   ) {
     this.form = this.fb.group({
       name: [null, Validators.required],
@@ -34,10 +33,6 @@ export class WarehouseFormComponent {
         country: [null, Validators.required],
         city: [null, Validators.required],
         address: [null, Validators.required],
-        coordinates: this.fb.group({
-          latitude: [null, Validators.required],
-          longitude: [null, Validators.required],
-        }),
       }),
       capacity: [null, [Validators.required, Validators.min(1)]],
       operationalStatus: [null, Validators.required],
@@ -55,14 +50,18 @@ export class WarehouseFormComponent {
   }
 
   ngOnInit() {
-    this.form.disable();
-
+    this.loading = true;
     this.route.params
       .pipe(
         switchMap((params: Params) => {
-          if (params['id']) {
+          const id = params['id'];
+          const mode = params['mode'];
+          if (id) {
             this.isNew = false;
-            return this.warehouseService.getById(params['id']);
+            if (mode === 'view') {
+              this.isReadOnly = true;
+            }
+            return this.warehouseService.getById(id);
           }
           return of(null);
         })
@@ -70,34 +69,21 @@ export class WarehouseFormComponent {
       .subscribe({
         next: (warehouse) => {
           if (warehouse) {
-            this.form.patchValue({
-              name: warehouse.name,
-              location: {
-                country: warehouse.location.country,
-                city: warehouse.location.city,
-                address: warehouse.location.address,
-                coordinates: {
-                  latitude: warehouse.location.coordinates?.latitude ?? 0,
-                  longitude: warehouse.location.coordinates?.longitude ?? 0,
-                },
-              },
-              capacity: warehouse.capacity,
-              operationalStatus: warehouse.operationalStatus,
-              contactInfo: {
-                phoneNumber: warehouse.contactInfo?.phoneNumber,
-                email: warehouse.contactInfo?.email,
-              },
-            });
-            MaterialService.updateTextInputs();
-            setTimeout(() => this.initializeMaterializeSelect(), 0);
+            this.form.patchValue(warehouse);
+            setTimeout(() => {
+              this.initializeMaterializeSelect();
+              MaterialService.updateTextInputs();
+            }, 0);
             this.warehouse = warehouse;
+            if (this.isReadOnly) {
+              this.form.disable();
+            }
+          } else {
+            this.form.enable();
           }
-          this.form.enable();
+          this.loading = false;
         },
-        error: (error) => {
-          console.error(error); // Ajusta el manejo de errores según tu lógica de aplicación
-          // Si estás utilizando un servicio para mostrar toasts o alertas, colócalo aquí.
-        },
+        error: (error) => MaterialService.toast(error.error.message),
       });
   }
 
@@ -113,6 +99,11 @@ export class WarehouseFormComponent {
   }
 
   onSubmit() {
+    if (!this.form.valid) return;
+
+    this.isSubmitting = true;
+    this.loading = true;
+
     let obs$;
     this.form.disable();
 
@@ -123,20 +114,43 @@ export class WarehouseFormComponent {
       obs$ = this.warehouseService.update(warehouseId, this.form.value);
     }
 
-    obs$.subscribe({
-      next: (warehouse) => {
-        this.warehouse = warehouse;
-        MaterialService.toast(
-          this.isNew ? 'Новый склад создан' : 'Изменения сохранены'
-        );
-        this.form.enable();
-        MaterialService.updateTextInputs();
-      },
-      error: (error) => {
-        MaterialService.toast(error.error.message);
-        this.form.enable();
-      },
-    });
+    obs$
+      .pipe(
+        tap((warehouse) => {
+          this.warehouse = warehouse;
+          const messageKey = this.isNew
+            ? 'warehouse.created'
+            : 'warehouse.saved';
+          MaterialService.toast(this.translate.instant(messageKey));
+        }),
+        catchError((error) => {
+          MaterialService.toast(error.error.message);
+          return of(null); // Retorna un observable que emite `null` para que la cadena no se rompa
+        }),
+        finalize(() => {
+          setTimeout(() => {
+            this.isSubmitting = false;
+          }, 3000);
+          this.loading = false;
+          this.form.enable();
+          setTimeout(() => {
+            this.initializeMaterializeSelect();
+            MaterialService.updateTextInputs();
+          }, 0);
+        })
+      )
+      .subscribe();
+    setTimeout(() => {
+      this.back();
+    }, 1500);
+  }
+
+  back() {
+    this.cancel();
+  }
+
+  cancel(): void {
+    this.router.navigate(['/warehouses']);
   }
 
   isInvalid(path: string | (string | number)[]): Record<string, boolean> {

@@ -5,11 +5,7 @@ const warehouseSchema = new mongoose.Schema({
   location: {
     country: { type: String, required: true },
     city: { type: String, required: true },
-    address: { type: String, required: true },
-    coordinates: {
-      latitude: Number,
-      longitude: Number
-    }
+    address: { type: String, required: true }
   },
   capacity: { type: Number, required: true },
   operationalStatus: { type: String, required: true, enum: ['Active', 'Inactive', 'Under Maintenance'] },

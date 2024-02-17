@@ -59,6 +59,10 @@ export class WarehouseComponent implements OnInit {
     this.router.navigate([`/warehouses/${warehouse._id}`]);
   }
 
+  view(warehouse: Warehouse) {
+    this.router.navigate([`/warehouses/view/${warehouse._id}`]);
+  }
+
   delete(warehouse: Warehouse) {
     const confirmDelete = window.confirm('Вы уверены что хотите удалить');
     if (confirmDelete && warehouse._id) {

@@ -11,8 +11,8 @@
     </span>
 </div>
 
-<div class="row">
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="container">
+<div class="row" *ngIf="!loading; else loader">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="col s6">
         <div class="input-field">
             <input id="name" type="text" formControlName="name" [ngClass]="isInvalid('name')">
             <label for="name">{{ 'warehouse.name' | translate }}</label>
@@ -49,27 +49,14 @@
                 <label for="address">{{ 'general.address' | translate }}</label>
             </div>
 
-            <div formGroupName="coordinates" class="row">
-                <div class="input-field col s6">
-                    <input id="latitude" type="text" formControlName="latitude"
-                        [ngClass]="isInvalid(['location', 'coordinates', 'latitude'])">
-                    <label for="latitude">{{ 'general.latitude' | translate }}</label>
-                </div>
-
-                <div class="input-field col s6">
-                    <input id="longitude" type="text" formControlName="longitude"
-                        [ngClass]="isInvalid(['location', 'coordinates', 'longitude'])">
-                    <label for="longitude">{{ 'general.longitude' | translate }}</label>
-                </div>
-            </div>
         </div>
 
-        <div class="input-field">
+        <div class="input-field col s12">
             <input id="capacity" type="number" formControlName="capacity" [ngClass]="isInvalid('capacity')">
             <label for="capacity">{{ 'warehouse.capacity' | translate }}</label>
         </div>
 
-        <div class="input-field">
+        <div class="input-field col s12">
             <select formControlName="operationalStatus" [ngClass]="isInvalid('operationalStatus')">
                 <option value="" disabled selected>{{ 'warehouse.chooseStatus' | translate }}</option>
                 <option value="Active">{{ 'warehouse.statusActive' | translate }}</option>
@@ -79,11 +66,15 @@
             <label>{{ 'warehouse.operationalStatus' | translate }}</label>
         </div>
 
-        <button type="submit" class="btn waves-effect waves-light" [disabled]="!form.valid">
+        <button style="margin-right: 7px;" *ngIf="!isReadOnly" type="submit" class="btn waves-effect waves-light" [disabled]="!form.valid || isSubmitting">
             <i class="material-icons left">save</i>{{ 'general.save' | translate }}
         </button>
-        <button type="button" class="btn-flat waves-effect" routerLink="/warehouses">
+        <button type="button" class="btn waves-effect grey white-text text-darken-1" (click)="cancel()">
             <i class="material-icons left">cancel</i>{{ 'general.cancel' | translate }}
         </button>
     </form>
 </div>
+
+<ng-template #loader>
+    <app-loader></app-loader>
+</ng-template>

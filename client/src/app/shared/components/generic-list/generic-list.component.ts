@@ -22,6 +22,7 @@ export class GenericListComponent {
   @Input() columns!: Column[];
   @Input() items!: any[];
 
+  @Output() view = new EventEmitter<any>();
   @Output() editItem = new EventEmitter<any>();
   @Output() deleteItem = new EventEmitter<any>();
 

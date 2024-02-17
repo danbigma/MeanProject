@@ -19,6 +19,10 @@ const tireSchema = new Schema(
       amount: { type: Number, required: true },
       currency: { type: String, required: true },
     },
+    imageSrc: {
+      type: String,
+      default: "",
+    },
   },
   { timestamps: true }
 );

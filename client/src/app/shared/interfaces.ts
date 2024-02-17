@@ -98,16 +98,10 @@ export enum Role {
   GUEST = 'GUEST',
 }
 
-export interface Coordinates {
-  latitude: number;
-  longitude: number;
-}
-
 export interface Location {
   country: string;
   city: string;
   address: string;
-  coordinates?: Coordinates; // Las coordenadas son opcionales
 }
 
 export interface ContactInfo {
@@ -141,6 +135,7 @@ export interface Tire {
   quantityInStock: number;
   price: Price;
   warehouseName: string;
+  imageSrc?: string;
   warehouseInfo?: Warehouse; // Hacerlo opcional si no siempre está presente
 }
 

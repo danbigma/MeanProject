@@ -9,7 +9,8 @@
         "longitude": "Longitude",
         "save": "Save",
         "cancel": "Cancel",
-        "country": "Country"
+        "country": "Country",
+        "uploadImg": "Upload Image"
     },
     "menu": {
         "stock": "Inventory",
@@ -24,6 +25,8 @@
     "warehouse": {
         "list": "Warehouse List",
         "edit": "Edit",
+        "created": "New warehouse created",
+        "saved": "Changes saved",
         "title": "Warehouse",
         "name": "Name",
         "phoneNumber": "Phone Number",
@@ -39,6 +42,8 @@
         "list": "Tire List",
         "new": "New Tire",
         "edit": "Edit Tire",
+        "created": "New tire created",
+        "saved": "Changes saved",
         "brand": "Brand",
         "model": "Model",
         "size": "Size",

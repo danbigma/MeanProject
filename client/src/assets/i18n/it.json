@@ -9,7 +9,8 @@
         "longitude": "Longitudine",
         "save": "Salva",
         "cancel": "Annulla",
-        "country": "Paese"
+        "country": "Paese",
+        "uploadImg": "Carica immagine"
     },
     "menu": {
         "stock": "Inventario",
@@ -24,6 +25,8 @@
     "warehouse": {
         "list": "Elenco dei Magazzini",
         "edit": "Modifica",
+        "created": "Nuovo magazzino creato",
+        "saved": "Modifiche salvate",
         "title": "Magazzino",
         "name": "Nome",
         "phoneNumber": "Numero di telefono",
@@ -39,6 +42,8 @@
         "list": "Elenco Pneumatici",
         "new": "Nuovo Pneumatico",
         "edit": "Modifica Pneumatico",
+        "created": "Nuovo pneumatico creato",
+        "saved": "Modifiche salvate",
         "brand": "Marca",
         "model": "Modello",
         "size": "Dimensione",

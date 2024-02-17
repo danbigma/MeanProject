@@ -4,10 +4,14 @@
   align-items: center;
 }
 
-.action-buttons {
+/* .action-buttons {
   width: 7em;
   display: flex;
   justify-content: space-between;
+} */
+
+.action-buttons .btn{
+  margin-right: 7px;
 }
 
 .status-active {

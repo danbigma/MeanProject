@@ -9,7 +9,8 @@
         "longitude": "Długość geograficzna",
         "save": "Zapisz",
         "cancel": "Anuluj",
-        "country": "Kraj"
+        "country": "Kraj",
+        "uploadImg": "Prześlij obraz"
     },
     "menu": {
         "stock": "Inwentarz",
@@ -24,6 +25,8 @@
     "warehouse": {
         "list": "Lista Magazynów",
         "edit": "Edytuj",
+        "created": "Nowy magazyn utworzony",
+        "saved": "Zmiany zapisane",
         "title": "Magazyn",
         "name": "Nazwa",
         "phoneNumber": "Numer telefonu",
@@ -39,6 +42,8 @@
         "list": "Lista Opon",
         "new": "Nowa Opona",
         "edit": "Edytuj Oponę",
+        "created": "Nowa opona utworzona",
+        "saved": "Zmiany zapisane",
         "brand": "Marka",
         "model": "Model",
         "size": "Rozmiar",

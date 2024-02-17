@@ -1,7 +1,13 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { switchMap, of } from 'rxjs';
+import { switchMap, of, catchError, finalize, tap } from 'rxjs';
 import {
   MaterialDatepicker,
   MaterialService,
@@ -9,19 +15,26 @@ import {
 import { TiresService } from 'src/app/shared/services/tires.service'; // Asegúrate de cambiar a TiresService
 import { format } from 'date-fns';
 import { Tire } from 'src/app/shared/interfaces';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-tire-form',
   templateUrl: './tire-form.component.html',
   styleUrls: ['./tire-form.component.css'],
 })
-export class TireFormComponent {
-  @ViewChild('datePicker') dateRef!: ElementRef;
+export class TireFormComponent implements OnInit, AfterViewInit {
+  @ViewChild('datePicker') dateRef?: ElementRef;
+  @ViewChild('inputFile') inputRef: ElementRef | undefined;
   form!: FormGroup;
   isNew = true;
   isValid = true;
   datePicker!: MaterialDatepicker;
   loading = false;
+  isSubmitting = false;
+  isReadOnly = false;
+
+  image: File | undefined;
+  imagePreview: string | undefined = '';
 
   tire!: Tire;
 
@@ -29,7 +42,8 @@ export class TireFormComponent {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private tiresService: TiresService // Cambia a TiresService
+    private tiresService: TiresService,
+    private translate: TranslateService
   ) {
     this.form = this.fb.group({
       brand: [null, Validators.required],
@@ -40,7 +54,7 @@ export class TireFormComponent {
       countryOfOrigin: [null, Validators.required],
       price: this.fb.group({
         amount: [null, [Validators.required, Validators.min(0)]],
-        currency: ['USD', Validators.required], // Asume USD como moneda predeterminada
+        currency: ['USD', Validators.required],
       }),
       quantityInStock: [null, [Validators.required, Validators.min(0)]],
     });
@@ -48,13 +62,16 @@ export class TireFormComponent {
 
   ngOnInit() {
     this.loading = true;
-    this.form.disable();
     this.route.params
       .pipe(
         switchMap((params: Params) => {
-          if (params['id']) {
+          const id = params['id'];
+          const mode = params['mode'];
+          if (id) {
             this.isNew = false;
-            this.loading = false;
+            if (mode === 'view') {
+              this.isReadOnly = true;
+            }
             return this.tiresService.getById(params['id']);
           }
           return of(null);
@@ -70,31 +87,43 @@ export class TireFormComponent {
                 'dd.MM.yyyy'
               ), // Cambiado a formato 'yyyy-MM-dd'
               price: {
-                amount: tire.price.amount,
-                currency: tire.price.currency,
+                amount: tire.price?.amount,
+                currency: tire.price?.currency,
               },
             });
-            MaterialService.updateTextInputs();
-            setTimeout(() => this.initializeMaterializeSelect(), 0);
+            setTimeout(() => {
+              MaterialService.updateTextInputs();
+              this.initializeMaterializeSelect();
+              this.initMaterializeDatepicker();
+            }, 0);
+            this.imagePreview = tire.imageSrc;
             this.tire = tire;
+            if (this.isReadOnly) {
+              this.form.disable();
+            }
+          } else {
+            this.form.enable();
           }
           this.loading = false;
-          this.form.enable();
         },
-        error: (error) => console.error(error),
+        error: (error) => MaterialService.toast(error.error.message),
       });
   }
 
   ngAfterViewInit(): void {
-    this.initializeMaterializeSelect();
-    this.initMaterializeDatepicker();
+    if (this.dateRef) {
+      this.initializeMaterializeSelect();
+      this.initMaterializeDatepicker();
+    }
   }
 
-  initMaterializeDatepicker() {
-    this.datePicker = MaterialService.initDatepicker(
-      this.dateRef,
-      this.onDatepickerClose.bind(this)
-    );
+  initMaterializeDatepicker(): void {
+    if (this.dateRef) {
+      this.datePicker = MaterialService.initDatepicker(
+        this.dateRef,
+        this.onDatepickerClose.bind(this)
+      );
+    }
   }
 
   onDatepickerClose() {
@@ -117,6 +146,8 @@ export class TireFormComponent {
   }
 
   onSubmit() {
+    if (!this.form.valid) return;
+    this.isSubmitting = true;
     this.loading = true;
     this.form.disable();
 
@@ -134,24 +165,57 @@ export class TireFormComponent {
     }
 
     let obs$ = this.isNew
-      ? this.tiresService.create(formValue)
-      : this.tiresService.update(this.tire._id ?? '', formValue);
+      ? this.tiresService.create(formValue, this.image)
+      : this.tiresService.update(this.tire._id ?? '', formValue, this.image);
 
-    obs$.subscribe({
-      next: (response) => {
-        MaterialService.toast(
-          this.isNew ? 'Neumático creado' : 'Neumático actualizado'
-        );
-        this.form.enable();
-        this.loading = false;
-        setTimeout(() => MaterialService.updateTextInputs(), 0);
-        setTimeout(() => this.initializeMaterializeSelect(), 0);
-      },
-      error: (error) => {
-        MaterialService.toast(error.error.message);
-        this.form.enable();
-      },
-    });
+    obs$
+      .pipe(
+        tap((response) => {
+          const messageKey = this.isNew ? 'tire.created' : 'tire.saved';
+          MaterialService.toast(this.translate.instant(messageKey));
+          this.form.enable();
+        }),
+        catchError((error) => {
+          MaterialService.toast(error.error.message);
+          return of(null); // Retorna un observable que emite `null` para manejar el error y continuar.
+        }),
+        finalize(() => {
+          setTimeout(() => {
+            this.isSubmitting = false;
+          }, 3000);
+          this.loading = false;
+          setTimeout(() => {
+            this.initializeMaterializeSelect();
+            MaterialService.updateTextInputs();
+          }, 0);
+        })
+      )
+      .subscribe();
+      setTimeout(() => {
+        this.back();
+      }, 1500);
+  }
+
+  triggerClick() {
+    this.inputRef?.nativeElement.click();
+  }
+
+  onFileUpload(event: any) {
+    const file = event.target.files[0];
+    this.image = file;
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result?.toString();
+    };
+    reader.readAsDataURL(file);
+  }
+
+  back() {
+    this.cancel();
+  }
+
+  cancel(): void {
+    this.router.navigate(['/tires']);
   }
 
   delete() {

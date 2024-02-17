@@ -9,12 +9,12 @@ module.exports.getAll = async (req, res) => {
           from: "warehouses", // El nombre de la colección a la que te quieres unir.
           localField: "warehouseId", // El campo en los documentos de la colección Tire que contiene el id del almacén.
           foreignField: "_id", // El campo en los documentos de la colección Warehouse que corresponde al id.
-          as: "warehouseInfo" // El nombre del campo en el que se colocarán los documentos unidos.
-        }
+          as: "warehouseInfo", // El nombre del campo en el que se colocarán los documentos unidos.
+        },
       },
       {
-        $unwind: "$warehouseInfo" // Opcional: descomponer el array de warehouseInfo si siempre esperas 1 resultado.
-      }
+        $unwind: "$warehouseInfo", // Opcional: descomponer el array de warehouseInfo si siempre esperas 1 resultado.
+      },
       // Puedes añadir más etapas aquí si es necesario, como $match, $project, etc.
     ]);
 
@@ -23,7 +23,6 @@ module.exports.getAll = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
 
 // Obtener un neumático por ID
 module.exports.getById = async (req, res) => {
@@ -38,7 +37,10 @@ module.exports.getById = async (req, res) => {
 
 // Crear un nuevo neumático
 module.exports.create = async (req, res) => {
-  const tire = new Tire(req.body);
+  const tire = new Tire({
+    ...req.body,
+    imageSrc: req.file ? req.file.path : "",
+  });
   try {
     const newTire = await tire.save();
     res.status(201).json(newTire);
@@ -50,10 +52,18 @@ module.exports.create = async (req, res) => {
 // Actualizar un neumático por ID
 module.exports.update = async (req, res) => {
   try {
-    const updatedTire = await Tire.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
-    res.json(updatedTire);
+    const updated = { ...req.body };
+
+    if (req.file) {
+      updated.imageSrc = req.file.path;
+    }
+
+    const tire = await Tire.findByIdAndUpdate(
+      { _id: req.params.id },
+      { $set: updated },
+      { new: true }
+    );
+    res.status(200).json(tire);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

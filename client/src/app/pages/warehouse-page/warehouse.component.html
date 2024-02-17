@@ -4,6 +4,7 @@
   [newItemRoute]="'/warehouses/new'" 
   [columns]="warehouseColumns"
   [items]="warehouses" 
+  (view)="view($event)"
   (editItem)="edit($event)" 
   (deleteItem)="delete($event)">
 </app-generic-list>

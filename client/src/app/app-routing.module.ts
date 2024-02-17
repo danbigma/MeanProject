@@ -52,9 +52,11 @@ const routes: Routes = [
       { path: 'warehouses', component: WarehouseComponent },
       { path: 'warehouses/new', component: WarehouseFormComponent },
       { path: 'warehouses/:id', component: WarehouseFormComponent },
+      { path: 'warehouses/:mode/:id', component: WarehouseFormComponent },
       { path: 'tires', component: TiresComponent },
       { path: 'tires/new', component: TireFormComponent },
-      { path: 'tires/:id', component: TireFormComponent }
+      { path: 'tires/:id', component: TireFormComponent },
+      { path: 'tires/:mode/:id', component: TireFormComponent }
     ],
   },
 ];

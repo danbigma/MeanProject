@@ -1,5 +1,5 @@
 <div class="page-title">
-  <h5>{{ titleKey | translate }}</h5>
+  <h4>{{ titleKey | translate }}</h4>
   <button [routerLink]="newItemRoute" class="waves-effect waves-light btn darken-1">
     <i class="material-icons">add</i>
   </button>
@@ -39,7 +39,10 @@
       </td>
       <td>
         <div class="action-buttons" *ngIf="isAdmin()">
-          <button class="btn btn-small" (click)="editItem.emit(item)">
+          <button class="btn btn-small light-blue lighten-1" (click)="view.emit(item)">
+            <i class="material-icons">remove_red_eye</i>
+          </button>
+          <button class="btn btn-small orange" (click)="editItem.emit(item)">
             <i class="material-icons">edit</i>
           </button>
           <button class="btn btn-small red" (click)="deleteItem.emit(item)">
