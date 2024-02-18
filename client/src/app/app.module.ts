@@ -30,7 +30,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TokenExpirationTimerComponent } from './shared/components/token-expiration-timer/token-expiration-timer.component';
 import { UsersPageComponent } from './pages/users-page/users-page.component';
-import { UserListComponent } from './pages/users-page/user-table/user-table.component';
 import { WarehouseComponent } from './pages/warehouse-page/warehouse.component';
 import { WarehouseFormComponent } from './pages/warehouse-page/warehouse-form/warehouse-form.component';
 import { TiresComponent } from './pages/tires-page/tires.component';
@@ -39,6 +38,7 @@ import { GenericListComponent } from './shared/components/generic-list/generic-l
 import { GenericFormComponent } from './shared/components/generic-form/generic-form.component';
 import { ENTITY_SERVICE_TOKEN } from './shared/classes/entity-service.token';
 import { TiresService } from './shared/services/tires.service';
+import { UserFormComponent } from './pages/users-page/user-form/user-form.component';
 
 // Función para cargar traducciones
 export function HttpLoaderFactory(http: HttpClient) {
@@ -65,13 +65,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     HistoryFilterComponent,
     TokenExpirationTimerComponent,
     UsersPageComponent,
-    UserListComponent,
     WarehouseComponent,
     WarehouseFormComponent,
     TiresComponent,
     TireFormComponent,
     GenericListComponent,
-    GenericFormComponent
+    GenericFormComponent,
+    UserFormComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,46 @@
+<div class="page-title">
+    <h4>
+        <a routerLink="/users">{{ 'user.list' | translate }}</a>
+        <i class="material-icons">keyboard_arrow_right</i>
+        {{ isNew ? ('user.new' | translate) : ('user.edit' | translate) }}
+    </h4>
+    <span>
+        <button *ngIf="!isNew" class="btn btn-small red" (click)="deleteUser()">
+            <i class="material-icons">delete</i>
+        </button>
+    </span>
+</div>
+
+<div class="row" *ngIf="!loading; else loader">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="col s4">
+        <div class="input-field">
+            <input id="email" type="text" formControlName="email" [ngClass]="isInvalid('email')">
+            <label for="email">{{ 'user.email' | translate }}</label>
+        </div>
+
+        <div class="input-field" *ngIf="isNew">
+            <input id="password" type="text" formControlName="password" [ngClass]="isInvalid('password')">
+            <label for="password">{{ 'user.password' | translate }}</label>
+        </div>
+
+        <div class="input-field">
+            <select formControlName="role" [ngClass]="isInvalid('role')">
+                <option value="" disabled selected>{{ 'user.selectRole' | translate }}</option>
+                <option *ngFor="let role of roles" [value]="role">{{ 'role.' + role | translate }}</option>
+            </select>
+            <label>{{ 'user.role' | translate }}</label>
+        </div>
+
+        <button style="margin-right: 7px;" *ngIf="!isReadOnly" type="submit" class="btn waves-effect waves-light"
+            [disabled]="!form.valid || isSubmitting">
+            <i class="material-icons left">save</i>{{ 'general.save' | translate }}
+        </button>
+        <button type="button" class="btn waves-effect grey white-text text-darken-1" (click)="cancel()">
+            <i class="material-icons left">cancel</i>{{ 'general.cancel' | translate }}
+        </button>
+    </form>
+</div>
+
+<ng-template #loader>
+    <app-loader></app-loader>
+</ng-template>

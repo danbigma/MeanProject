@@ -83,7 +83,10 @@ export class WarehouseFormComponent {
           }
           this.loading = false;
         },
-        error: (error) => MaterialService.toast(error.error.message),
+        error: (error) => {
+          MaterialService.toast(error.error.message);
+          this.back();
+        },
       });
   }
 

@@ -13,7 +13,8 @@
   <thead>
     <tr>
       <th *ngFor="let column of columns">{{ column.headerKey | translate }}</th>
-      <th>{{ 'general.actions' | translate }}</th>
+      <!-- <th>{{ 'general.actions' | translate }}</th> -->
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -38,14 +39,14 @@
         </ng-template>
       </td>
       <td>
-        <div class="action-buttons" *ngIf="isAdmin()">
-          <button class="btn btn-small light-blue lighten-1" (click)="view.emit(item)">
+        <div class="action-buttons right" *ngIf="isAdmin()">
+          <button class="btn btn-small light-blue lighten-1 mb1" (click)="view.emit(item)">
             <i class="material-icons">remove_red_eye</i>
           </button>
-          <button class="btn btn-small orange" (click)="editItem.emit(item)">
+          <button class="btn btn-small orange mb1" (click)="editItem.emit(item)">
             <i class="material-icons">edit</i>
           </button>
-          <button class="btn btn-small red" (click)="deleteItem.emit(item)">
+          <button class="btn btn-small red mb1" (click)="deleteItem.emit(item)">
             <i class="material-icons">delete</i>
           </button>
         </div>

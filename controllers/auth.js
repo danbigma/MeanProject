@@ -127,6 +127,16 @@ module.exports.register = async function (req, res) {
   }
 };
 
+module.exports.update = async (req, res) => {
+  try {
+    console.log(req.body);
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
 module.exports.getAll = async (req, res) => {
   try {
     const users = await User.find();
@@ -135,3 +145,14 @@ module.exports.getAll = async (req, res) => {
     errorHandler(res, error);
   }
 }
+
+module.exports.getById = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) return res.status(404).send('User not found');
+    res.status(HTTP_STATUS_OK).json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+    // errorHandler(res, error);
+  }
+};

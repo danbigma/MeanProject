@@ -62,13 +62,27 @@
         "load_more": "Carica altri",
         "no_orders": "Nessun ordine"
     },
-    "users": {
-        "title": "Utenti",
-        "new": "Nuovo utente",
-        "email": "Indirizzo email",
+    "user": {
+        "created": "Utente Creato",
+        "saved": "Utente Salvato",
+        "list": "Elenco Utenti",
+        "title": "Utente",
+        "new": "Nuovo Utente",
+        "edit": "Modifica Utente",
+        "email": "Indirizzo Email",
+        "password": "Password",
         "role": "Ruolo",
-        "timeLogin": "Ora di accesso",
-        "loginAttempts": "Tentativi di accesso"
+        "timeLogin": "Orario di Accesso",
+        "loginAttempts": "Tentativi di Accesso",
+        "selectRole": "Seleziona Ruolo",
+        "deleteConfirm": "Sei sicuro di voler eliminare questo utente?"
+    },
+    "role": {
+        "SUPERADMIN": "Super Amministratore",
+        "ADMIN": "Amministratore",
+        "MANAGER": "Manager",
+        "USER": "Utente",
+        "GUEST": "Ospite"
     },
     "login": {
         "title": "Accesso",

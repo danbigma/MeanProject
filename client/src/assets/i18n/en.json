@@ -62,13 +62,27 @@
         "load_more": "Load More",
         "no_orders": "No Orders"
     },
-    "users": {
-        "title": "Users",
+    "user": {
+        "created": "User Created",
+        "saved": "User Saved",
+        "list": "User List",
+        "title": "User",
         "new": "New User",
+        "edit": "Edit User",
         "email": "Email Address",
+        "password": "Password",
         "role": "Role",
         "timeLogin": "Login Time",
-        "loginAttempts": "Login Attempts"
+        "loginAttempts": "Login Attempts",
+        "selectRole": "Select Role",
+        "deleteConfirm": "Are you sure you want to delete this user?"
+    },
+    "role": {
+        "SUPERADMIN": "Super Administrator",
+        "ADMIN": "Administrator",
+        "MANAGER": "Manager",
+        "USER": "User",
+        "GUEST": "Guest"
     },
     "login": {
         "title": "Log In",

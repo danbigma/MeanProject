@@ -85,7 +85,7 @@ export interface User {
   _id?: string;
   email: string;
   loginAttempts?: number;
-  role?: string;
+  role: string;
   timeLogin?: string;
   password: string;
 }

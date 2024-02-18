@@ -1,3 +1,4 @@
+import { UserFormComponent } from './pages/users-page/user-form/user-form.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
@@ -49,6 +50,9 @@ const routes: Routes = [
       { path: 'categories/new', component: CategoriesFormComponent },
       { path: 'categories/:id', component: CategoriesFormComponent },
       { path: 'users', component: UsersPageComponent },
+      { path: 'users/new', component: UserFormComponent },
+      { path: 'users/:id', component: UserFormComponent },
+      { path: 'users/:mode/:id', component: UserFormComponent },
       { path: 'warehouses', component: WarehouseComponent },
       { path: 'warehouses/new', component: WarehouseFormComponent },
       { path: 'warehouses/:id', component: WarehouseFormComponent },
