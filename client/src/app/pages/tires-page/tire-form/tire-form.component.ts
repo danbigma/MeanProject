@@ -25,10 +25,12 @@ import { TranslateService } from '@ngx-translate/core';
 export class TireFormComponent implements OnInit, AfterViewInit {
   @ViewChild('datePicker') dateRef?: ElementRef;
   @ViewChild('inputFile') inputRef: ElementRef | undefined;
+  @ViewChild('materialboxed') materialBoxedRef!: ElementRef;
   form!: FormGroup;
   isNew = true;
   isValid = true;
   datePicker!: MaterialDatepicker;
+  materialBoxInstance: any;
   loading = false;
   isSubmitting = false;
   isReadOnly = false;
@@ -95,6 +97,7 @@ export class TireFormComponent implements OnInit, AfterViewInit {
               MaterialService.updateTextInputs();
               this.initializeMaterializeSelect();
               this.initMaterializeDatepicker();
+              MaterialService.initMaterialbox(this.materialBoxedRef);
             }, 0);
             this.imagePreview = tire.imageSrc;
             this.tire = tire;
@@ -114,6 +117,9 @@ export class TireFormComponent implements OnInit, AfterViewInit {
     if (this.dateRef) {
       this.initializeMaterializeSelect();
       this.initMaterializeDatepicker();
+    }
+    if (this.materialBoxedRef) {
+      this.materialBoxInstance = MaterialService.initMaterialbox(this.materialBoxedRef.nativeElement);
     }
   }
 
@@ -226,6 +232,13 @@ export class TireFormComponent implements OnInit, AfterViewInit {
         error: (error) => MaterialService.toast(error.error.message),
         complete: () => this.router.navigate(['/tires']),
       });
+    }
+  }
+  
+  ngOnDestroy(): void {
+    if (this.materialBoxInstance) {
+      this.materialBoxInstance.destroy();
+      this.datePicker.destroy();
     }
   }
 }

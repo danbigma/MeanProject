@@ -1,6 +1,7 @@
 import { ElementRef } from '@angular/core';
 
 declare let M: {
+  Materialbox: any;
   Dropdown: any;
   Sidenav: any;
   FormSelect: any;
@@ -55,6 +56,10 @@ export class MaterialService {
 
   static initSidenav(ref: HTMLElement): MaterialInstance {
     return M.Sidenav.init(ref);
+  }
+
+  static initMaterialbox(ref: ElementRef): MaterialInstance {
+    return M.Materialbox.init(ref.nativeElement);
   }
 
   static initDatepicker(
