@@ -42,6 +42,7 @@ export class SiteLayoutComponent implements AfterViewInit {
     { url: '/categories', name: 'menu.stock', icon: 'category' },
     { url: '/warehouses', name: 'menu.warehouses', icon: 'store' },
     { url: '/tires', name: 'menu.tires', icon: 'format_list_bulleted' },
+    { url: '/product', name: 'menu.products', icon: 'format_list_bulleted' },
     // Añade más enlaces según sea necesario
   ];
 

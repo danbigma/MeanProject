@@ -164,3 +164,25 @@ export interface FormField {
 export interface FormGroupConfig {
   [key: string]: FormField;
 }
+
+export interface ProductVariant {
+  _id?: string;
+  sku: string; // Уникальный идентификатор SKU
+  attributes: Map<string, string>; // Ключ-значение для хранения различных атрибутов, например, размера, цвета, материала
+  stock: number; // Количество на складе
+}
+
+export interface Product {
+  _id?: string;
+  name: string; // Наименование товара
+  category: string; // Категория, например "Диски", "Шины"
+  brand: string; // Бренд
+  description?: string; // Описание, необязательное поле
+  variants: ProductVariant[]; // Массив вариантов товара
+  purchasePrice: number;
+  retailPrice: number;
+  stock: number;
+  images: string[];
+  tags: string[];
+}
+

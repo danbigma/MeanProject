@@ -1,0 +1,88 @@
+<div class="page-title">
+    <h4>
+        <a routerLink="/products">{{ 'menu.products' | translate }}</a>
+        <i class="material-icons">keyboard_arrow_right</i>
+        {{ isNew ? ('product.new' | translate) : ('product.edit' | translate) }} {{ 'product.title' | translate }}
+    </h4>
+    <span>
+        <!-- <button *ngIf="!isNew" class="btn btn-small red" (click)="deleteProduct()">
+            <i class="material-icons">delete</i>
+        </button> -->
+    </span>
+</div>
+
+<div class="row" *ngIf="!loading; else loader">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="col s6">
+        <div class="input-field col s12">
+            <input id="name" type="text" formControlName="name" [ngClass]="isInvalid('name')">
+            <label for="name">{{ 'product.name' | translate }}</label>
+        </div>
+
+        <div class="input-field col s12">
+            <input id="category" type="text" formControlName="category" [ngClass]="isInvalid('category')">
+            <label for="category">{{ 'product.category' | translate }}</label>
+        </div>
+
+        <div class="input-field col s12">
+            <input id="brand" type="text" formControlName="brand" [ngClass]="isInvalid('brand')">
+            <label for="brand">{{ 'product.brand' | translate }}</label>
+        </div>
+
+        <div class="input-field col s6">
+            <input id="purchasePrice" type="number" formControlName="purchasePrice"
+                [ngClass]="isInvalid('purchasePrice')">
+            <label for="purchasePrice">{{ 'product.purchasePrice' | translate }}</label>
+        </div>
+
+        <div class="input-field col s6">
+            <input id="retailPrice" type="number" formControlName="retailPrice" [ngClass]="isInvalid('retailPrice')">
+            <label for="retailPrice">{{ 'product.retailPrice' | translate }}</label>
+        </div>
+
+        <div class="col s12 mb1">
+            <div formArrayName="variants" *ngFor="let variant of variants.controls; let i=index">
+                <div [formGroupName]="i">
+                    <div class="input-field col s6">
+                        <input id="sku" type="text" formControlName="sku" [ngClass]="isInvalid('sku')">
+                        <label for="sku">{{ 'product.sku' | translate }}</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="stock" type="number" formControlName="stock" [ngClass]="isInvalid('sku')">
+                        <label for="stock">{{ 'product.stock' | translate }}</label>
+                    </div>
+
+                    <div formArrayName="attributes">
+                        <div *ngFor="let attribute of getAttributes(i).controls; let j=index" [formGroupName]="j">
+                            <div class="input-field col s6">
+                                <input id="key" type="text" formControlName="key">
+                                <label for="key">{{ 'product.key' | translate }}</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input id="value" type="text" formControlName="sku">
+                                <label for="value">{{ 'product.value' | translate }}</label>
+                            </div>
+                        </div>
+                        <button type="button" class="btn waves-effect orange white-text text-darken-1 mb1" (click)="addAttribute(i)">Add Attribute</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12">
+                <button type="button" class="btn waves-effect orange white-text text-darken-1" (click)="addVariant()">Add Variant</button>
+            </div>
+        </div>
+
+        <div class="col s12">
+            <button style="margin-right: 7px;" *ngIf="!isReadOnly" type="submit" class="btn waves-effect waves-light"
+                [disabled]="!form.valid || isSubmitting">
+                <i class="material-icons left">save</i>{{ 'general.save' | translate }}
+            </button>
+            <button type="button" class="btn waves-effect grey white-text text-darken-1" (click)="cancel()">
+                <i class="material-icons left">cancel</i>{{ 'general.cancel' | translate }}
+            </button>
+        </div>
+    </form>
+</div>
+
+<ng-template #loader>
+    <app-loader></app-loader>
+</ng-template>

@@ -9,11 +9,10 @@ const routes = {
   '/position': require('./position'),
   '/users': require('./users'),
   '/warehouse': require('./warehouse'),
-  '/tires': require('./tire')
-  // Más rutas...
+  '/tires': require('./tire'),
+  '/products': require('./product')
 };
 
-// Iterar sobre el objeto de rutas y aplicarlas al enrutador
 for (const path in routes) {
   router.use(path, routes[path]);
 }

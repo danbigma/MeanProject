@@ -19,6 +19,8 @@ import { WarehouseComponent } from './pages/warehouse-page/warehouse.component';
 import { WarehouseFormComponent } from './pages/warehouse-page/warehouse-form/warehouse-form.component';
 import { TiresComponent } from './pages/tires-page/tires.component';
 import { TireFormComponent } from './pages/tires-page/tire-form/tire-form.component';
+import { ProductComponent } from './pages/product-page/products.component';
+import { ProductFormComponent } from './pages/product-page/product-form/product-form.component';
 
 const routes: Routes = [
   {
@@ -60,7 +62,9 @@ const routes: Routes = [
       { path: 'tires', component: TiresComponent },
       { path: 'tires/new', component: TireFormComponent },
       { path: 'tires/:id', component: TireFormComponent },
-      { path: 'tires/:mode/:id', component: TireFormComponent }
+      { path: 'tires/:mode/:id', component: TireFormComponent },
+      { path: 'product', component: ProductComponent },
+      { path: 'product/new', component: ProductFormComponent },
     ],
   },
 ];

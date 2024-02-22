@@ -39,6 +39,8 @@ import { GenericFormComponent } from './shared/components/generic-form/generic-f
 import { ENTITY_SERVICE_TOKEN } from './shared/classes/entity-service.token';
 import { TiresService } from './shared/services/tires.service';
 import { UserFormComponent } from './pages/users-page/user-form/user-form.component';
+import { ProductComponent } from './pages/product-page/products.component';
+import { ProductFormComponent } from './pages/product-page/product-form/product-form.component';
 
 // Función para cargar traducciones
 export function HttpLoaderFactory(http: HttpClient) {
@@ -71,7 +73,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     TireFormComponent,
     GenericListComponent,
     GenericFormComponent,
-    UserFormComponent
+    UserFormComponent,
+    ProductComponent,
+    ProductFormComponent
   ],
   imports: [
     BrowserModule,
