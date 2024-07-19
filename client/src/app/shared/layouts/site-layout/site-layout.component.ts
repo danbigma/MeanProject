@@ -26,6 +26,8 @@ export class SiteLayoutComponent implements AfterViewInit {
   currentUser!: CurrentUser | null;
   timeLogin: string | undefined;
 
+  isMobile: boolean = false;
+
   languages = [
     { code: 'en', label: 'English', country: 'us' },
     { code: 'es', label: 'Español', country: 'es' },

@@ -1,7 +1,9 @@
 <header>
   <nav>
     <div class="nav-wrapper grey darken-3">
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
+      <ul id="nav-mobile" class="right">
 
         <li><a [attr.data-tooltip]="getLoginTooltip()" class="" #tooltip>{{ currentUser?.email }}</a></li>
         <!-- Trigger -->
@@ -21,20 +23,18 @@
               class="material-icons">exit_to_app</i></a></li>
       </ul>
     </div>
+    <ul class="sidenav sidenav-fixed" id="mobile-demo">
+      <!-- Tus ítems de la barra lateral aquí -->
+      <img src="../../../../assets/logo.png" style="width: 220px;" alt="Logo">
+      <li *ngFor="let link of links" routerLinkActive="active">
+        <a [routerLink]="[link.url]" class="waves-effect waves-orange">
+          <i class="material-icons left">{{ link.icon }}</i>
+          {{ link.name | translate }}
+        </a>
+      </li>
+    </ul>
   </nav>
 </header>
-<ul class="sidenav sidenav-fixed">
-  <!-- Tus ítems de la barra lateral aquí -->
-  <h1 class="center-align">
-    <img src="../../../../assets/logo.png" style="width: 220px;" alt="Logo">
-  </h1>
-  <li *ngFor="let link of links" routerLinkActive="active">
-    <a [routerLink]="[link.url]" class="waves-effect waves-orange">
-      <i class="material-icons left">{{ link.icon }}</i>
-      {{ link.name | translate }}
-    </a>
-  </li>
-</ul>
 
 <main class="content">
   <app-token-expiration-timer [expirationDate]="currentUser?.sessionExpiresAt ?? null"></app-token-expiration-timer>
