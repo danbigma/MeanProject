@@ -19,7 +19,7 @@
         </div>
 
         <div class="input-field" *ngIf="isNew">
-            <input id="password" type="text" formControlName="password" [ngClass]="isInvalid('password')">
+            <input id="password" type="password" formControlName="password" [ngClass]="isInvalid('password')">
             <label for="password">{{ 'user.password' | translate }}</label>
         </div>
 

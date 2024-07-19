@@ -52,7 +52,7 @@
     </div>
 
     <!-- Grupo de Precio -->
-    <div formGroupName="price" class="input-field col s12">
+    <div formGroupName="price">
       <!-- Monto -->
       <div class="input-field col s6">
         <input id="priceAmount" type="number" formControlName="amount" [ngClass]="isInvalid(['price', 'amount'])">
@@ -78,7 +78,7 @@
       <label for="quantityInStock">{{ 'tire.quantityInStock' | translate }}</label>
     </div>
 
-    <div *ngIf="!isReadOnly">
+    <div *ngIf="!isReadOnly" class="col s12">
       <input type="file" style="display: none;" (change)="onFileUpload($event)" #inputFile>
       <button type="button" class="waves-effect waves-light btn orange lighten-2 mb2" (click)="triggerClick()"
         [disabled]="form.disabled">
@@ -87,15 +87,18 @@
       </button>
     </div>
 
-    <button style="margin-right: 7px;" *ngIf="!isReadOnly" type="submit" class="btn waves-effect waves-light"
-      [disabled]="!form.valid || isSubmitting"><i class="material-icons left">save</i>{{ 'general.save' | translate
-      }}</button>
-    <button type="button" class="btn waves-effect grey white-text text-darken-1" (click)="cancel()"><i
-        class="material-icons left">cancel</i>{{
-      'general.cancel' | translate }}</button>
+    <div class="col s12">
+      <button style="margin-right: 7px;" *ngIf="!isReadOnly" type="submit" class="btn waves-effect waves-light"
+        [disabled]="!form.valid || isSubmitting"><i class="material-icons left">save</i>{{ 'general.save' | translate
+        }}</button>
+      <button type="button" class="btn waves-effect grey white-text text-darken-1" (click)="cancel()"><i
+          class="material-icons left">cancel</i>{{
+        'general.cancel' | translate }}</button>
+    </div>
   </form>
-  <div class="col s12 l4 center">
-    <img class="responsive-img" style="height: 200px" alt="image" *ngIf="imagePreview" [src]="imagePreview" #materialboxed>
+  <div class="col s12 l4">
+    <img class="responsive-img" style="height: 200px" alt="image" *ngIf="imagePreview" [src]="imagePreview"
+      #materialboxed>
   </div>
 </div>
 

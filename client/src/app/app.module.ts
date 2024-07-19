@@ -35,7 +35,6 @@ import { WarehouseFormComponent } from './pages/warehouse-page/warehouse-form/wa
 import { TiresComponent } from './pages/tires-page/tires.component';
 import { TireFormComponent } from './pages/tires-page/tire-form/tire-form.component';
 import { GenericListComponent } from './shared/components/generic-list/generic-list.component';
-import { GenericFormComponent } from './shared/components/generic-form/generic-form.component';
 import { ENTITY_SERVICE_TOKEN } from './shared/classes/entity-service.token';
 import { TiresService } from './shared/services/tires.service';
 import { UserFormComponent } from './pages/users-page/user-form/user-form.component';
@@ -72,7 +71,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     TiresComponent,
     TireFormComponent,
     GenericListComponent,
-    GenericFormComponent,
     UserFormComponent,
     ProductComponent,
     ProductFormComponent

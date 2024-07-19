@@ -1,5 +1,5 @@
 header, .sidenav-fixed {
-  z-index: 995; /* Asegura que la barra lateral y el encabezado estén por encima del contenido principal */
+  z-index: 995;
 }
 
 .content {

@@ -20,7 +20,7 @@ export class UserFormComponent {
   isSubmitting = false;
   isReadOnly = false;
 
-  roles = Object.values(Role); // Convertir el enum Role en un array
+  roles!: Role[];
 
   constructor(
     private fb: FormBuilder, // Inyecta FormBuilder
@@ -29,6 +29,7 @@ export class UserFormComponent {
     private usersService: UsersService,
     private translate: TranslateService
   ) {
+    this.roles = Object.values(Role);
     this.form = this.fb.group({
       email: [null, Validators.required],
       role: [null, Validators.required],

@@ -39,7 +39,7 @@
             <label for="retailPrice">{{ 'product.retailPrice' | translate }}</label>
         </div>
 
-        <div class="col s12 mb1">
+        <div class="mb1">
             <div formArrayName="variants" *ngFor="let variant of variants.controls; let i=index">
                 <div [formGroupName]="i">
                     <div class="input-field col s6">
@@ -62,12 +62,14 @@
                                 <label for="value">{{ 'product.value' | translate }}</label>
                             </div>
                         </div>
-                        <button type="button" class="btn waves-effect orange white-text text-darken-1 mb1" (click)="addAttribute(i)">Add Attribute</button>
+                        <div class="col s12">
+                            <button type="button" class="btn waves-effect orange white-text text-darken-1 mb1" (click)="addAttribute(i)">Add Attribute</button>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col s12">
-                <button type="button" class="btn waves-effect orange white-text text-darken-1" (click)="addVariant()">Add Variant</button>
+                <button type="button" class="btn waves-effect orange white-text text-darken-1 mb1" (click)="addVariant()">Add Variant</button>
             </div>
         </div>
 
