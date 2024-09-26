@@ -1,0 +1,107 @@
+<div class="page-title">
+  <h4>
+    <a routerLink="/tires">{{ 'tire.list' | translate }}</a>
+    <i class="material-icons">keyboard_arrow_right</i>
+    {{ isNew ? ('tire.new' | translate) : ('tire.edit' | translate) }}
+  </h4>
+  <span>
+    <button *ngIf="!isNew" class="btn btn-small red" (click)="delete()">
+      <i class="material-icons">delete</i>
+    </button>
+  </span>
+</div>
+
+<div class="row" *ngIf="!loading; else loader">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="col s6">
+    <!-- Marca -->
+    <div class="input-field col s6">
+      <input id="brand" type="text" formControlName="brand" [ngClass]="isInvalid('brand')">
+      <label for="brand">{{ 'tire.brand' | translate }}</label>
+    </div>
+
+    <!-- Modelo -->
+    <div class="input-field col s6">
+      <input id="model" type="text" formControlName="model" [ngClass]="isInvalid('model')">
+      <label for="model">{{ 'tire.model' | translate }}</label>
+    </div>
+
+    <!-- Tamaño -->
+    <div class="input-field col s6">
+      <input id="size" type="text" formControlName="size" [ngClass]="isInvalid('size')">
+      <label for="size">{{ 'tire.size' | translate }}</label>
+    </div>
+
+    <!-- Tipo -->
+    <div class="input-field col s6">
+      <input id="type" type="text" formControlName="type" [ngClass]="isInvalid('type')">
+      <label for="type">{{ 'tire.type' | translate }}</label>
+    </div>
+
+    <!-- Fecha de Fabricación -->
+    <div class="input-field col s6">
+      <input id="manufactureDate" type="text" formControlName="manufactureDate" #datePicker
+        [ngClass]="isInvalid('manufactureDate')">
+      <label for="manufactureDate">{{ 'tire.manufactureDate' | translate }}</label>
+    </div>
+
+    <!-- País de Origen -->
+    <div class="input-field col s6">
+      <input id="countryOfOrigin" type="text" formControlName="countryOfOrigin"
+        [ngClass]="isInvalid('countryOfOrigin')">
+      <label for="countryOfOrigin">{{ 'tire.countryOfOrigin' | translate }}</label>
+    </div>
+
+    <!-- Grupo de Precio -->
+    <div formGroupName="price">
+      <!-- Monto -->
+      <div class="input-field col s6">
+        <input id="priceAmount" type="number" formControlName="amount" [ngClass]="isInvalid(['price', 'amount'])">
+        <label for="priceAmount">{{ 'tire.price' | translate }}</label>
+      </div>
+
+      <!-- Moneda -->
+      <div class="input-field col s6">
+        <select formControlName="currency" [ngClass]="isInvalid(['price', 'currency'])">
+          <option value="" disabled selected>{{ 'tire.chooseCurrency' | translate }}</option>
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+          <!-- Añade más opciones según sea necesario -->
+        </select>
+        <label>{{ 'tire.currency' | translate }}</label>
+      </div>
+    </div>
+
+    <!-- Cantidad en Stock -->
+    <div class="input-field col s12">
+      <input id="quantityInStock" type="number" formControlName="quantityInStock"
+        [ngClass]="isInvalid('quantityInStock')">
+      <label for="quantityInStock">{{ 'tire.quantityInStock' | translate }}</label>
+    </div>
+
+    <div *ngIf="!isReadOnly" class="col s12">
+      <input type="file" style="display: none;" (change)="onFileUpload($event)" #inputFile>
+      <button type="button" class="waves-effect waves-light btn orange lighten-2 mb2" (click)="triggerClick()"
+        [disabled]="form.disabled">
+        <i class="material-icons left">backup</i>
+        {{ 'general.uploadImg' | translate }}
+      </button>
+    </div>
+
+    <div class="col s12">
+      <button style="margin-right: 7px;" *ngIf="!isReadOnly" type="submit" class="btn waves-effect waves-light"
+        [disabled]="!form.valid || isSubmitting"><i class="material-icons left">save</i>{{ 'general.save' | translate
+        }}</button>
+      <button type="button" class="btn waves-effect grey white-text text-darken-1" (click)="cancel()"><i
+          class="material-icons left">cancel</i>{{
+        'general.cancel' | translate }}</button>
+    </div>
+  </form>
+  <div class="col s12 l4">
+    <img class="responsive-img" style="height: 200px" alt="image" *ngIf="imagePreview" [src]="imagePreview"
+      #materialboxed>
+  </div>
+</div>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

@@ -1,0 +1,33 @@
+.collection-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* .action-buttons {
+  width: 7em;
+  display: flex;
+  justify-content: space-between;
+} */
+
+.action-buttons .btn{
+  margin-right: 7px;
+}
+
+.status-active {
+  border-radius: 2px;
+  color: white;
+  padding: 6px;
+}
+
+.status-inactive {
+  border-radius: 2px;
+  color: white;
+  padding: 6px;
+}
+
+.status-maintenance {
+  border-radius: 2px;
+  color: white;
+  padding: 6px;
+}

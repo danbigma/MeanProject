@@ -1,0 +1,7 @@
+<ng-container *ngIf="remainingTime; else calc">
+    <p>{{ remainingTime }}</p>
+</ng-container>
+
+<ng-template #calc>
+    <p>Calculating...</p>
+</ng-template>

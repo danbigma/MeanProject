@@ -1,0 +1,21 @@
+<div class="page-title">
+    <h4>{{ 'analytics.title' | translate }}</h4>
+</div>
+
+<div [style.display]="pending ? 'none' : 'block'">
+    <div class="average-price">
+        <p>{{ 'analytics.averageCheck' | translate }} <strong>{{average}} $</strong></p>
+    </div>
+
+    <div class="analytics-block pb3">
+        <h5>{{ 'analytics.revenue' | translate }}</h5>
+        <canvas #gain></canvas>
+    </div>
+
+    <div class="analytics-block">
+        <h5>{{ 'analytics.orders' | translate }}</h5>
+        <canvas #order></canvas>
+    </div>
+</div>
+
+<app-loader *ngIf="pending"></app-loader>

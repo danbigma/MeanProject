@@ -217,12 +217,12 @@ dist
 !.vscode/extensions.json
 *.code-workspace
 
+.favorites.json
+
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,macos,eclipse,node
-
-# Custom rules (everything added below won't be overriden by 'Generate .gitignore File' if you use 'Update' option)
 

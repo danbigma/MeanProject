@@ -1,0 +1,82 @@
+<div class="page-title">
+    <h4>
+        <a routerLink="/warehouses">{{ 'menu.warehouses' | translate }}</a>
+        <i class="material-icons">keyboard_arrow_right</i>
+        {{ isNew ? ('warehouse.new' | translate) : ('warehouse.edit' | translate) }} {{ 'warehouse.title' | translate }}
+    </h4>
+    <span>
+        <button *ngIf="!isNew" class="btn btn-small red" (click)="deleteWarehouse()">
+            <i class="material-icons">delete</i>
+        </button>
+    </span>
+</div>
+
+<div class="row" *ngIf="!loading; else loader">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="col s6">
+        <div class="input-field col s12">
+            <input id="name" type="text" formControlName="name" [ngClass]="isInvalid('name')">
+            <label for="name">{{ 'warehouse.name' | translate }}</label>
+        </div>
+
+        <div formGroupName="contactInfo">
+            <div class="input-field col s6">
+                <input id="phoneNumber" type="text" formControlName="phoneNumber"
+                    [ngClass]="isInvalid(['contactInfo', 'phoneNumber'])">
+                <label for="phoneNumber">{{ 'warehouse.phoneNumber' | translate }}</label>
+            </div>
+
+            <div class="input-field col s6">
+                <input id="email" type="email" formControlName="email" [ngClass]="isInvalid(['contactInfo', 'email'])">
+                <label for="email">{{ 'general.email' | translate }}</label>
+            </div>
+        </div>
+
+        <div formGroupName="location">
+            <div class="input-field col s4">
+                <input id="country" type="text" formControlName="country"
+                    [ngClass]="isInvalid(['location', 'country'])">
+                <label for="country">{{ 'general.country' | translate }}</label>
+            </div>
+
+            <div class="input-field col s4">
+                <input id="city" type="text" formControlName="city" [ngClass]="isInvalid(['location', 'city'])">
+                <label for="city">{{ 'general.city' | translate }}</label>
+            </div>
+
+            <div class="input-field col s4">
+                <input id="address" type="text" formControlName="address"
+                    [ngClass]="isInvalid(['location', 'address'])">
+                <label for="address">{{ 'general.address' | translate }}</label>
+            </div>
+
+        </div>
+
+        <div class="input-field col s12">
+            <input id="capacity" type="number" formControlName="capacity" [ngClass]="isInvalid('capacity')">
+            <label for="capacity">{{ 'warehouse.capacity' | translate }}</label>
+        </div>
+
+        <div class="input-field col s12">
+            <select formControlName="operationalStatus" [ngClass]="isInvalid('operationalStatus')">
+                <option value="" disabled selected>{{ 'warehouse.chooseStatus' | translate }}</option>
+                <option value="Active">{{ 'warehouse.statusActive' | translate }}</option>
+                <option value="Inactive">{{ 'warehouse.statusInactive' | translate }}</option>
+                <option value="Under Maintenance">{{ 'warehouse.statusMaintenance' | translate }}</option>
+            </select>
+            <label>{{ 'warehouse.operationalStatus' | translate }}</label>
+        </div>
+
+        <div class="col s12">
+            <button style="margin-right: 7px;" *ngIf="!isReadOnly" type="submit" class="btn waves-effect waves-light" [disabled]="!form.valid || isSubmitting">
+                <i class="material-icons left">save</i>{{ 'general.save' | translate }}
+            </button>
+            <button type="button" class="btn waves-effect grey white-text text-darken-1" (click)="cancel()">
+                <i class="material-icons left">cancel</i>{{ 'general.cancel' | translate }}
+            </button>
+        </div>
+    </form>
+</div>
+
+<ng-template #loader>
+    <app-loader></app-loader>
+</ng-template>

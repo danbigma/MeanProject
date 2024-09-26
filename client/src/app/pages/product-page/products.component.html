@@ -1,0 +1,13 @@
+<app-generic-list 
+  *ngIf="!loading; else loader" 
+  [titleKey]="'product.list'"
+  [newItemRoute]="'/product/new'" 
+  [columns]="productColumns"
+  [items]="products" 
+  (view)="view($event)"
+  (editItem)="edit($event)">
+</app-generic-list>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

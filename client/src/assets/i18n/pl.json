@@ -1,0 +1,113 @@
+{
+    "general": {
+        "search": "Szukaj...",
+        "actions": "Akcje",
+        "email": "Adres email",
+        "city": "Miasto",
+        "address": "Adres",
+        "latitude": "Szerokość geograficzna",
+        "longitude": "Długość geograficzna",
+        "save": "Zapisz",
+        "cancel": "Anuluj",
+        "country": "Kraj",
+        "uploadImg": "Prześlij obraz"
+    },
+    "menu": {
+        "stock": "Inwentarz",
+        "users": "Użytkownicy",
+        "warehouses": "Magazyny",
+        "tires": "Opony",
+        "order": "Zamówienie",
+        "overview": "Przegląd",
+        "analytics": "Analizy",
+        "history": "Historia"
+    },
+    "warehouse": {
+        "list": "Lista Magazynów",
+        "edit": "Edytuj",
+        "created": "Nowy magazyn utworzony",
+        "saved": "Zmiany zapisane",
+        "title": "Magazyn",
+        "name": "Nazwa",
+        "phoneNumber": "Numer telefonu",
+        "capacity": "Pojemność",
+        "chooseStatus": "Wybierz status",
+        "statusActive": "Aktywny",
+        "statusInactive": "Nieaktywny",
+        "statusMaintenance": "W konserwacji",
+        "operationalStatus": "Status operacyjny",
+        "location": "Lokalizacja"
+    },
+    "tire": {
+        "list": "Lista Opon",
+        "new": "Nowa Opona",
+        "edit": "Edytuj Oponę",
+        "created": "Nowa opona utworzona",
+        "saved": "Zmiany zapisane",
+        "brand": "Marka",
+        "model": "Model",
+        "size": "Rozmiar",
+        "type": "Typ",
+        "manufactureDate": "Data Produkcji",
+        "countryOfOrigin": "Kraj Pochodzenia",
+        "price": "Cena",
+        "currency": "Waluta",
+        "chooseCurrency": "Wybierz Walutę",
+        "quantityInStock": "Ilość na Magazynie"
+    },
+    "history": {
+        "title": "Historia zamówień",
+        "open_filter": "Otwórz filtr",
+        "close_filter": "Zamknij filtr",
+        "load_more": "Załaduj więcej",
+        "no_orders": "Brak zamówień"
+    },
+    "user": {
+        "created": "Użytkownik Utworzony",
+        "saved": "Użytkownik Zapisany",
+        "list": "Lista Użytkowników",
+        "title": "Użytkownik",
+        "new": "Nowy Użytkownik",
+        "edit": "Edytuj Użytkownika",
+        "email": "Adres Email",
+        "password": "Hasło",
+        "role": "Rola",
+        "timeLogin": "Czas Logowania",
+        "loginAttempts": "Próby Logowania",
+        "selectRole": "Wybierz Rolę",
+        "deleteConfirm": "Czy na pewno chcesz usunąć tego użytkownika?"
+    },
+    "role": {
+        "SUPERADMIN": "Super Administrator",
+        "ADMIN": "Administrator",
+        "MANAGER": "Menedżer",
+        "USER": "Użytkownik",
+        "GUEST": "Gość"
+    },
+    "login": {
+        "title": "Logowanie",
+        "email": "Adres email",
+        "emailEmpty": "Adres email nie może być pusty.",
+        "emailValid": "Proszę wprowadzić prawidłowy adres email.",
+        "password": "Hasło",
+        "passwordEmpty": "Hasło nie może być puste.",
+        "passwordMinLength": "Hasło musi mieć więcej niż 4 znaki.",
+        "submit": "Zaloguj się",
+        "loading": "Ładowanie..."
+    },
+    "analytics": {
+        "title": "Analizy",
+        "averageCheck": "Średni rachunek",
+        "revenue": "Przychód",
+        "orders": "Zamówienia"
+    },
+    "overview": {
+        "yesterdayTitle": "Przegląd wczorajszego dnia",
+        "revenueTitle": "Przychód:",
+        "ordersTitle": "Zamówienia:",
+        "revenueInfo": "Przychód twojego biznesu wczoraj był o {{percent}}% {{isHigher}} niż średnia: {{compare}} zamówień na dzień.",
+        "ordersInfo": "Liczba zamówień wczoraj była o {{percent}}% {{isHigher}} niż średnia: {{compare}} zamówień na dzień.",
+        "whyPageTitle": "Dlaczego ta strona jest ważna?",
+        "whyPageInfo": "Strona \"Przegląd\" pokaże dynamikę sprzedaży z poprzedniego dnia. Porównanie ze średnimi wartościami pomoże Ci zrozumieć, jak radzi sobie Twój biznes."
+    }
+}

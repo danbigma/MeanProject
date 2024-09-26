@@ -1,0 +1,14 @@
+<app-generic-list 
+  *ngIf="!loading; else loader" 
+  [titleKey]="'user.list'"
+  [newItemRoute]="'/users/new'" 
+  [columns]="userColumns"
+  [items]="users" 
+  (view)="view($event)"
+  (editItem)="edit($event)" 
+  (deleteItem)="delete($event)">
+</app-generic-list>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

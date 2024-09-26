@@ -1,0 +1,82 @@
+[
+  {
+    "brand": "Goodyear",
+    "model": "ContiSportContact",
+    "size": "255/35R19",
+    "type": "Winter",
+    "manufactureDate": "2020-02-18",
+    "countryOfOrigin": "Germany",
+    "warehouseId": {
+      "$oid": "65bc0d3c346938f13be912b3"
+    },
+    "quantityInStock": 101,
+    "price": {
+      "amount": 165.55,
+      "currency": "USD"
+    }
+  },
+  {
+    "brand": "Continental",
+    "model": "Cinturato",
+    "size": "235/40R18",
+    "type": "Summer",
+    "manufactureDate": "2019-02-14",
+    "countryOfOrigin": "USA",
+    "warehouseId": {
+      "$oid": "65bc0d3c346938f13be912b3"
+    },
+    "quantityInStock": 426,
+    "price": {
+      "amount": 127.42,
+      "currency": "USD"
+    }
+  },
+  {
+    "brand": "Continental",
+    "model": "Potenza",
+    "size": "205/55R16",
+    "type": "Winter",
+    "manufactureDate": "2019-12-21",
+    "countryOfOrigin": "Italy",
+    "warehouseId": {
+      "$oid": "65bc0d3c346938f13be912b3"
+    },
+    "quantityInStock": 681,
+    "price": {
+      "amount": 145.86,
+      "currency": "USD"
+    }
+  },
+  {
+    "brand": "Goodyear",
+    "model": "X-Ice",
+    "size": "205/55R16",
+    "type": "Summer",
+    "manufactureDate": "2021-09-18",
+    "countryOfOrigin": "Japan",
+    "warehouseId": {
+      "$oid": "65bc0d3c346938f13be912b3"
+    },
+    "quantityInStock": 331,
+    "price": {
+      "amount": 275.45,
+      "currency": "USD"
+    }
+  },
+  {
+    "brand": "Pirelli",
+    "model": "Cinturato",
+    "size": "195/65R15",
+    "type": "Winter",
+    "manufactureDate": "2022-05-12",
+    "countryOfOrigin": "France",
+    "warehouseId": {
+      "$oid": "65bc0d3c346938f13be912b3"
+    },
+    "quantityInStock": 311,
+    "price": {
+      "amount": 126.86,
+      "currency": "USD"
+    }
+  }
+]

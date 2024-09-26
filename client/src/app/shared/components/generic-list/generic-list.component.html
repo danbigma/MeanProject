@@ -1,0 +1,56 @@
+<div class="page-title">
+  <h4>{{ titleKey | translate }}</h4>
+  <button [routerLink]="newItemRoute" class="waves-effect waves-light btn darken-1">
+    <i class="material-icons">add</i>
+  </button>
+</div>
+
+<div class="search-field">
+  <input type="text" (input)="search($event)" placeholder="{{ 'general.search' | translate }}" />
+</div>
+
+<table class="highlight responsive-table" aria-describedby="table">
+  <thead>
+    <tr>
+      <th *ngFor="let column of columns">{{ column.headerKey | translate }}</th>
+      <!-- <th>{{ 'general.actions' | translate }}</th> -->
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of filteredItems; let i = index">
+      <td *ngFor="let column of columns">
+        <!-- Verificar si el campo es 'index' para mostrar el índice de la fila -->
+        <span *ngIf="column.field === 'index'; else dynamicContent">
+          {{ i + 1 }}
+        </span>
+        <ng-template #dynamicContent>
+          <span *ngIf="column.formatter; else noFormatter">
+            {{ column.formatter(item[column.field]) }}
+          </span>
+          <ng-template #noFormatter>
+            <span *ngIf="column.conditionalClass" [ngClass]="getConditionalClass(item, column.field)">
+              {{ column.formatter ? column.formatter(item[column.field]) : item[column.field] }}
+            </span>
+            <span *ngIf="!column.conditionalClass">
+              {{ item[column.field] }}
+            </span>
+          </ng-template>
+        </ng-template>
+      </td>
+      <td>
+        <div class="action-buttons right" *ngIf="isAdmin()">
+          <button class="btn btn-small light-blue lighten-1 mb1" (click)="view.emit(item)">
+            <i class="material-icons">remove_red_eye</i>
+          </button>
+          <button class="btn btn-small orange mb1" (click)="editItem.emit(item)">
+            <i class="material-icons">edit</i>
+          </button>
+          <button class="btn btn-small red mb1" (click)="deleteItem.emit(item)">
+            <i class="material-icons">delete</i>
+          </button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

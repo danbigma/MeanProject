@@ -1,0 +1,60 @@
+<header>
+  <nav>
+    <div class="nav-wrapper grey darken-3">
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
+      <ul id="nav-mobile" class="right">
+
+        <li><a [attr.data-tooltip]="getLoginTooltip()" class="" #tooltip>{{ currentUser?.email }}</a></li>
+        <!-- Trigger -->
+        <li>
+          <a class='dropdown-trigger waves-effect waves-orange' href="javascript:void(0)" data-target='dropdown-lang'
+            #dropdownTrigger><i class="material-icons">language</i></a>
+        </li>
+        <!-- Dropdown Structure -->
+        <ul id='dropdown-lang' class='dropdown-content'>
+          <li *ngFor="let language of languages">
+            <a href="javascript:void(0)" (click)="changeLanguage(language.code)">
+              <span [ngClass]="'flag-icon flag-icon-' + language.country"></span> <span>{{ language.label }}</span>
+            </a>
+          </li>
+        </ul>
+        <li><a href="#" class="waves-effect waves-orange" (click)="logout($event)"><i
+              class="material-icons">exit_to_app</i></a></li>
+      </ul>
+    </div>
+    <ul class="sidenav sidenav-fixed" id="mobile-demo">
+      <!-- Tus ítems de la barra lateral aquí -->
+      <img src="../../../../assets/logo.png" style="width: 220px;" alt="Logo">
+      <li *ngFor="let link of links" routerLinkActive="active">
+        <a [routerLink]="[link.url]" class="waves-effect waves-orange">
+          <i class="material-icons left">{{ link.icon }}</i>
+          {{ link.name | translate }}
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<main class="content">
+  <app-token-expiration-timer [expirationDate]="currentUser?.sessionExpiresAt ?? null"></app-token-expiration-timer>
+  <router-outlet></router-outlet>
+</main>
+
+<div class="fixed-action-btn" #floating>
+  <a class="btn-floating btn-large red pulse">
+    <i class="large material-icons">add</i>
+  </a>
+  <ul>
+    <li>
+      <a class="btn-floating green" routerLink="/order">
+        <i class="material-icons">assignment</i>
+      </a>
+    </li>
+    <li>
+      <a class="btn-floating blue" routerLink="/tires/new">
+        <i class="material-icons">list</i>
+      </a>
+    </li>
+  </ul>
+</div>

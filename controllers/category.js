@@ -1,26 +1,62 @@
-module.exports.getAll = function(req, res) {
-    res.status(200).json({
-        masage: "/controllers/category",
-        method: "getAll"
-    });
+const Category = require("../models/Category");
+const Position = require("../models/Position");
+const errorHandler = require("../utils/errorHandler");
+
+const HTTP_STATUS_OK = 200;
+const HTTP_STATUS_CREATED = 201;
+const HTTP_STATUS_NOT_FOUND = 404;
+
+const handleErrors = (func) => async (req, res) => {
+  try {
+    await func(req, res);
+  } catch (error) {
+    errorHandler(res, error);
+  }
 };
 
-module.exports.getById = function(req, res) {
-    res.status(200).json({
-        masage: "/controllers/category",
-        method: "getById" 
-    });
-};
+module.exports.getAll = handleErrors(async (req, res) => {
+  const categories = await Category.find({ user: req.user.id });
+  res.status(HTTP_STATUS_OK).json(categories);
+});
 
-module.exports.remove = function(req, res) {
-    
-};
+module.exports.getById = handleErrors(async (req, res) => {
+  const category = await Category.findById(req.params.id);
+  if (!category) {
+    return res
+      .status(HTTP_STATUS_NOT_FOUND)
+      .json({ message: "Categoría no encontrada." });
+  }
+  res.status(HTTP_STATUS_OK).json(category);
+});
 
-module.exports.create = function(req, res) {
-    
-};
+module.exports.remove = handleErrors(async (req, res) => {
+  await Category.remove({ _id: req.params.id });
+  await Position.remove({ category: req.params.id });
+  res.status(HTTP_STATUS_OK).json({ message: "Categoría eliminada." });
+});
 
-module.exports.update = function(req, res) {
-    
-};
+module.exports.create = handleErrors(async (req, res) => {
+  const category = new Category({
+    name: req.body.name,
+    quantity: req.body.quantity,
+    user: req.user.id,
+    imageSrc: req.file ? req.file.path : "",
+  });
 
+  await category.save();
+  res.status(HTTP_STATUS_CREATED).json(category);
+});
+
+module.exports.update = handleErrors(async (req, res) => {
+  const updated = { name: req.body.name, quantity: req.body.quantity };
+  if (req.file) {
+    updated.imageSrc = req.file.path;
+  }
+
+  const category = await Category.findOneAndUpdate(
+    { _id: req.params.id },
+    { $set: updated },
+    { new: true }
+  );
+  res.status(HTTP_STATUS_OK).json(category);
+});

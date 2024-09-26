@@ -1,0 +1,9 @@
+.offline-notification {
+  background-color: rgb(244, 67, 54);
+  color: rgb(255, 255, 255);
+  text-align: center;
+  padding: 10px;
+  font-size: 1.2em;
+  position: fixed;
+  width: 100%;
+}
